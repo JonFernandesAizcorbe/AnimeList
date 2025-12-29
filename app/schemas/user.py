@@ -41,7 +41,7 @@ class UserCreate(BaseModel):
         
         return v
     
-    @field_validator("password_hash")
+    @field_validator("password")
     @classmethod
     # validate password len is >= 8
     def len_pass(cls, v: str) -> str:
@@ -63,7 +63,7 @@ class UserPatch(BaseModel):
 
     user_name: str | None = None
     email: EmailStr | None = None
-    password_hash: str | None = None
+    password: str | None = None
     description: str | None
     image: str | None
     create_at: datetime | None
@@ -90,7 +90,7 @@ class UserPatch(BaseModel):
         
         return v
 
-    @field_validator("password_hash")
+    @field_validator("password")
     @classmethod
     # validate password len is >= 8
     def len_pass(cls, v: str | None) -> str | None:

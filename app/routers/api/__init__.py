@@ -4,10 +4,10 @@ Contiene los endpoints que devuelven datos en JSON
 """
 
 from fastapi import APIRouter
-from app.routers.api import songs
+from app.routers.api import users
 
 #router principal
 router = APIRouter()
 
-# incluir router de sons en router principal
-router.include_router(songs.router)
+# incluir router de users en router principal
+router.include_router(users.router)

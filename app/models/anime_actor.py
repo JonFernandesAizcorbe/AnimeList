@@ -13,5 +13,5 @@ class AnimeActorORM(Base):
 
     # relationship with anime, actors
 
-    anime: Mapped["AnimeORM"] = relationship(back_populates="animes")
-    actor: Mapped["ActorORM"] = relationship(back_populates="actors")
+    anime: Mapped["AnimeORM"] = relationship(back_populates="actors")
+    actor: Mapped["ActorORM"] = relationship(back_populates="animes")

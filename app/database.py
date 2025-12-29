@@ -55,7 +55,7 @@ def init_db():
     Inicializa la base de datos con canciones por defecto si está vacía.
     Sólo crea las canciones si no existen ya en la base de datos.
     """
-    from app.models.song import Song
+    from app.models.user import UserORM
 
     # crear todas las tablas
     Base.metadata.create_all(engine)
@@ -63,23 +63,17 @@ def init_db():
 
     db = SessionLocal()
     try:
-        existing_songs = db.execute(select(Song)).scalars().all()
+        existing_user = db.execute(select(UserORM)).scalars().all()
         
-        if existing_songs:
+        if existing_user:
             return
         
-        default_songs = [
-            Song(title="Mamma Mia", artist="ABBA", duration_seconds=300, explicit=False),
-            Song(title="Sin ti no soy nada", artist="Amaral", duration_seconds=250, explicit=False),
-            Song(title="Sonata para piano nº 14", artist="Ludwig van Beethoven", duration_seconds=800, explicit=False),
-            Song(title="Mediterráneo", artist="Joan Manuel Serrat", duration_seconds=400, explicit=False),
-            Song(title="Never to Return", artist="Darren Korb", duration_seconds=300, explicit=False),
-            Song(title="Billie Jean", artist="Michael Jackson", duration_seconds=294, explicit=False),
-            Song(title="Smells Like Teen Spirit", artist="Nirvana", duration_seconds=301, explicit=True)
+        default_user = [
+            UserORM(user_name="Admin", email="1234@gmail.com", password_hash="ASDJOASJDKJASJD")
         ]
         
         # agregar las canciones
-        db.add_all(default_songs)
+        db.add_all(default_user)
         db.commit()
     finally:
         db.close()

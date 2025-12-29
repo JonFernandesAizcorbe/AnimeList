@@ -1,28 +1,25 @@
 from pydantic import BaseModel, ConfigDict, field_validator
 
-# ANIME RESPONSE
-class AnimeResponse(BaseModel):
+
+class ActorResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
     name: str
     description: str | None
-    num_caps: int | None
     image: str | None
 
-# ANIME CREATE
-class AnimeCreate(BaseModel):
+class ActorCreate(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     name: str
     description: str | None = None
-    num_caps: int | None = None
     image: str | None = None
 
     @field_validator("name")
     @classmethod
     def not_empty(cls, v: str) -> str:
-        if not v or not v.strip():
+        if not v.strip():
             raise ValueError("El nombre no puede estar vacío")
         
         return v.strip()
@@ -35,24 +32,11 @@ class AnimeCreate(BaseModel):
         
         return v.strip()
     
-    @field_validator("num_caps")
-    @classmethod
-    def real_num_or_none(cls, v: int | None) -> int | None:
-        if v is None:
-            return None
-        
-        if v < 0:
-            raise ValueError("El número de capítulos tiene que ser un número positivo")
-        
-        return v
-    
-# ANIME PATCH
-class AnimePatch(BaseModel):
+class ActorPatch(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     name: str | None = None
     description: str | None = None
-    num_caps: int | None = None
     image: str | None = None
 
     @field_validator("name", "description")
@@ -62,17 +46,3 @@ class AnimePatch(BaseModel):
             return None
         
         return v.strip()
-    
-    @field_validator("num_caps")
-    @classmethod
-    def not_real_or_none(cls, v: int | None) -> int | None:
-        if v is None:
-            return None
-        
-        if v < 0:
-            raise ValueError("El número de capítulos tiene que ser un número positivo")
-
-        return v
-
-
-        
