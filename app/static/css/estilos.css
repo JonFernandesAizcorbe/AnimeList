@@ -1,0 +1,378 @@
+/* --------- BODY -----------*/
+
+.bd {
+    margin: 0;
+    background-color: #0A1828;
+}
+
+/* ------ Container Center -------- */
+
+.container-center {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+/* -------------NAV-------------- */
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 11;
+}
+
+.nav {
+    height: 75px;
+    border-bottom: 1px solid #BFA181;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #0A1828;
+}
+
+.text-nav {
+    color: #178582;
+    font-size: 30px;
+}
+
+.text-nav a{
+    font-family: sans-serif;
+    color: #178582;
+    text-decoration: none;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: #0A1828;
+    color: #178582;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    font-family: sans-serif;
+    font-size: 30px;
+}
+
+.dropdown-content { 
+    display: none;
+    position: absolute;
+    background-color: #178582;
+    min-width: 200px;
+    box-shadow: 0 0 16 0 rgba(0, 0, 0, 2);
+    z-index: 12;
+    height: 200px;
+    overflow-y: scroll;
+ }
+
+ .dropdown-content a{
+    color: black;
+    padding: 12px;
+    text-decoration: none;
+    display: block;
+    font-size: 20px;
+
+ }
+
+  .dropdown-content p{
+    color: black;
+    padding: 12px;
+    display: block;
+    font-size: 25px;
+    margin: 0;
+    border-bottom: 1px solid black;
+
+ }
+
+.dropdown:hover .dropdown-content { display: block; }
+.dropbtn:hover {
+    background-color: #178582;
+    color: black
+}
+
+.dropdown:hover .dropbtn { background-color: #178582; color: black;}
+
+/* ------------- CAROUSEL ------------ */
+.container-flex {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.container-carousel {
+    perspective: 250px;
+    width: 300px;
+    height: 150px;
+    position: relative;
+}
+
+.card-carousel {
+    width: 50px;
+    height: 80px;
+    background-color: black;
+    font-size: 40px;
+    position: absolute;
+    top: 35px;
+    left: 125px;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    animation: Carrusel 24s linear infinite;
+}
+
+@keyframes Carrusel
+{
+    from{
+        transform: rotateY(360deg) translateZ(100px);
+        z-index: 10;
+        opacity: 0.9;
+    }
+
+    50%{
+        z-index: -10;
+    }
+
+    to{
+        transform: rotateX(0deg) translateZ(100px);
+    }
+
+}
+
+#Ten {
+    background-image: url();
+    background-size: cover;
+}
+
+#Nine {
+    background-image: url();
+    background-size: cover;
+    animation-delay: -3s;
+}
+
+#Eight {
+    background-image: url();
+    background-size: cover;
+    animation-delay: -6s;
+}
+
+
+#Seven {
+    background-image: url();
+    background-size: cover;
+    animation-delay: -9s;
+}
+
+#Six {
+    background-image: url();
+    background-size: cover;
+    animation-delay: -12s;
+}
+
+#Five {
+    background-image: url();
+    background-size: cover;
+    animation-delay: -15s;
+}
+
+#Four {
+    background-image: url();
+    background-size: cover;
+    animation-delay: -18s;
+}
+
+#Three {
+    background-image: url();
+    background-size: cover;
+    animation-delay: -21s;
+}
+
+#Two {
+    background-image: url();
+    background-size: cover;
+    animation-delay: -24s;
+}
+
+#One {
+    background-image: url();
+    background-size: cover;
+    animation-delay: -18s;
+}
+
+.card-carousel h3{
+    color: white;
+    font-size: 5px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-top: 70px;
+    background-color: #ff0000;
+}
+
+/* ------------ SEARCH ------------ */
+
+.container-search {
+    display: flex;
+    justify-content: space-around;
+    min-width: 600px;
+    margin-bottom: 75px;
+    padding-top: 100px;
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.neon {
+    all: unset;
+    /* background-color: #2e3847; */
+    border: #BFA181 1px solid;
+    border-radius: 8px;
+    color: #178582;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    box-shadow: 0 0 0 transparent;
+    padding: 10px 12px;
+
+}
+
+.neon:hover {
+    box-shadow: 30px #BFA181;
+}
+
+.label {
+    position: absolute;
+    top: .8em;
+    left: 12px;
+    z-index: 2;
+    color: #BFA181;
+    font-size: 14px;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    background-color: #0A1828;
+    padding-right: 130px;
+}
+
+.neon:focus + .label{
+    transform: translateY(-130%) scale(0.8);
+    background-color: #0A1828;
+    padding-inline: 5px;
+}
+
+
+ /* --------------- SELECT GENRE------------  */
+
+.container-select {
+    position: relative;
+}
+
+.select {
+    all: unset;
+    border: #BFA181 1px solid;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    padding-block: .8em;
+    width: 213px;
+    border-radius: 8px;
+    color: #BFA181;
+    background-color: #0A1828 ;
+    font-size: 14px;
+    padding-left: .9em;
+    padding-right: 0;
+    
+}
+
+
+
+/* --------------- CARDS --------------- */
+
+.container-cards {
+    max-width: 1400px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex: 1 1 auto;
+    justify-content: center;
+}
+
+.container-relative {
+    position: relative;
+}
+
+.container-cards a{
+    text-decoration: none;
+    font-family: 'montecarlo';
+    color: #178582;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    height: 317px;
+    width: 185px;
+    padding: 20px;
+    z-index: 1;
+}
+
+.card p{
+    display: flex;
+    justify-content: center;
+}
+
+
+.card-hover {
+    position: absolute;
+    top: 2%;
+    right: -100%;
+    background-color: #1c3650;
+    width: 250px;
+    height: 150px;
+    border-radius: 8px;
+    z-index: 2;
+    display: none;
+    color: #178582;
+}
+
+.container-cards a:hover .card-hover {
+    display: block;
+}
+
+.card-image {
+    height: 80%;
+    width: auto;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+
+/* ---------- MEDIA ----------- */
+
+
+@media (max-width: 440px) {
+    .container-cards{
+        justify-content: center;
+    }
+}
+
+
+@media (max-width: 550px) {
+    .container-search {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .container-genre {
+        margin-top: 20px;
+    }
+}
+
+
+
+

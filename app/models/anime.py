@@ -13,6 +13,7 @@ class AnimeORM(Base):
     description: Mapped[str | None] = mapped_column(String(1000))
     num_caps: Mapped[int | None] = mapped_column(Integer)
     image: Mapped[str | None] = mapped_column(String(500))
+    color: Mapped[str | None] = mapped_column(String(50))
 
 
     # Relationship Many to Many with Genre, secondary table animes_genres_table

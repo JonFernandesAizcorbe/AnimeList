@@ -50,11 +50,11 @@ def update_user(id: int, user_dto: UserPatch, db: Session = Depends(get_db)):
     user = db.execute(select(UserORM).where(UserORM.id == id)).scalar_one_or_none()
 
     if user is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="404 - El usuario con id {id} no existe")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"404 - El usuario con id {id} no existe")
     
     update_data = user_dto.model_dump()
 
-    for field, value in update_data.items():
+    for field, value in update_data.items(exclude_unset=True):
         setattr(user, field, value)
 
     db.commit()
