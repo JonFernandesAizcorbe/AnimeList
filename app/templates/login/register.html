@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Crear cuenta{% endblock %}
+
+{% block content %}
+
+<div class="container-mid">
+    <h1 class="" style="color: #178582;">Crear cuenta</h1>
+    <div class="container-login">
+        {% if errors %}
+            <div class="alert alert-danger" role="alert">
+                <h5 class="alert-heading">
+                    <i class="fa-solid fa-triangle-exclamation"></i> Errores de validación:
+                </h5>
+                <ul class="mb-0">
+                    {% for error in errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        <form method="post" action="/user/create">
+                <div class="content-login">
+                    <div class="text-login column">
+                        <p>Usuario</p>
+                        <input class="input-box" type="text" name="user_name">
+                    </div>
+
+                    <div class="text-login column">
+                        <p>Email</p>
+                        <input class="input-box" type="text" name="email">
+                    </div>
+                    <div class="text-login column">
+                        <div class="container-around password">
+                            <p>Constraseña</p>   
+                        </div>
+                        <input class="input-box" type="password" name="password">
+                    </div>
+                    <button class="btn-login">Crear</button>
+                </div>
+            </form>
+
+    </div>
+</div>
+
+{% endblock %}

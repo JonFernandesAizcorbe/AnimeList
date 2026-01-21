@@ -8,6 +8,7 @@ display_status = Enum(
     "Viendo",
     "Completado",
     "Dropeado",
+    "Inactivo",
     "Proximamente",
     name = "display_status"
 )

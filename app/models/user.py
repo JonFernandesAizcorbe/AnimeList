@@ -8,8 +8,8 @@ class UserORM(Base):
     __tablename__ = "users"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
-    user_name: Mapped[str] = mapped_column(String(25), nullable=False)
-    email: Mapped[str] = mapped_column(String(255), nullable=False)
+    user_name: Mapped[str] = mapped_column(String(25), unique=True, nullable=False)
+    email: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
     password_hash: Mapped[str] = mapped_column(String(255), nullable=False)
     description: Mapped[str | None] = mapped_column(String(500))
     image: Mapped[str | None] = mapped_column(String(500))

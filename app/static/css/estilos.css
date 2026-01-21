@@ -1,11 +1,27 @@
 /* --------- BODY -----------*/
+body {
+  font-family: Overpass,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue",
+    sans-serif;
+}
+
 
 .bd {
     margin: 0;
     background-color: #0A1828;
+    /* #0A1828 */
+    
 }
 
-/* ------ Container Center -------- */
+/* ------ Containers -------- */
 
 .container-center {
     margin: 0;
@@ -13,6 +29,25 @@
     justify-content: center;
 }
 
+.container-mid {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-around {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
 /* -------------NAV-------------- */
 
 .container {
@@ -41,8 +76,18 @@
 }
 
 .text-nav a{
-    font-family: sans-serif;
-    color: #178582;
+    font-family: Overpass,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Oxygen,
+        Ubuntu,
+        Cantarell,
+        "Fira Sans",
+        "Droid Sans",
+        "Helvetica Neue",
+        sans-serif;
+    color: #9fadbd;
     text-decoration: none;
 }
 
@@ -53,7 +98,7 @@
 
 .dropbtn {
     background-color: #0A1828;
-    color: #178582;
+    color: #9fadbd;
     padding: 16px;
     font-size: 16px;
     border: none;
@@ -232,12 +277,14 @@
 .neon {
     all: unset;
     /* background-color: #2e3847; */
+    box-sizing: content-box;
     border: #BFA181 1px solid;
     border-radius: 8px;
     color: #178582;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     box-shadow: 0 0 0 transparent;
     padding: 10px 12px;
+    width: 200px;
 
 }
 
@@ -297,7 +344,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    flex: 1 1 auto;
+    /* flex: 1 1 auto; */
     justify-content: center;
 }
 
@@ -307,36 +354,48 @@
 
 .container-cards a{
     text-decoration: none;
-    font-family: 'montecarlo';
-    color: #178582;
+    color: #9fadbd;
 }
 
 .card {
     display: flex;
     flex-direction: column;
-    height: 317px;
-    width: 185px;
+    max-height: 317px;
+    max-width: 185px;
     padding: 20px;
     z-index: 1;
 }
 
 .card p{
-    display: flex;
-    justify-content: center;
+ 
+    font-family: Overpass,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Oxygen,
+        Ubuntu,
+        Cantarell,
+        "Fira Sans",
+        "Droid Sans",
+        "Helvetica Neue",
+        sans-serif;
 }
 
-
-.card-hover {
+.heart {
     position: absolute;
-    top: 2%;
-    right: -100%;
-    background-color: #1c3650;
-    width: 250px;
-    height: 150px;
-    border-radius: 8px;
     z-index: 2;
-    display: none;
-    color: #178582;
+    top: 8%;
+    right: 12%;
+}
+
+.heart:hover {
+    color: green;
+}
+
+.card p{
+    display: flex;
+    justify-content: center;
+    color: dark;
 }
 
 .container-cards a:hover .card-hover {
@@ -350,6 +409,82 @@
     border-radius: 5px;
 }
 
+/* ------------- hidden CARD ----------- */
+
+.card-hover {
+    position: absolute;
+    box-sizing: border-box;
+    top: 2%;
+    right: -110%;
+    background-color: #1c3650;
+    width: 250px;
+    height: 150px;
+    border-radius: 8px;
+    z-index: 3;
+    display: none;
+    padding: 18px;
+}
+
+.card-hover h3{
+    font-size: 14px;
+    font-family: Overpass,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Oxygen,
+        Ubuntu,
+        Cantarell,
+        "Fira Sans",
+        "Droid Sans",
+        "Helvetica Neue",
+        sans-serif;
+    margin-bottom: 5px;
+    margin-top: 0px;
+}
+
+.card-hover i{
+    margin-top: 4px;
+    margin-right: 40px;
+}
+
+.card-hover .container-flex{
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+    
+
+.card-hover h2{
+    font-size: 12px;
+    font-family: Overpass,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Oxygen,
+        Ubuntu,
+        Cantarell,
+        "Fira Sans",
+        "Droid Sans",
+        "Helvetica Neue",
+        sans-serif;
+    margin-top: 3px;
+    color: #9fadbd;
+}
+
+.card-hover p{
+    color: #0A1828;
+}
+
+.box-card-hidden {
+    justify-content: center;
+}
+
+.label-genre {
+    font-size: 15px;
+    border-radius: 15px;
+    padding-inline: 10px;
+    padding-block: 2px;
+    margin-inline: 5px;
+}
 
 /* ---------- MEDIA ----------- */
 
@@ -374,5 +509,152 @@
 }
 
 
+/* ----------- LOGIN ---------- */
+
+.container-login {
+    background-color: #193350;
+    box-sizing: content-box;
+    padding: 50px;
+    border-radius: 8px;
+}
+
+.content-login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-login p{
+    margin-top: 5px;
+    font-size: 17px;
+}
+
+.text-login p{
+    color: #178582;
+}
+
+.input-box {
+    all: unset;
+    box-sizing: content-box;
+    border: #BFA181 1px solid;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background-color: #183047;
+    padding: 5px;
+    color: white;
+    width: 404px;
+    padding-left: 15px;
+
+}
+
+.btn-login {
+    all: unset;
+    box-sizing: content-box;
+    color: #e4e4e4;
+    border-radius: 8px;
+    background-color: rgb(39, 128, 98);
+    width: 312px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.btn-login:hover {
+    background-color: #178582;
+    color: rgb(21, 70, 53);
+    box-shadow: black;
+}
+
+.input-box:focus {
+    border: #178582 1px solid;
+}
+
+.recover-password {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.recover-password p{
+    font-size: 12px;
+}
+.recover-password:hover p{
+    color: #e4e4e4;
+}
 
 
+
+/* MEDIA */
+
+@media (max-width: 682px){
+    .card{
+        width: auto;
+        height: 250px;
+    }
+    .heart{
+        top:9%;
+        right: 14%;
+    }
+}
+
+@media (max-width: 557px){
+    .card{
+        width: 120px;
+        height: 220px;
+    }
+    .heart{
+        top:9%;
+        right: 16%;
+    }
+}
+
+@media (max-width: 480px){
+    .card{
+        width: 100px;
+        height: 180px;
+    }
+    .card p{
+        font-size: 13px;
+    }
+
+    .heart{
+        top: 10%;
+    }
+}
+
+@media (max-width: 420px){
+    .card{
+        width: 90px;
+        height: 180px;
+        margin: 2px;
+    }
+    .card p{
+        font-size: 12px;
+    }
+
+    .heart{
+        top: 10%;
+        right: 18%;
+    }
+
+}
+
+@media (max-width: 405px){
+    .card{
+        width: 80px;
+        height: 160px;
+        margin: 2px;
+    }
+    .card p{
+        font-size: 12px;
+    }
+
+    .heart{
+        top: 10%;
+        right: 18%;
+    }
+
+}

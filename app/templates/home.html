@@ -23,7 +23,15 @@
                         </div>
                     </div> 
                 </div> -->
-                <a href="">Login</a>
+                {% if user  %}
+                <a href="">{{ user.user_name }}</a>
+                {% endif %}
+
+                {% if user is not none %}
+                <a href="/logout">Cerrar perfil</a>
+                {% else %}
+                <a href="/login">Login</a>
+                {% endif %}
             </nav>
         </header>
 
@@ -46,13 +54,13 @@
         <div class="container-center">
             <div class="container-search">
                 <div class="input-group">
-                    <form method="get" action="" role="search">
+                    <form method="get" action="/" role="search">
                         <input class="neon" type="text" name="q">
                         <label class="label" for="">Buscar anime</label>
                     </form>
                 </div>
                 <div class="container-genre">
-                    <form action="" method="get">
+                    <form action="/" method="get">
                         <select class="select" name="g" onchange="this.form.submit()">
                             <option class="select-name" value=""> Selecciona un género</option>
                             {% for genre in genres %}
@@ -64,26 +72,67 @@
             
             </div>
         </div>
-
-        <!-- Search Game By Name -->
-        {% if result %}
+<!-- OUTPUT FILTER -->
+        {% if result or result_g %}
         <div class="container-flex">
             <div class="container-cards">
-                {% for anime in result %}
-                <div class="container-relative">
-                    <a onmouseover="this.style.color='{{ anime.color }}'" onmouseout="this.style.color='#178582'" href="">
+                {% for anime in result or result_g %}
+                <div class="container-relative" id="anime-{{ anime.id }}">
+                    {% if user %}
+                    <!-- HEART LIST -->
+                    <form method="post" action="/addlist#anime-{{ anime.id }}" class="heart" >
+                        <input type="hidden" name="anime_id" value="{{ anime.id }}">
+                        <input type="hidden" name="next" value="{{ request.url }}">
+                        <button style="all: unset;">
+
+                            <i class="fa-solid fa-heart" 
+                            style="                            
+                                {% for x in user.animes %}
+                                    {% if anime.id == x.anime_id and x.status == 'Viendo' %}
+                                        color: green;
+                                    {% endif %}
+                                {% endfor %}"
+                            ></i>
+                        </button>
+                        
+                    </form>
+                    {% endif %}
+                    <!-- CARD -->
+                    <a onmouseover="this.style.color='{{ anime.color }}'" onmouseout="this.style.color='#9fadbd'" href="">
                         <div class="card">
                             <img class="card-image" src="{{ anime.image }}" alt="">
-                            <p class="card-text">{{ anime.name }}</p>
+                            <p>
+                                {{ anime.name }}
+                            </p>
                         </div>
+                        <!-- Label CARD HIDDEN -->
                         <div class="card-hover">
-                            <div class="">
-                                <p>Caps: {{ anime.num_caps }}</p>
-                                {% for genre in anime.genres %}
-                                    {{ genre.name }}
-                                {% endfor %}
+                            <div class="container-relative">
+                                <div class="container-flex" style="justify-content: space-between; align-items: start;">
+                                    <h3>{% if anime.studio is none %}{% else %}{{ anime.studio }}{% endif %}</h1>
+                                    {% for s_anime, score in scores %}
+                                        {% if s_anime.id == anime.id %}
+                                            {% if score is none %}
+                                            <!-- CARA TRISTE -->
+                                            {% elif score < 25 %}
+                                                <i class="fa-regular fa-face-frown"></i>
+                                            <!-- CARA MEH -->
+                                            {% elif score <= 75 %}
+                                                <i class="fa-regular fa-face-meh"></i>
+                                            <!-- CARA FELIZ -->
+                                            {% else %}
+                                                <i class="fa-regular fa-face-smile">{{ score }}%</i>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <h2>{{ anime.num_caps }} episodios</h2>
+                                <div class="container-flex box-card-hidden">
+                                    {% for genre in anime.genres[:3] %}
+                                    <p class="label-genre" style="background-color: {{ anime.color }};">{{ genre.name }}</p>
+                                    {% endfor %}
+                                </div>    
                             </div>
-                            
                         </div>
                     </a>
                 </div>
@@ -92,13 +141,31 @@
         </div>
         {% endif %}
 
-        <!-- Search Game By Genre -->
-        {% if result_g %}
+<!-- IF NOT FILTER -->
+        {% if not result and not result_g %}
         <div class="container-flex">
             <div class="container-cards">
-                {% for anime in result_g %}
-                <div class="container-relative">
-                    <a onmouseover="this.style.color='{{ anime.color }}'" onmouseout="this.style.color='#178582'" href="">
+                {% for anime in result or animes_top %}
+                <div class="container-relative" id="anime-{{ anime.id }}">
+                    {% if user %}
+                    <form method="post" action="/addlist#anime-{{ anime.id }}" class="heart" >
+                        <input type="hidden" name="anime_id" value="{{ anime.id }}">
+                        <input type="hidden" name="next" value="{{ request.url }}">
+                        <button style="all: unset;">
+
+                            <i class="fa-solid fa-heart" 
+                            style="                            
+                                {% for x in user.animes %}
+                                    {% if anime.id == x.anime_id %}
+                                        color: green;
+                                    {% endif %}
+                                {% endfor %}"
+                            ></i>
+                        </button>
+                        
+                    </form>
+                    {% endif %}
+                    <a onmouseover="this.style.color='{{ anime.color }}'" onmouseout="this.style.color='#9fadbd'" href="">
                         <div class="card">
                             <img class="card-image" src="{{ anime.image }}" alt="">
                             <p>
@@ -106,119 +173,25 @@
                             </p>
                         </div>
                         <div class="card-hover">
-                            <h1>hola</h1>
-                            
+                            <div class="container-relative">
+                                <h3>{% if anime.studio is none %}{% else %}{{ anime.studio }}{% endif %}</h1>
+                                <h2>{{ anime.num_caps }} episodios</h2>
+                                
+                                <div class="container-flex box-card-hidden">
+                                    {% for genre in anime.genres[:3] %}
+                                    <p class="label-genre" style="background-color: {{ anime.color }};">{{ genre.name }}</p>
+                                    {% endfor %}
+                                </div>    
+                            </div>
                         </div>
                     </a>
                 </div>
                 {% endfor %}
             </div>
         </div>
-            {% endif %}
+        {% endif %}
 
 
-
-        <div>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus non, sequi pariatur deleniti earum dicta fugiat eum impedit eveniet corporis autem modi quibusdam perferendis ipsam, exercitationem aperiam animi quasi deserunt?</p>
-        </div>
     </div>
-    </body>
-    </html>
+</body>
+</html>
