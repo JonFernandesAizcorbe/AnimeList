@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Inicio{% endblock %}</title>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/estilos.css">
+</head>
+<body class="bd">
+    <div class="container">
+        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/banner/154587-ivXNJ23SM1xB.jpg" alt="">
+        <header class="header">
+            <nav class="nav text-nav">
+                <i class="fa-solid fa-clipboard-list"></i>
+                <!-- <div class="">
+                    <div class="dropdown">
+                        <button class="dropbtn">Animes</button>
+                        <div class="dropdown-content">
+                            <a class="text-nav" href="">Buscar Anime</a>
+                            <a class="text-nav" href="">Top Anime</a>
+                        </div>
+                    </div> 
+                </div> -->
+                {% if user  %}
+                <a href="">{{ user.user_name }}</a>
+                {% endif %}
+
+                {% if user is not none %}
+                <a href="/logout">Cerrar perfil</a>
+                {% else %}
+                <a href="/login">Login</a>
+                {% endif %}
+            </nav>
+        </header>
+
+        <!-- CAROUSEL -->
+        <!-- <div class="container-flex">
+            <div class="container-carousel">
+                <div class="card-carousel" id="One"><h3>Frieren</h3></div>
+                <div class="card-carousel" id="Two"><h3>Frieren</h3></div>
+                <div class="card-carousel" id="Three"><h3>Frieren</h3></div>
+                <div class="card-carousel" id="Four"><h3>Frieren</h3></div>
+                <div class="card-carousel" id="Five"><h3>Frieren</h3></div>
+                <div class="card-carousel" id="Six"><h3>Frieren</h3></div>
+                <div class="card-carousel" id="Seven"><h3>Frieren</h3></div>
+                <div class="card-carousel" id="Eight"><h3>Frieren</h3></div>
+                <div class="card-carousel" id="Nine"><h3>Frieren</h3></div>
+                <div class="card-carousel" id="Ten"><h3>Frieren</h3></div>
+            </div>
+        </div> -->
+        <!-- Search -->
+        <div class="container-center">
+            <div class="container-search">
+                <div class="input-group">
+                    <form method="get" action="/" role="search">
+                        <input class="neon" type="text" name="q">
+                        <label class="label" for="">Buscar anime</label>
+                    </form>
+                </div>
+                <div class="container-genre">
+                    <form action="/" method="get">
+                        <select class="select" name="g" onchange="this.form.submit()">
+                            <option class="select-name" value=""> Selecciona un género</option>
+                            {% for genre in genres %}
+                            <option value="{{ genre.id }}" {% if genre.id == g_value %}selected{% endif %}>{{ genre.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                </div>
+            
+            </div>
+        </div>
+<!-- OUTPUT FILTER -->
+        {% if popular or scores %}
+        <div class="container-flex" style="align-items: center; justify-content: space-around;">
+            <p class="see-more">
+            {% if popular %}
+                Más popular
+            {% elif scores %}
+                Mejores puntuados
+            {% else %}
+            {% endif %}
+            </p>
+            <a href="/#ver-menos-popular" id="ver-mas-popular" class="see-more">Ver menos...</a>
+        </div>
+        <div class="container-flex">
+            <div class="container-cards">
+            {% for anime, score in popular or scores  %}
+                <div class="container-relative" id="anime-{{ anime.id }}">
+                <!-- HEART LIST -->
+                    {% if user %}
+                    <form method="post" action="/addlist#anime-{{ anime.id }}" class="heart" >
+                        <input type="hidden" name="anime_id" value="{{ anime.id }}">
+                        <input type="hidden" name="next" value="{{ request.url }}">
+                        <button style="all: unset;">
+
+                            <i class="fa-solid fa-heart" 
+                            style="                            
+                                {% for x in user.animes %}
+                                    {% if anime.id == x.anime_id and x.status == 'Viendo' %}
+                                        color: green;
+                                    {% endif %}
+                                {% endfor %}"
+                            ></i>
+                        </button>
+                        
+                    </form>
+                    {% endif %}
+                    <!-- CARD -->
+                    <a onmouseover="this.style.color='{{ anime.color }}'" onmouseout="this.style.color='#9fadbd'" href="">
+                        <div class="card">
+                            <img class="card-image" src="{{ anime.image }}" alt="">
+                            <p>
+                                {{ anime.name }}
+                            </p>
+                        </div>
+                        <!-- Label CARD HIDDEN -->
+                        <div class="card-hover">
+                            <div class="container-relative">
+                                <div class="container-flex" style="justify-content: space-between; align-items: start;">
+                                    <div>
+                                        <h3>{% if anime.studio is none %}{% else %}{{ anime.studio }}{% endif %}</h3>
+                                    </div>
+                                    <div class="face-box">
+                                        {% for s_anime, score in scores %}
+                                        {% if s_anime.id == anime.id %}
+                                        <!-- NONE  -->
+                                        {% if score is none %}
+                                        <!-- CARA TRISTE -->
+                                        {% elif score < 25 %} 
+                                        <i class="fa-regular fa-face-frown"></i>{{ score }} %
+                                        <!-- CARA MEH -->
+                                        {% elif score <= 75 %}
+                                        <i class="fa-regular fa-face-meh"></i>{{ score }} %
+                                        <!-- CARA FELIZ -->
+                                        {% else %}
+                                        <i class="fa-regular fa-face-smile"></i>{{ score }} %
+                                        {% endif %}
+                                        {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <h2>{{ anime.num_caps }} episodios</h2>
+                                
+                                <div class="container-flex box-card-hidden">
+                                    {% for genre in anime.genres[:3] %}
+                                    <p class="label-genre" style="background-color: {{ anime.color }};">{{ genre.name }}</p>
+                                    {% endfor %}
+                                </div>    
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

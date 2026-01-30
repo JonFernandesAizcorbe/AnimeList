@@ -1,3 +1,8 @@
+html {
+    scroll-behavior: smooth;
+}
+
+
 /* --------- BODY -----------*/
 body {
   font-family: Overpass,
@@ -360,7 +365,7 @@ body {
 .card {
     display: flex;
     flex-direction: column;
-    max-height: 317px;
+    height: 350px;
     max-width: 185px;
     padding: 20px;
     z-index: 1;
@@ -403,10 +408,19 @@ body {
 }
 
 .card-image {
-    height: 80%;
+    height: 264px;
     width: auto;
     object-fit: cover;
     border-radius: 5px;
+}
+
+.see-more {
+    text-decoration: none;
+    color: #9fadbd;
+}
+
+a.see-more:hover {
+    color: #178582;
 }
 
 /* ------------- hidden CARD ----------- */
@@ -415,9 +429,10 @@ body {
     position: absolute;
     box-sizing: border-box;
     top: 2%;
-    right: -110%;
+    left: 101%;
     background-color: #1c3650;
-    width: 250px;
+    width: auto;
+    min-width: 275px;
     height: 150px;
     border-radius: 8px;
     z-index: 3;
@@ -485,6 +500,24 @@ body {
     padding-block: 2px;
     margin-inline: 5px;
 }
+
+.face-box {
+    margin: 0px;
+}
+
+.face-box i{
+    margin-right: 10px ;
+    margin-top: 0px;
+}
+.face-box p {
+        margin-top: 0px;
+}
+
+.container-relative:nth-of-type(6n) .card-hover {
+  left: auto;
+  right: 105%; /* aparece a la izquierda */
+}
+
 
 /* ---------- MEDIA ----------- */
 

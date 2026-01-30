@@ -7,5 +7,12 @@
   },
   "code-runner.executorMapByFileExtension": {
     ".py": "\"${workspaceFolder}\\.venv\\Scripts\\python.exe\" -u"
-  }
+  },
+  "python-envs.pythonProjects": [
+    {
+      "path": "app/templates",
+      "envManager": "ms-python.python:venv",
+      "packageManager": "ms-python.python:pip"
+    }
+  ]
 }

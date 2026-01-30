@@ -25,8 +25,8 @@ router = APIRouter(tags=["web"])
 @router.get("/", response_class=HTMLResponse)
 def home(request: Request, q: str | None = None, g: str | None = None , db: Session = Depends(get_db), user: UserORM = Depends(get_current_user)):
     genres = db.execute(select(GenreORM).order_by(GenreORM.name.asc())).scalars().all()
-    animes_top = db.execute(select(AnimeORM, func.count(AnimeListORM.user_id)).join(AnimeListORM).where(AnimeListORM.status == "Viendo").group_by(AnimeORM.id).order_by(func.count(AnimeListORM.user_id).desc()).limit(20)).scalars().all()
-    scores = db.execute(select(AnimeORM, func.avg(AnimeListORM.score).label("avg_score")).join(AnimeListORM, AnimeListORM.anime_id == AnimeORM.id).group_by(AnimeORM.id).order_by(func.avg(AnimeListORM.score).desc())).all()
+    animes_top = db.execute(select(AnimeORM, func.count(AnimeListORM.user_id)).join(AnimeListORM).where(AnimeListORM.status == "Viendo").group_by(AnimeORM.id).order_by(func.count(AnimeListORM.user_id).desc()).limit(6)).scalars().all()
+    scores = db.execute(select(AnimeORM, func.round(func.avg(AnimeListORM.score), 2).label("avg_score")).join(AnimeListORM, AnimeListORM.anime_id == AnimeORM.id).group_by(AnimeORM.id).order_by(func.avg(AnimeListORM.score).desc())).all()
     
     result = None
 
@@ -80,6 +80,35 @@ def add_list(
     return RedirectResponse(next, status_code=303)
     
         
+
+@router.get("/popular", response_class=HTMLResponse)
+def popular_list(request: Request, page: int = 1, db: Session = Depends(get_db), user: UserORM = Depends(get_current_user)):
+    per_page = 12
+    offset = (page - 1) * per_page
+
+    popular = db.execute(select(AnimeORM, func.count(AnimeListORM.user_id)).join(AnimeListORM).where(AnimeListORM.status == "Viendo").group_by(AnimeORM.id).order_by(func.count(AnimeListORM.user_id).desc()).offset(offset).limit(per_page)).all()
+    scores = db.execute(select(AnimeORM, func.round(func.avg(AnimeListORM.score), 2).label("avg_score")).join(AnimeListORM, AnimeListORM.anime_id == AnimeORM.id).group_by(AnimeORM.id).order_by(func.avg(AnimeListORM.score).desc())).all()
+
+    
+
+    return templates.TemplateResponse(
+        "filter/popular.html",
+        {"request": request, "popular": popular, "page": page, "scores": scores, "user": user}
+    )
+
+@router.get("/score", response_class=HTMLResponse)
+def score_list(request: Request, page: int = 1, db: Session = Depends(get_db), user: UserORM = Depends(get_current_user)):
+    per_page = 12
+    offset = (page - 1) * per_page
+
+    scores = db.execute(select(AnimeORM, func.round(func.avg(AnimeListORM.score),2).label("avg_score")).join(AnimeListORM, AnimeListORM.anime_id == AnimeORM.id).group_by(AnimeORM.id).order_by(func.avg(AnimeListORM.score).desc()).offset(offset).limit(per_page)).all()
+
+    return templates.TemplateResponse(
+        "filter/popular.html",
+        {"request": request, "scores": scores, "page": page, "user": user}
+    )
+
+
 
 
                 

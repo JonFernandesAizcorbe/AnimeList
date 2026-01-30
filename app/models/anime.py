@@ -11,9 +11,10 @@ class AnimeORM(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     name: Mapped[str] = mapped_column(String, nullable=False)
     studio: Mapped[str | None] = mapped_column(String(30))
-    description: Mapped[str | None] = mapped_column(String(1000))
+    description: Mapped[str | None] = mapped_column(String(1500))
     num_caps: Mapped[int | None] = mapped_column(Integer)
     image: Mapped[str | None] = mapped_column(String(500))
+    banner: Mapped[str | None] = mapped_column(String(500))
     color: Mapped[str | None] = mapped_column(String(50))
 
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>{% block title %}Inicio{% endblock %}</title>
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     <link rel="stylesheet" href="/static/css/estilos.css">
@@ -78,8 +78,8 @@
             <div class="container-cards">
                 {% for anime in result or result_g %}
                 <div class="container-relative" id="anime-{{ anime.id }}">
+                <!-- HEART -->
                     {% if user %}
-                    <!-- HEART LIST -->
                     <form method="post" action="/addlist#anime-{{ anime.id }}" class="heart" >
                         <input type="hidden" name="anime_id" value="{{ anime.id }}">
                         <input type="hidden" name="next" value="{{ request.url }}">
@@ -105,28 +105,34 @@
                                 {{ anime.name }}
                             </p>
                         </div>
-                        <!-- Label CARD HIDDEN -->
+                        <!-- LABEL CARD HIDDEN -->
                         <div class="card-hover">
                             <div class="container-relative">
                                 <div class="container-flex" style="justify-content: space-between; align-items: start;">
-                                    <h3>{% if anime.studio is none %}{% else %}{{ anime.studio }}{% endif %}</h1>
-                                    {% for s_anime, score in scores %}
-                                        {% if s_anime.id == anime.id %}
-                                            {% if score is none %}
-                                            <!-- CARA TRISTE -->
-                                            {% elif score < 25 %}
-                                                <i class="fa-regular fa-face-frown"></i>
-                                            <!-- CARA MEH -->
-                                            {% elif score <= 75 %}
-                                                <i class="fa-regular fa-face-meh"></i>
-                                            <!-- CARA FELIZ -->
-                                            {% else %}
-                                                <i class="fa-regular fa-face-smile">{{ score }}%</i>
+                                    <div>
+                                        <h3>{% if anime.studio is none %}{% else %}{{ anime.studio }}{% endif %}</h3>
+                                    </div>
+                                    <div class="face-box">
+                                        {% for s_anime, score in scores %}
+                                            {% if s_anime.id == anime.id %}
+                                                <!-- NONE  -->
+                                                {% if score is none %}
+                                                <!-- CARA TRISTE -->
+                                                {% elif score < 25 %} 
+                                                <i class="fa-regular fa-face-frown"></i>{{ score }} %
+                                                <!-- CARA MEH -->
+                                                {% elif score <= 75 %}
+                                                <i class="fa-regular fa-face-meh"></i>{{ score }} %
+                                                <!-- CARA FELIZ -->
+                                                {% else %}
+                                                <i class="fa-regular fa-face-smile"></i>{{ score }} %
+                                                {% endif %}
                                             {% endif %}
-                                        {% endif %}
-                                    {% endfor %}
+                                        {% endfor %}
+                                    </div>
                                 </div>
                                 <h2>{{ anime.num_caps }} episodios</h2>
+                                
                                 <div class="container-flex box-card-hidden">
                                     {% for genre in anime.genres[:3] %}
                                     <p class="label-genre" style="background-color: {{ anime.color }};">{{ genre.name }}</p>
@@ -142,11 +148,20 @@
         {% endif %}
 
 <!-- IF NOT FILTER -->
-        {% if not result and not result_g %}
+    
+    <!-- More followers -->
+    {% if not result and not result_g %}
+        <div class="container-flex see-more" style="align-items: center; justify-content: space-around;">
+            <p>
+                Más populares
+            </p>
+            <a href="/popular#ver-mas-popular" id="ver-menos-popular" class="see-more">Ver más...</a>
+        </div>
         <div class="container-flex">
             <div class="container-cards">
-                {% for anime in result or animes_top %}
+            {% for anime in result or animes_top %}
                 <div class="container-relative" id="anime-{{ anime.id }}">
+                <!-- HEART -->
                     {% if user %}
                     <form method="post" action="/addlist#anime-{{ anime.id }}" class="heart" >
                         <input type="hidden" name="anime_id" value="{{ anime.id }}">
@@ -156,7 +171,7 @@
                             <i class="fa-solid fa-heart" 
                             style="                            
                                 {% for x in user.animes %}
-                                    {% if anime.id == x.anime_id %}
+                                    {% if anime.id == x.anime_id and x.status == 'Viendo' %}
                                         color: green;
                                     {% endif %}
                                 {% endfor %}"
@@ -174,7 +189,29 @@
                         </div>
                         <div class="card-hover">
                             <div class="container-relative">
-                                <h3>{% if anime.studio is none %}{% else %}{{ anime.studio }}{% endif %}</h1>
+                                <div class="container-flex" style="justify-content: space-between; align-items: start;">
+                                    <div>
+                                        <h3>{% if anime.studio is none %}{% else %}{{ anime.studio }}{% endif %}</h3>
+                                    </div>
+                                    <div class="face-box">
+                                        {% for s_anime, score in scores %}
+                                            {% if s_anime.id == anime.id %}
+                                                <!-- NONE  -->
+                                                {% if score is none %}
+                                                <!-- CARA TRISTE -->
+                                                {% elif score < 25 %} 
+                                                <i class="fa-regular fa-face-frown"></i>{{ score }} %
+                                                <!-- CARA MEH -->
+                                                {% elif score <= 75 %}
+                                                <i class="fa-regular fa-face-meh"></i>{{ score }} %
+                                                <!-- CARA FELIZ -->
+                                                {% else %}
+                                                <i class="fa-regular fa-face-smile"></i>{{ score }} %
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
                                 <h2>{{ anime.num_caps }} episodios</h2>
                                 
                                 <div class="container-flex box-card-hidden">
@@ -186,10 +223,89 @@
                         </div>
                     </a>
                 </div>
+            {% endfor %}
+            </div>
+        </div>
+<!-- MORE SCORES -->
+    
+        <div class="container-flex see-more" style="align-items: center; justify-content: space-around;">
+            <p>
+                Mejores valorados
+            </p>
+            <a href="/score" class="see-more">Ver más...</a>
+        </div>
+        <div class="container-flex">
+            <div class="container-cards">
+                {% for anime, score in scores[:6] %}
+                {% if score is not none %}
+                <div class="container-relative" id="anime-{{ anime.id }}">
+                <!-- HEART LIST -->
+                    {% if user %}
+                    <form method="post" action="/addlist#anime-{{ anime.id }}" class="heart" >
+                        <input type="hidden" name="anime_id" value="{{ anime.id }}">
+                        <input type="hidden" name="next" value="{{ request.url }}">
+                        <button style="all: unset;">
+
+                            <i class="fa-solid fa-heart" 
+                            style="                            
+                                {% for x in user.animes %}
+                                    {% if anime.id == x.anime_id and x.status == 'Viendo' %}
+                                        color: green;
+                                    {% endif %}
+                                {% endfor %}"
+                            ></i>
+                        </button>
+                        
+                    </form>
+                    {% endif %}
+                    <a onmouseover="this.style.color='{{ anime.color }}'" onmouseout="this.style.color='#9fadbd'" href="">
+                        <div class="card">
+                            <img class="card-image" src="{{ anime.image }}" alt="">
+                            <p>
+                                {{ anime.name }}
+                            </p>
+                        </div>
+                        <div class="card-hover">
+                            <div class="container-relative">
+                                <div class="container-flex" style="justify-content: space-between; align-items: start;">
+                                    <div>
+                                        <h3>{% if anime.studio is none %}{% else %}{{ anime.studio }}{% endif %}</h3>
+                                    </div>
+                                    <div class="face-box">
+                                        {% for s_anime, score in scores %}
+                                            {% if s_anime.id == anime.id %}
+                                                <!-- NONE  -->
+                                                {% if score is none %}
+                                                <!-- CARA TRISTE -->
+                                                {% elif score < 25 %} 
+                                                <i class="fa-regular fa-face-frown"></i>{{ score }} %
+                                                <!-- CARA MEH -->
+                                                {% elif score <= 75 %}
+                                                <i class="fa-regular fa-face-meh"></i>{{ score }} %
+                                                <!-- CARA FELIZ -->
+                                                {% else %}
+                                                <i class="fa-regular fa-face-smile"></i>{{ score }} %
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <h2>{{ anime.num_caps }} episodios</h2>
+                                
+                                <div class="container-flex box-card-hidden">
+                                    {% for genre in anime.genres[:3] %}
+                                    <p class="label-genre" style="background-color: {{ anime.color }};">{{ genre.name }}</p>
+                                    {% endfor %}
+                                </div>    
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endif %}
                 {% endfor %}
             </div>
         </div>
-        {% endif %}
+    {% endif %}
 
 
     </div>
