@@ -54,7 +54,7 @@
         <div class="container-center">
             <div class="container-search">
                 <div class="input-group">
-                    <form method="get" action="/" role="search">
+                    <form method="get" action="/#first-card" role="search">
                         <input class="neon" type="text" name="q">
                         <label class="label" for="">Buscar anime</label>
                     </form>
@@ -98,8 +98,9 @@
                     </form>
                     {% endif %}
                     <!-- CARD -->
-                    <a onmouseover="this.style.color='{{ anime.color }}'" onmouseout="this.style.color='#9fadbd'" href="">
-                        <div class="card">
+                    <a onmouseover="this.style.color='{{ anime.color }}'" onmouseout="this.style.color='#9fadbd'" href="/anime/{{ anime.id }}">
+                        <div class="card" {% if loop.first %}id="first-card"{% endif %}
+                        >
                             <img class="card-image" src="{{ anime.image }}" alt="">
                             <p>
                                 {{ anime.name }}
@@ -151,11 +152,13 @@
     
     <!-- More followers -->
     {% if not result and not result_g %}
-        <div class="container-flex see-more" style="align-items: center; justify-content: space-around;">
-            <p>
-                Más populares
-            </p>
-            <a href="/popular#ver-mas-popular" id="ver-menos-popular" class="see-more">Ver más...</a>
+        <div class="container-center">
+            <div class="container-flex bg-more see-more" style="align-items: center; justify-content: space-between;">
+                <p>
+                    MÁS POPULARES
+                </p>
+                <a href="/popular#ver-mas-popular" id="ver-menos-popular" class="see-more">Ver más...</a>
+            </div>
         </div>
         <div class="container-flex">
             <div class="container-cards">
@@ -180,7 +183,7 @@
                         
                     </form>
                     {% endif %}
-                    <a onmouseover="this.style.color='{{ anime.color }}'" onmouseout="this.style.color='#9fadbd'" href="">
+                    <a onmouseover="this.style.color='{{ anime.color }}'" onmouseout="this.style.color='#9fadbd'" href="/anime/{{ anime.id }}">
                         <div class="card">
                             <img class="card-image" src="{{ anime.image }}" alt="">
                             <p>
@@ -227,12 +230,13 @@
             </div>
         </div>
 <!-- MORE SCORES -->
-    
-        <div class="container-flex see-more" style="align-items: center; justify-content: space-around;">
-            <p>
-                Mejores valorados
-            </p>
-            <a href="/score" class="see-more">Ver más...</a>
+        <div class="container-center">
+            <div class="container-flex bg-more see-more" style="align-items: center; justify-content: space-between;">
+                <p>
+                    MEJORES VALORADOS
+                </p>
+                <a href="/score#ver-mas-popular" class="see-more">Ver más...</a>
+            </div>
         </div>
         <div class="container-flex">
             <div class="container-cards">
@@ -258,7 +262,7 @@
                         
                     </form>
                     {% endif %}
-                    <a onmouseover="this.style.color='{{ anime.color }}'" onmouseout="this.style.color='#9fadbd'" href="">
+                    <a onmouseover="this.style.color='{{ anime.color }}'" onmouseout="this.style.color='#9fadbd'" href="/anime/{{ anime.id }}">
                         <div class="card">
                             <img class="card-image" src="{{ anime.image }}" alt="">
                             <p>

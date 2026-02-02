@@ -414,6 +414,10 @@ body {
     border-radius: 5px;
 }
 
+.bg-more {
+    width: 1300px;
+}
+
 .see-more {
     text-decoration: none;
     color: #9fadbd;

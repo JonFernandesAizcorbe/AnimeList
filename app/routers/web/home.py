@@ -39,7 +39,7 @@ def home(request: Request, q: str | None = None, g: str | None = None , db: Sess
     if g and g.strip():
         try:
             g_value = int(g.strip())
-            result_g = db.execute(select(AnimeORM).join(AnimeORM.genres).where(GenreORM.id == g_value)).scalars().all()
+            result_g = db.execute(select(AnimeORM).join(AnimeORM.genres).where(GenreORM.id == g_value).order_by(AnimeORM.name.asc())).scalars().all()
         
         except ValueError:
             pass
@@ -88,12 +88,12 @@ def popular_list(request: Request, page: int = 1, db: Session = Depends(get_db),
 
     popular = db.execute(select(AnimeORM, func.count(AnimeListORM.user_id)).join(AnimeListORM).where(AnimeListORM.status == "Viendo").group_by(AnimeORM.id).order_by(func.count(AnimeListORM.user_id).desc()).offset(offset).limit(per_page)).all()
     scores = db.execute(select(AnimeORM, func.round(func.avg(AnimeListORM.score), 2).label("avg_score")).join(AnimeListORM, AnimeListORM.anime_id == AnimeORM.id).group_by(AnimeORM.id).order_by(func.avg(AnimeListORM.score).desc())).all()
-
+    genres = db.execute(select(GenreORM).order_by(GenreORM.name.asc())).scalars().all()
     
 
     return templates.TemplateResponse(
         "filter/popular.html",
-        {"request": request, "popular": popular, "page": page, "scores": scores, "user": user}
+        {"request": request, "popular": popular, "page": page, "scores": scores, "user": user, "genres": genres}
     )
 
 @router.get("/score", response_class=HTMLResponse)
@@ -102,10 +102,11 @@ def score_list(request: Request, page: int = 1, db: Session = Depends(get_db), u
     offset = (page - 1) * per_page
 
     scores = db.execute(select(AnimeORM, func.round(func.avg(AnimeListORM.score),2).label("avg_score")).join(AnimeListORM, AnimeListORM.anime_id == AnimeORM.id).group_by(AnimeORM.id).order_by(func.avg(AnimeListORM.score).desc()).offset(offset).limit(per_page)).all()
+    genres = db.execute(select(GenreORM).order_by(GenreORM.name.asc())).scalars().all()
 
     return templates.TemplateResponse(
         "filter/popular.html",
-        {"request": request, "scores": scores, "page": page, "user": user}
+        {"request": request, "scores": scores, "page": page, "user": user, "genres": genres}
     )
 
 

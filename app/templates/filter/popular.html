@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Inicio{% endblock %}</title>
+    <title>{% block title %}{{ 'AnimeList - Más populares' if popular else ' AnimeList - Mejores valorados' }}{% endblock %}</title>
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     <link rel="stylesheet" href="/static/css/estilos.css">
@@ -73,17 +73,21 @@
             </div>
         </div>
 <!-- OUTPUT FILTER -->
-        {% if popular or scores %}
-        <div class="container-flex" style="align-items: center; justify-content: space-around;">
-            <p class="see-more">
-            {% if popular %}
-                Más popular
-            {% elif scores %}
-                Mejores puntuados
-            {% else %}
-            {% endif %}
-            </p>
-            <a href="/#ver-menos-popular" id="ver-mas-popular" class="see-more">Ver menos...</a>
+        <div class="container-center">
+
+            {% if popular or scores %}
+            <div class="container-flex bg-more" style="align-items: center; justify-content: space-between;">
+                <p class="see-more">
+                    {% if popular %}
+                    Más popular
+                    {% elif scores %}
+                    Mejores puntuados
+                    {% else %}
+                    {% endif %}
+                </p>
+                <a href="/#ver-menos-popular" id="ver-mas-popular" class="see-more">Ver menos...</a>
+            </div>
+            
         </div>
         <div class="container-flex">
             <div class="container-cards">
@@ -109,7 +113,7 @@
                     </form>
                     {% endif %}
                     <!-- CARD -->
-                    <a onmouseover="this.style.color='{{ anime.color }}'" onmouseout="this.style.color='#9fadbd'" href="">
+                    <a onmouseover="this.style.color='{{ anime.color }}'" onmouseout="this.style.color='#9fadbd'" href="/anime/{{ anime.id }}">
                         <div class="card">
                             <img class="card-image" src="{{ anime.image }}" alt="">
                             <p>
