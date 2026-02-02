@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>AnimeList - {{ anime.name }}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     <link rel="stylesheet" href="/static/css/estilos.css">
 </head>
 <body class="bd" style="position: relative;">
     <header>
-        <nav class="nav text-nav" style="position: absolute; width: 100%; opacity: 80%;">
+        <nav class="nav text-nav" style="position: absolute; width: 100%; opacity: 75%;">
             <i class="fa-solid fa-clipboard-list"></i>
             <!-- <div class="">
                 <div class="dropdown">
@@ -31,16 +31,25 @@
             {% endif %}
     </header>
 
-    <div>
-        {% if anime %}
-        <img src="{{ anime.banner }}" alt="">
-        <div class="">
-            <div >
+    <div class="">
+        <!-- BANNER -->
+        <div class="banner">
+            {% if anime %}
+            <img src="{{ anime.banner }}" alt="">
+            <div class="shadow"></div>
+        </div>
+        <!-- IMAGE AND BUTTONS -->
+        <div class="container-flex container-relative box-description">
+            <div class="image-description position-image" >
                 <img src="{{ anime.image }}" alt="">
-                <div>
-                    <button>Añadira la lista</button>
-                    <button>Like</button>
+                <div class="box-addlist">
+                    <button class="btn-list">Añadir a la lista</button>
+                    <button class="btn-like"><i class="fa-solid fa-heart"></i></button>
                 </div>
+            </div>
+            <div class="box-text">
+                <h3>{{ anime.name }}</h3>
+                <p>{{ anime.description | truncate(500) }}</p>
             </div>
         </div>
         {% endif%}
