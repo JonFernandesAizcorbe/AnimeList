@@ -39,7 +39,7 @@ def login(
 
     if not user or not verify_password(password, user.password_hash):
         errors.append("Credenciales incorrectas")
-    else:
+        
         value_data = {
             "email": email
         } 

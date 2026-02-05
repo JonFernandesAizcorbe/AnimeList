@@ -11,27 +11,44 @@
 <body class="bd">
     <div class="container">
         <img src="https://s4.anilist.co/file/anilistcdn/media/anime/banner/154587-ivXNJ23SM1xB.jpg" alt="">
+
+        <!-- HEADER -->
         <header class="header">
             <nav class="nav text-nav">
                 <i class="fa-solid fa-clipboard-list"></i>
-                <!-- <div class="">
-                    <div class="dropdown">
-                        <button class="dropbtn">Animes</button>
-                        <div class="dropdown-content">
-                            <a class="text-nav" href="">Buscar Anime</a>
-                            <a class="text-nav" href="">Top Anime</a>
-                        </div>
-                    </div> 
-                </div> -->
-                {% if user  %}
+                <!-- {% if user  %}
                 <a href="">{{ user.user_name }}</a>
-                {% endif %}
+                {% endif %} -->
+                <!-- DROPDOWN PROFILE  -->
+                <div class="dropdown-container">
+                    {% if user is not none %}
+                    <input type="checkbox" id="toggle-menu" hidden>
+                    <label for="toggle-menu" class="dropdown-btn">{{ user.user_name }}<i class="fa-regular fa-user"></i></label>
+                    <div class="dropdown-profile">
+                        <div class="container-between exit-menu">
+                                <p>Menú</p>
+                                <input type="checkbox" id="toggle-menu" hidden>
+                                <label for="toggle-menu" class="dropdown-btn"><i class="fa-solid fa-x"></i></i></label>
+                        </div>
+                        <p>Mi lista</p>
+                        <p>Perfil</p>
+                        <a href="/logout">
+                            <p>Cerrar sesión</p>
+                        </a>
+                    </div>
+                    {% else %}
+                    <a href="/login">
+                        <p>Iniciar sesión</p>
+                    </a>
+                    {% endif %}
+                </div>
 
-                {% if user is not none %}
+
+                <!-- {% if user is not none %}
                 <a href="/logout">Cerrar perfil</a>
                 {% else %}
                 <a href="/login">Login</a>
-                {% endif %}
+                {% endif %} -->
             </nav>
         </header>
 
@@ -74,7 +91,7 @@
         </div>
 <!-- OUTPUT FILTER -->
         {% if result or result_g %}
-        <div class="container-flex">
+        <div class="container-center">
             <div class="container-cards">
                 {% for anime in result or result_g %}
                 <div class="container-relative" id="anime-{{ anime.id }}">
@@ -160,7 +177,7 @@
                 <a href="/popular#ver-mas-popular" id="ver-menos-popular" class="see-more">Ver más...</a>
             </div>
         </div>
-        <div class="container-flex">
+        <div class="container-center">
             <div class="container-cards">
             {% for anime in result or animes_top %}
                 <div class="container-relative" id="anime-{{ anime.id }}">
@@ -238,7 +255,7 @@
                 <a href="/score#ver-mas-popular" class="see-more">Ver más...</a>
             </div>
         </div>
-        <div class="container-flex">
+        <div class="container-center">
             <div class="container-cards">
                 {% for anime, score in scores[:6] %}
                 {% if score is not none %}

@@ -2,6 +2,9 @@ html {
     scroll-behavior: smooth;
 }
 
+/* FONTS */
+
+
 
 /* --------- BODY -----------*/
 body {
@@ -19,6 +22,17 @@ body {
     margin: 0;
 }
 
+.bd-auth {
+    margin: 0;
+    min-height: 100vh;
+    background: 
+        radial-gradient(circle at top left, rgba(255,255,255,0.15), transparent 40%),
+        radial-gradient(circle at bottom right, rgba(0,0,0,0.15), transparent 40%),
+        linear-gradient(135deg, #178582, #0f5f5c);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .bd {
     margin: 0;
@@ -27,7 +41,10 @@ body {
     
 }
 
+
 /* ------ Containers -------- */
+
+
 
 .container-center {
     margin: 0;
@@ -44,7 +61,7 @@ body {
     align-items: center;
 }
 
-.container-around {
+.container-between {
     display: flex;
     justify-content: space-between;
 }
@@ -54,6 +71,16 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+.container-flex {
+    display: flex;
+    align-content: center;
+}
+
+.absolute {
+    position: absolute;
+}
+
 /* -------------NAV-------------- */
 
 .container {
@@ -72,12 +99,13 @@ body {
     border-bottom: 1px solid #BFA181;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     background-color: #0A1828;
+    padding-inline: 100px;
 }
 
 .text-nav {
-    color: #178582;
+    color: #9fadbd;
     font-size: 30px;
 }
 
@@ -97,65 +125,72 @@ body {
     text-decoration: none;
 }
 
-.dropdown {
-    position: relative;
-    display: inline-block;
+/* DROPMENU PROFIL */
+
+.dropdown-container label i{
+    padding-left: 10px;
 }
 
-.dropbtn {
-    background-color: #0A1828;
-    color: #9fadbd;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    font-family: sans-serif;
-    font-size: 30px;
-}
-
-.dropdown-content { 
+.dropdown-profile {
+    background-color: #0d1f31;
+    box-sizing: content-box;
+    width: 270px;
     display: none;
-    position: absolute;
-    background-color: #178582;
-    min-width: 200px;
-    box-shadow: 0 0 16 0 rgba(0, 0, 0, 2);
-    z-index: 12;
-    height: 200px;
-    overflow-y: scroll;
- }
-
- .dropdown-content a{
-    color: black;
-    padding: 12px;
-    text-decoration: none;
-    display: block;
-    font-size: 20px;
-
- }
-
-  .dropdown-content p{
-    color: black;
-    padding: 12px;
-    display: block;
-    font-size: 25px;
-    margin: 0;
-    border-bottom: 1px solid black;
-
- }
-
-.dropdown:hover .dropdown-content { display: block; }
-.dropbtn:hover {
-    background-color: #178582;
-    color: black
+    
 }
 
-.dropdown:hover .dropbtn { background-color: #178582; color: black;}
+.dropdown-profile p{
+    padding-left: 30px;
+    color: #9fadbd;
+}
+
+.dropdown-profile p:hover{
+    color: #178582;
+}
+
+#toggle-menu:checked + .dropdown-btn +.dropdown-profile{
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.exit-menu {
+    height: 75px;
+    width: 100%;
+    align-items: center;
+    border-bottom: #BFA181 solid 1px;
+}
+
+.exit-menu p{
+    margin: 0;
+    padding: 0;
+    font-size: 30px;
+    padding-left: 30px;
+}
+
+.exit-menu p:hover{
+    color: #9fadbd;
+}
+
+
+.exit-menu label{
+    padding-right: 10px;
+    color: #9fadbd;
+}
+
+.exit-menu label:hover{
+    color: #178582;
+}
+
+.dropdown-btn:hover {
+    color: #178582;
+}
+
+
+
 
 /* ------------- CAROUSEL ------------ */
-.container-flex {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-}
 
 .container-carousel {
     perspective: 250px;
@@ -549,11 +584,20 @@ a.see-more:hover {
 
 /* ----------- LOGIN ---------- */
 
+.login-head {
+    font-family: "Inter", sans-serif;
+    font-weight: 200;
+    color: white;
+}
+
 .container-login {
     background-color: #193350;
     box-sizing: content-box;
     padding: 50px;
-    border-radius: 8px;
+    width: 300px;
+    padding-top: 20px;
+    margin-top: 0px;
+    padding-bottom: 30px;
 }
 
 .content-login {
@@ -561,52 +605,76 @@ a.see-more:hover {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 30px;
+    margin-bottom: 0px;
 }
 
-.text-login p{
-    margin-top: 5px;
-    font-size: 17px;
-}
-
-.text-login p{
-    color: #178582;
+.container-input {
+    margin-bottom: 15px;    
 }
 
 .input-box {
     all: unset;
     box-sizing: content-box;
-    border: #BFA181 1px solid;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    background-color: #183047;
+    background-color: rgb(235, 229, 229);
     padding: 5px;
-    color: white;
-    width: 404px;
+    font-size: 20px;
+    color: rgb(117, 116, 116);
+    width: 260px;
     padding-left: 15px;
-
+    font-family: "Sansation", sans-serif;
+    font-weight: 400;
 }
+
+.user-icon{
+    background-color: white;
+    color: gray;
+    align-content: center;
+    width: 60px;
+    height: 60px;
+    font-size: 22px;
+}
+
+.password-icon {
+    background-color: white;
+    color: gray;
+    align-content: center;
+    width: 60px;
+    height: 60px;
+    font-size: 22px;
+}   
 
 .btn-login {
     all: unset;
     box-sizing: content-box;
     color: #e4e4e4;
-    border-radius: 8px;
-    background-color: rgb(39, 128, 98);
-    width: 312px;
+    background-color: #178582;
+    width: 325px;
+    height: 50px;
     padding: 5px;
     display: flex;
     justify-content: center;
     align-content: center;
+    align-items: center;
+    margin-top: 30px;
+    font-family: "Sansation", sans-serif;
+    font-weight: 400;
 }
 
 .btn-login:hover {
     background-color: #178582;
-    color: rgb(21, 70, 53);
+    color: #193350;
     box-shadow: black;
 }
 
-.input-box:focus {
-    border: #178582 1px solid;
+.recovery-box {
+    width: 375px;
+    justify-content: space-around;
+    font-size: 12px;
+    margin: 0;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    color: rgb(117, 116, 116);
 }
 
 .recover-password {
@@ -614,14 +682,70 @@ a.see-more:hover {
     align-items: center;
     font-size: 12px;
     text-decoration: none;
+    margin-bottom: 0px;
+    color: rgb(117, 116, 116);
 }
 
 .recover-password p{
-    font-size: 12px;
+    margin-bottom: 0px;
 }
+
 .recover-password:hover p{
-    color: #e4e4e4;
+    color: white;
 }
+
+
+.input-label {
+    top: 45px;
+    left: 10px;
+    color: #178582;
+    transition: 0.3s ease;
+
+}
+
+
+.checkbox-recovery p{
+    align-content: center;
+    margin: 0;
+}
+
+.checkbox-recovery input{
+    margin-right: 5px;
+    margin-left: 0px;
+}
+
+.create-account {
+    margin-top: 15px;
+}
+
+.create-account a{
+    margin: 0;
+    background-color: #193350;
+    width: 300px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    font-family: "Sansation", sans-serif;
+    font-weight: 400;
+}
+
+.create-account:hover {
+    color: #178582;
+}
+
+
+/* .input-box:focus + .input-label,
+.input-box:not(:placeholder-shown) + .input-label {
+  top: 30px;
+  font-size: 12px;
+  background: linear-gradient(to bottom, #193350 5%, #183047 95%);
+  padding: 0 2px;
+  height: 18px;
+  transform: 2.0s;
+} */
 
 
 /* ANIME DETAIL */
@@ -770,3 +894,4 @@ a.see-more:hover {
     }
 
 }
+
