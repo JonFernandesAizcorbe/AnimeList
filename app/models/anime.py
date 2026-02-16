@@ -16,6 +16,7 @@ class AnimeORM(Base):
     image: Mapped[str | None] = mapped_column(String(500))
     banner: Mapped[str | None] = mapped_column(String(500))
     color: Mapped[str | None] = mapped_column(String(50))
+    
 
 
     # Relationship Many to Many with Genre, secondary table animes_genres_table
@@ -26,15 +27,20 @@ class AnimeORM(Base):
         back_populates="animes"
     )
 
-    # Relationship Many to Many with ActorORM, intermediate table AnimeActorORM
-    actors: Mapped[list["AnimeActorORM"]] = relationship(
-        back_populates="anime",
-        cascade="all, delete-orphan"
-    )
+    # Relationship Many to Many with ActorORM, intermediate table AnimeActorORM 
+    # actors: Mapped[list["AnimeActorORM"]] = relationship(
+    #     back_populates="anime",
+    #     cascade="all, delete-orphan"
+    # )
 
     # Relationship Many to Many with User, intermediate table AnimeListORM
 
     users: Mapped[list["AnimeListORM"]] = relationship(
         "AnimeListORM",
+        back_populates="anime"
+    )
+
+    characters: Mapped[list["CharacterORM"]] = relationship(
+        "CharacterORM",
         back_populates="anime"
     )

@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     <link rel="stylesheet" href="/static/css/estilos.css">
 </head>
-<body class="bd" style="position: relative;">
+<body class="bd container-relative" >
     <header>
-        <nav class="nav text-nav" style="position: absolute; width: 100%; opacity: 75%;">
+        <nav class="nav text-nav" style="position: absolute; width: 100%; opacity: 75%; margin-left: 0px;">
             <i class="fa-solid fa-clipboard-list"></i>
             <!-- <div class="">
                 <div class="dropdown">
@@ -20,15 +20,27 @@
                     </div>
                 </div> 
             </div> -->
-            {% if user  %}
-            <a href="">{{ user.user_name }}</a>
-            {% endif %}
-
-            {% if user is not none %}
-            <a href="/logout">Cerrar perfil</a>
-            {% else %}
-            <a href="/login">Login</a>
-            {% endif %}
+            <div class="dropdown-container">
+                {% if user is not none %}
+                <input type="checkbox" id="toggle-menu" hidden>
+                <label for="toggle-menu" class="dropdown-btn">{{ user.user_name }}<i class="fa-regular fa-user"></i></label>
+                <div class="dropdown-profile">
+                    <div class="container-between exit-menu">
+                            <p>Menú</p>
+                            <input type="checkbox" id="toggle-menu" hidden>
+                            <label for="toggle-menu" class="dropdown-btn"><i class="fa-solid fa-x"></i></i></label>
+                    </div>
+                    <p>Mi lista</p>
+                    <p>Perfil</p>
+                    <a href="/logout">
+                        <p>Cerrar sesión</p>
+                    </a>
+                </div>
+                {% else %}
+                <a href="/login">
+                    <p>Iniciar sesión</p>
+                </a>
+                {% endif %}
     </header>
 
     <div class="">

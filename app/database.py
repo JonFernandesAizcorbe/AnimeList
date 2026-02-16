@@ -1,5 +1,6 @@
 
 
+from datetime import date
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
 
@@ -60,9 +61,11 @@ def init_db():
     from app.models.user import UserORM
     from app.models.genre import GenreORM
     from app.models.anime import AnimeORM
-    from app.models.anime_list import AnimeListORM  
+    from app.models.anime_list import AnimeListORM
+    from app.models.character import CharacterORM
+    from app.models.actor import ActorORM
 
-    # crear todas las tablas
+    # Create all tables
     Base.metadata.create_all(engine)
 
 
@@ -125,6 +128,7 @@ def init_db():
         db.add_all(default_anime)
         db.commit()
 
+        # Create Users
 
         password_admin = "admin"
         password_user1 = "user1"
@@ -139,9 +143,10 @@ def init_db():
             UserORM(user_name="user2", email="user2@gmail.com", password_hash=pwd2)
         ]
         
-        # agregar usuarios
         db.add_all(default_user)
         db.commit()
+
+        # Create anime_list
 
         default_anime_list = [
             AnimeListORM(user_id=1, anime_id=1, score=100),
@@ -154,6 +159,48 @@ def init_db():
         ]
 
         db.add_all(default_anime_list)
+        db.commit()
+
+
+        # Create Actors
+        # ActorORM(name="", birth=date(2000, 9, 27), gender="", hometown="", bio="", height="", image="")
+        default_actor_list = [
+            ActorORM(name="Atsumi Tanezaki", birth=date(1990, 9, 27), gender="Femenino", hometown="Oita Prefecture, Japan", bio="Atsumi Tanezaki es una actriz de voz japonesa que anteriormente estuvo afiliada a Toritori Office y actualmente está representada por Haikyo.En una entrevista con Repotama, Atsumi reveló que se interesó por la actuación de voz después de ver la serie de anime Sailor Moon. Explicó que la actuación en ese episodio fue tan impactante para ella que la motivó a seguir una carrera como actriz de voz. Comenzó a estudiar doblaje en una escuela de formación después de graduarse de la escuela secundaria en su prefectura natal, Oita, utilizando los fondos que había reunido trabajando en varios empleos a tiempo parcial. En la entrevista, también afirmó que sus actrices de voz favoritas son Miyuki Sawashiro y Mayumi Tanaka, y que cuando era niña asistió a un concierto de Junko Iwao, donde tuvo la oportunidad de hablar con ella. Al expresar su deseo de convertirse en actriz de voz durante un evento para fans, Iwao le respondió que esperaba con ilusión poder trabajar con ella algún día. El 2 de octubre de 2023, anunció su matrimonio con el también actor de voz Yuu Miyazaki.", height=157, image="https://s4.anilist.co/file/anilistcdn/staff/large/n112215-kfABGD8W2YSJ.jpg"),
+            ActorORM(name="Kana Ichinose", birth=date(1996, 12, 20), gender="Femenino",  hometown="Obihiro, Hokkaido Prefecture, Japan", bio="Ganó el 18º premio anual Seiyū como Mejor Actor Principal", height="148", image="https://s4.anilist.co/file/anilistcdn/staff/large/n124390-03LHel2XSFel.png"),
+            ActorORM(name="Chiaki Kobayashi", birth=date(1994, 6, 4), gender="Masculino", hometown="Kanagawa Prefecture, Japan", bio="", height="", image="https://s4.anilist.co/file/anilistcdn/staff/large/n133507-oT1bd4Gax1Qg.jpg"),
+            ActorORM(name="Nobuhiko Okamoto", birth=date(1986, 10, 24), gender="Masculino", hometown="Tokyo, Japan", bio="", height="", image="https://s4.anilist.co/file/anilistcdn/staff/large/n95270-LqNIF238L59u.png"),
+            ActorORM(name="Hiroki Touchi", birth=date(1966, 5, 26), gender="Masculino", hometown="Tokyo, Japan", bio="", height="", image="https://s4.anilist.co/file/anilistcdn/staff/large/n95236-nlMo4dnjdT8p.png"),
+            ActorORM(name="Youji Ueda", birth=date(1971, 9, 27), gender="Masculino", hometown="Kobe, Japan", bio="", height="", image="https://s4.anilist.co/file/anilistcdn/staff/large/n95926-00Pd2b8WZwQS.png")
+
+
+        ]
+
+
+        db.add_all(default_actor_list)
+        db.commit()
+
+        # Create characters
+        # CharacterORM(name="", age="", gender="", bio="", actor_id=actors_name.get(""), anime_id=animes_name.get(""), image="")
+
+        # Get Actor with name not id
+        actores = db.execute(select(ActorORM)).scalars().all()
+        actors_name = {actor.name: actor.id for actor in actores}
+
+
+        animes = db.execute(select(AnimeORM)).scalars().all()
+        animes_name = {anime.name: anime.id for anime in animes}
+
+        default_character_list = [
+            CharacterORM(name="Frieren", age="1000+", gender="Femenino", bio="Frieren es la protagonista de Sousou no Frieren y la maestra de Fern. Fue la maga del Grupo de Héroes y viajó junto al Héroe Himmel, el Guerrero Eisen y el Sacerdote Heiter en un viaje de 10 años para derrotar al Rey Demonio. Desde joven, fue una prodigio de la magia, con una cantidad impresionante de maná, lo que llamó la atención de Flamme, un mago humano que le enseñó todo lo que había que saber sobre magia y control de maná hasta que falleció. Frieren continúa recopilando conocimientos de magia, sin importar lo triviales que puedan parecer.", actor_id=actors_name.get("Atsumi Tanezaki"), anime_id=animes_name.get("Frieren"), image="https://s4.anilist.co/file/anilistcdn/character/large/b176754-PCnpqIOkjhFk.png"),
+            CharacterORM(name="Fern", age="18", gender="Femenino", bio="Fern es la joven aprendiz de maga de Frieren y la acompaña como miembro de su grupo. Es una refugiada de guerra huérfana, originaria de las Tierras del Sur, que posteriormente fue adoptada por Heiter y puesta bajo el cuidado de Frieren.", actor_id=actors_name.get("Kana Ichinose"), anime_id=animes_name.get("Frieren"), image="https://s4.anilist.co/file/anilistcdn/character/large/b183965-uGFohBjlFoTp.png"),
+            CharacterORM(name="Stark", age="18", gender="Masculino", bio="Stark es un guerrero que lucha junto a Frieren y Fern. Tras el ataque de demonios a su aldea, huyó y se convirtió en aprendiz de Eisen. Siguiendo instrucciones de Eisen, se unió al grupo de Frieren como vanguardia.", actor_id=actors_name.get("Chiaki Kobayashi"), anime_id=animes_name.get("Frieren"), image="https://s4.anilist.co/file/anilistcdn/character/large/b184313-CQl6GSt4RSny.jpg"),
+            CharacterORM(name="Himmel", age="", gender="Masculino", bio="Héroe y líder del grupo que derrotó al Rey Demonio, y un apuesto narcisista que se autoproclama. Se preocupa por sus amigos y no puede evitar ayudar a quienes lo necesitan. Tuvo una gran influencia en Frieren, con quien compartió aventuras durante 10 años.", actor_id=actors_name.get("Nobuhiko Okamoto"), anime_id=animes_name.get("Frieren"), image="https://s4.anilist.co/file/anilistcdn/character/large/b184311-wQFySqYXEqf1.png"),
+            CharacterORM(name="Heiter", age="", gender="Masculino", bio="Un sacerdote que forma parte del grupo del Héroe. Más tarde cuidó de Fern hasta la llegada de Frieren.", actor_id=actors_name.get("Hiroki Touchi"), anime_id=animes_name.get("Frieren"), image=""),
+            CharacterORM(name="Eisen", age="", gender="Masculino", bio="Guerrero enano que formó parte del grupo del Héroe y luego se convirtió en mentor de Stark.", actor_id=actors_name.get("Youji Ueda"), anime_id=animes_name.get("Frieren"), image="https://s4.anilist.co/file/anilistcdn/character/large/b184312-kxd5H6iOHIq4.png"),
+        ]
+
+
+        db.add_all(default_character_list)
         db.commit()
 
     finally:

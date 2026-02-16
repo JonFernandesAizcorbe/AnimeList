@@ -95,13 +95,14 @@ body {
 }
 
 .nav {
-    height: 75px;
+    height: 76px;
+    box-sizing: border-box;
     border-bottom: 1px solid #BFA181;
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: #0A1828;
-    padding-inline: 100px;
+    padding-inline: 30px;
 }
 
 .text-nav {
@@ -126,6 +127,7 @@ body {
 }
 
 /* DROPMENU PROFIL */
+
 
 .dropdown-container label i{
     padding-left: 10px;
@@ -152,7 +154,7 @@ body {
     display: block;
     position: absolute;
     right: 0;
-    top: 0;
+    top: 77px;
 }
 
 .exit-menu {
@@ -825,6 +827,28 @@ a.see-more:hover {
 
 /* MEDIA */
 
+@media (max-width: 1340px) {
+    /* SEE_MORE */
+    .bg-more {
+        width: 1068.8px;
+    }
+
+}
+
+@media (max-width: 1116px) {
+    /* SEE_MORE */
+    .bg-more {
+        width: 850px;
+    }
+}
+
+@media (max-width: 890px) {
+    /* SEE_MORE */
+    .bg-more {
+        width: 635px;
+    }
+}
+
 @media (max-width: 682px){
     .card{
         width: auto;
@@ -835,6 +859,14 @@ a.see-more:hover {
         right: 14%;
     }
 }
+
+@media (max-width: 674px) {
+    /* SEE_MORE */
+    .bg-more {
+        width: 410px;
+    }
+}
+
 
 @media (max-width: 557px){
     .card{

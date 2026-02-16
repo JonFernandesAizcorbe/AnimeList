@@ -6,18 +6,24 @@ class AnimeResponse(BaseModel):
 
     id: int
     name: str
+    studio: str | None
     description: str | None
     num_caps: int | None
     image: str | None
+    banner: str | None
+    color: str | None
 
 # ANIME CREATE
 class AnimeCreate(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     name: str
+    studio: str | None = None
     description: str | None = None
     num_caps: int | None = None
     image: str | None = None
+    banner: str | None = None
+    color: str | None = None
 
     @field_validator("name")
     @classmethod
@@ -27,7 +33,7 @@ class AnimeCreate(BaseModel):
         
         return v.strip()
     
-    @field_validator("description")
+    @field_validator("studio","description")
     @classmethod
     def not_empty_or_none(cls, v: str | None) -> str | None:
         if v is None or not v.strip():
