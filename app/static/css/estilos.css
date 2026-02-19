@@ -783,23 +783,30 @@ a.see-more:hover {
 }
 
 .position-image {
-    position: absolute;
-    top: -120px;
+    margin-top: -120px;
+    margin-left: -240px;
     left: 15%;
+    margin-right: 30px;
 }
 
 .box-addlist {
     margin-top: 15px;
+    display: flex;
 }
 
 .btn-list {
     all: unset;
+    width: 170px;
     background-color: #3db4f2;
     padding: 10px;
-    padding-inline: 28px;
+    padding-inline: 20px;
     border-radius: 8px;
     margin-right: 5px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
 }
+
 
 .btn-like {
     all: unset;
@@ -821,6 +828,59 @@ a.see-more:hover {
 
 .box-text p{
     margin: 0;
+}
+
+
+/* ANIME INFO */
+
+.container-info {
+    display: flex;
+    margin-top: 30px;
+    width: 1280px;
+
+}
+
+.info-left {
+    width: 215px;
+    height: 500px;
+}
+
+.rate {
+    width: 100%;
+    padding-block: 10px;
+    padding-inline: 10px;
+    background-color: #0d1f31;
+    box-sizing:border-box;
+    align-items: center;
+    margin-bottom: 13px;
+    border-radius: 2px;
+}
+
+.rate p{
+    padding: 0px;
+    margin: 0px;
+    color: #9fadbd;
+    font-size: 14px;
+}
+
+.star {
+    color: yellow;
+    font-size: 12px;
+    margin-right: 8px;
+}
+
+.heart1 {
+    color: #ec294b;
+    font-size: 12px;
+    margin-right: 8px;
+}
+
+
+
+
+
+.info-right {
+
 }
 
 

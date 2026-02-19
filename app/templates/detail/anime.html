@@ -55,8 +55,30 @@
             <div class="image-description position-image" >
                 <img src="{{ anime.image }}" alt="">
                 <div class="box-addlist">
-                    <button class="btn-list">Añadir a la lista</button>
-                    <button class="btn-like"><i class="fa-solid fa-heart"></i></button>
+                    <form method="post" action="/addlist">
+                        <input type="hidden" name="anime_id" value="{{ anime.id }}">
+                        <input type="hidden" name="next" value="{{ request.url }}">
+                        <button class="btn-list" onmouseover="this.style.backgroundColor='{% if my_list and my_list.status != 'Eliminado' %}red{% else %}#008000{% endif %}'" onmouseout="this.style.backgroundColor='#3db4f2'" >{% if my_list and my_list.status != "Eliminado" %}
+                                                    Eliminar de la lista
+                                                {% else %}
+                                                    Añadir a la lista
+                                                {% endif %}
+                        </button>
+                    </form>
+                    <form method="post" action="/like">
+                        <input type="hidden" name="anime_id" value="{{ anime.id }}">
+                        <input type="hidden" name="next" value="{{ request.url }}">
+                        {% if not my_list or my_list.like == false %}
+                            <button class="btn-like" onmouseover="this.style.backgroundColor='green'" onmouseout="this.style.backgroundColor='#ec294b'"><i class="fa-solid fa-heart"></i> 
+                            {% else %}
+                            <button class="btn-like"
+                            onmouseover="this.querySelector('i').className='fa-solid fa-heart-crack'"
+                            onmouseout="this.querySelector('i').className='fa-solid fa-heart'"
+                            >
+                            <i class="fa-solid fa-heart"></i>
+                            {% endif %}
+                        </button>
+                    </form>
                 </div>
             </div>
             <div class="box-text">
@@ -65,6 +87,20 @@
             </div>
         </div>
         {% endif%}
+    </div>
+    <div class="container-center">
+        <div class="container-info">
+            <div class="info-left">
+                <div class="rate container-flex"><i class="fa-solid fa-star star"></i><p>#11455  Mejores puntuados</p></div>
+                <div class="rate container-flex"><i class="fa-solid fa-heart heart1"></i><p>#25  Más popular</p></div>
+                <div class="info"></div>
+
+
+            </div>
+            <div class="info-right">
+                
+            </div>
+        </div>
     </div>
 </body>
 </html>

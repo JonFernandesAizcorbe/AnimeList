@@ -95,7 +95,7 @@
                 <div class="container-relative" id="anime-{{ anime.id }}">
                 <!-- HEART LIST -->
                     {% if user %}
-                    <form method="post" action="/addlist#anime-{{ anime.id }}" class="heart" >
+                    <form method="post" action="/like#anime-{{ anime.id }}" class="heart" >
                         <input type="hidden" name="anime_id" value="{{ anime.id }}">
                         <input type="hidden" name="next" value="{{ request.url }}">
                         <button style="all: unset;">
@@ -103,7 +103,7 @@
                             <i class="fa-solid fa-heart" 
                             style="                            
                                 {% for x in user.animes %}
-                                    {% if anime.id == x.anime_id and x.status == 'Viendo' %}
+                                    {% if anime.id == x.anime_id and x.like == true %}
                                         color: green;
                                     {% endif %}
                                 {% endfor %}"

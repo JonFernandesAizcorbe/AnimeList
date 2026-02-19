@@ -1,6 +1,6 @@
 from datetime import date, datetime
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import DateTime, Enum, ForeignKey, Integer, String
+from sqlalchemy import Boolean, DateTime, Enum, ForeignKey, Integer, String
 
 from app.database import Base
 
@@ -10,6 +10,7 @@ display_status = Enum(
     "Dropeado",
     "Inactivo",
     "Proximamente",
+    "Eliminado",
     name = "display_status"
 )
 
@@ -23,6 +24,7 @@ class AnimeListORM(Base):
     date_start: Mapped[datetime | None] = mapped_column(DateTime)
     date_end: Mapped[datetime | None] = mapped_column(DateTime)
     status: Mapped[str] = mapped_column(display_status, default="Viendo", nullable=False)
+    like: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     score: Mapped[int | None] = mapped_column(Integer)
 
     user: Mapped["UserORM"] = relationship(back_populates="animes")
