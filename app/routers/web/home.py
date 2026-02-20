@@ -115,14 +115,14 @@ def popular_list(request: Request, page: int = 1, db: Session = Depends(get_db),
     per_page = 12
     offset = (page - 1) * per_page
 
-    popular = db.execute(select(AnimeORM, func.count(AnimeListORM.user_id)).join(AnimeListORM).where(AnimeListORM.status == "Viendo").group_by(AnimeORM.id).order_by(func.count(AnimeListORM.user_id).desc()).offset(offset).limit(per_page)).all()
-    scores = db.execute(select(AnimeORM, func.round(func.avg(AnimeListORM.score), 2).label("avg_score")).join(AnimeListORM, AnimeListORM.anime_id == AnimeORM.id).group_by(AnimeORM.id).order_by(func.avg(AnimeListORM.score).desc())).all()
+    popular = db.execute(select(AnimeORM, func.count(AnimeListORM.user_id)).join(AnimeListORM).where(AnimeListORM.like == True).group_by(AnimeORM.id).order_by(func.count(AnimeListORM.user_id).desc()).offset(offset).limit(per_page)).all()
+    points = db.execute(select(AnimeORM, func.round(func.avg(AnimeListORM.score), 2).label("avg_score")).join(AnimeListORM, AnimeListORM.anime_id == AnimeORM.id).group_by(AnimeORM.id).order_by(func.avg(AnimeListORM.score).desc())).all()
     genres = db.execute(select(GenreORM).order_by(GenreORM.name.asc())).scalars().all()
     
 
     return templates.TemplateResponse(
         "filter/popular.html",
-        {"request": request, "popular": popular, "page": page, "scores": scores, "user": user, "genres": genres}
+        {"request": request, "popular": popular, "page": page, "points": points, "user": user, "genres": genres}
     )
 
 @router.get("/score", response_class=HTMLResponse)

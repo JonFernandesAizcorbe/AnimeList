@@ -876,12 +876,99 @@ a.see-more:hover {
 }
 
 
+.info {
+    width: 100%;
+    background-color: #0d1f31;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.info h3{
+    color: #9fadbd;
+    margin: 0px;
+    font-size: 15px;
+    margin-bottom: 4px;
+}
+
+.info p{
+    color: #9fadbd;
+    margin: 0px;
+    font-size: 12px;
+    margin-bottom: 13px;
+}
 
 
+/* Info right */
 
 .info-right {
-
+    width: 1000px;
+    margin-left: 40px;
 }
+
+.info-right h3{
+    color: #9fadbd;
+}
+
+.container-character {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    flex: 0 0 calc(33.33% - 10px);
+}
+
+.card-character {
+    border-radius: 4px;
+    width: 300px;
+    background-color: #0d1f31;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.character {
+    display: flex;
+    width: 50%;
+}
+
+.character-info {
+    font-size: 13px;
+}
+
+.character img{
+    width: 60px;
+    margin-right: 10px;
+}
+
+.character-info {
+    color: #9fadbd;
+}
+
+.actor {
+    display: flex;
+    width: 50%;
+}
+
+.actor-info {
+    font-size: 13px;
+    color: #9fadbd;
+    width: 60%;
+    display: flex;
+    position: block;
+    justify-content: end;
+}
+
+.actor-info p{
+    text-align: right;
+    margin-right: 8px;
+}
+
+.actor img{
+    position: absolute;
+    width: 20%;
+    right: 0px;
+}
+
 
 
 

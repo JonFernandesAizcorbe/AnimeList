@@ -93,12 +93,38 @@
             <div class="info-left">
                 <div class="rate container-flex"><i class="fa-solid fa-star star"></i><p>#11455  Mejores puntuados</p></div>
                 <div class="rate container-flex"><i class="fa-solid fa-heart heart1"></i><p>#25  Más popular</p></div>
-                <div class="info"></div>
-
-
+                <div class="info">
+                    {% if anime.studio is not none %}
+                        <h3>Estudio</h3>
+                        <p>{{ anime.studio }}</p>
+                    {% endif %}
+                    {% if anime.num_caps is not none %}
+                        <h3>Capítulos</h3>
+                        <p>{{ anime.num_caps }}</p>
+                    {% endif %}
+                </div>
             </div>
             <div class="info-right">
-                
+                <h3>Personajes</h3>
+                <div class="container-character">
+                    {% for character in anime.characters %}
+                    <div class="card-character">
+                        <div class="character">
+                            <img src="{{ character.image }}" alt="">
+                            <div class="character-info">
+                                <p>{{ character.name }}</p>
+                            </div>
+                        </div>
+                        <div class="actor">
+                            <div class="actor-info">
+                                <p>{{ character.actor.name }}</p>
+                            </div>
+                            <img src="{{ character.actor.image }}" alt="">
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
             </div>
         </div>
     </div>

@@ -79,9 +79,9 @@
             <div class="container-flex bg-more" style="align-items: center; justify-content: space-between;">
                 <p class="see-more">
                     {% if popular %}
-                    Más popular
+                    Más populares
                     {% elif scores %}
-                    Mejores puntuados
+                    Mejores valorados
                     {% else %}
                     {% endif %}
                 </p>
@@ -128,7 +128,7 @@
                                         <h3>{% if anime.studio is none %}{% else %}{{ anime.studio }}{% endif %}</h3>
                                     </div>
                                     <div class="face-box">
-                                        {% for s_anime, score in scores %}
+                                        {% for s_anime, score in points or scores %}
                                         {% if s_anime.id == anime.id %}
                                         <!-- NONE  -->
                                         {% if score is none %}
