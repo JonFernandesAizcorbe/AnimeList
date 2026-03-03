@@ -60,6 +60,9 @@ def add_list(
     user: UserORM = Depends(get_current_user)
 ):
 
+    if user is None:
+        return RedirectResponse(next, status_code=303)
+
     entry = db.execute(select(AnimeListORM).where(AnimeListORM.anime_id == anime_id, AnimeListORM.user_id == user.id)).scalar_one_or_none()
 
     if entry and entry.status == "Eliminado":
@@ -88,6 +91,9 @@ def like(request: Request,
         user: UserORM = Depends(get_current_user)
 ):
     
+    if user is None:
+        return RedirectResponse(next, status_code=303)
+
     i_like = db.execute(select(AnimeListORM).where(and_(AnimeListORM.anime_id == anime_id, AnimeListORM.user_id == user.id))).scalar_one_or_none()
 
     if i_like and i_like.like == False:

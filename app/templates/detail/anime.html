@@ -6,10 +6,13 @@
     <title>AnimeList - {{ anime.name }}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     <link rel="stylesheet" href="/static/css/estilos.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
 </head>
 <body class="bd container-relative" >
     <header>
-        <nav class="nav text-nav" style="position: absolute; width: 100%; opacity: 75%; margin-left: 0px;">
+        <nav class="nav text-nav" style="position: absolute; width: 100%; opacity: 75%; margin-left: 0px; z-index: 1;">
             <i class="fa-solid fa-clipboard-list"></i>
             <!-- <div class="">
                 <div class="dropdown">
@@ -41,9 +44,11 @@
                     <p>Iniciar sesión</p>
                 </a>
                 {% endif %}
+            </div>
+        </nav>
     </header>
 
-    <div class="">
+    <div class="container-relative">
         <!-- BANNER -->
         <div class="banner">
             {% if anime %}
@@ -55,7 +60,9 @@
             <div class="image-description position-image" >
                 <img src="{{ anime.image }}" alt="">
                 <div class="box-addlist">
-                    <form method="post" action="/addlist">
+
+                    <!-- OLD ADD LIST -->
+                    <!-- <form method="post" action="/addlist">
                         <input type="hidden" name="anime_id" value="{{ anime.id }}">
                         <input type="hidden" name="next" value="{{ request.url }}">
                         <button class="btn-list" onmouseover="this.style.backgroundColor='{% if my_list and my_list.status != 'Eliminado' %}red{% else %}#008000{% endif %}'" onmouseout="this.style.backgroundColor='#3db4f2'" >{% if my_list and my_list.status != "Eliminado" %}
@@ -64,19 +71,52 @@
                                                     Añadir a la lista
                                                 {% endif %}
                         </button>
-                    </form>
+                    </form> -->
+
+                    <!-- NEW ADD LIST MODAL -->
+                    <input type="checkbox" id="modal-toggle" hidden>
+                    <label for="modal-toggle" class="btn-list"
+                        onmouseover="this.style.backgroundColor='{% if my_list and my_list.status != 'Eliminado' %}red{% else %}#008000{% endif %}'"
+                        onmouseout="this.style.backgroundColor='#3db4f2'">
+                        
+                        {% if my_list and my_list.status != "Eliminado" %}
+                            Eliminar de la lista
+                        {% else %}
+                            Añadir a la lista
+                        {% endif %}
+                    </label>
+                    <!-- Fondo oscuro (click fuera) -->
+                    <label for="modal-toggle" class="modal-overlay"></label>
+                    
+                    <div class="modal-container">
+                        <div class="banner-modal sansation-light" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.6)), url('{{ anime.banner }}') ;" >
+                            <div class="content-banner">
+                                <div class="container-flex image-banner">
+                                    <img src="{{ anime.image }}" alt="">
+                                    <p>{{ anime.name }}</p>
+                                </div>
+                                <div class="buttons-banner">
+                                    <i class="fa-solid fa-heart heart1"></i>
+                                    <form action="">
+                                        <button class="btn-save agdasima-regular">Guardar</button>
+                                    </form>
+                                </div>
+                            </div>   
+                        </div>
+                    </div>
+
                     <form method="post" action="/like">
                         <input type="hidden" name="anime_id" value="{{ anime.id }}">
                         <input type="hidden" name="next" value="{{ request.url }}">
                         {% if not my_list or my_list.like == false %}
-                            <button class="btn-like" onmouseover="this.style.backgroundColor='green'" onmouseout="this.style.backgroundColor='#ec294b'"><i class="fa-solid fa-heart"></i> 
+                        <button class="btn-like" onmouseover="this.style.backgroundColor='green'" onmouseout="this.style.backgroundColor='#ec294b'"><i class="fa-solid fa-heart"></i> 
                             {% else %}
                             <button class="btn-like"
                             onmouseover="this.querySelector('i').className='fa-solid fa-heart-crack'"
                             onmouseout="this.querySelector('i').className='fa-solid fa-heart'"
                             >
                             <i class="fa-solid fa-heart"></i>
-                            {% endif %}
+                        {% endif %}
                         </button>
                     </form>
                 </div>

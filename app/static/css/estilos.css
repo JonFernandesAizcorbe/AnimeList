@@ -3,6 +3,53 @@ html {
 }
 
 /* FONTS */
+.sansation-light {
+  font-family: "Sansation", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.sansation-regular {
+  font-family: "Sansation", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.sansation-bold {
+  font-family: "Sansation", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.sansation-light-italic {
+  font-family: "Sansation", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.sansation-regular-italic {
+  font-family: "Sansation", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.sansation-bold-italic {
+  font-family: "Sansation", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.agdasima-regular {
+  font-family: "Agdasima", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.agdasima-bold {
+  font-family: "Agdasima", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
 
 
 
@@ -897,6 +944,106 @@ a.see-more:hover {
     margin-bottom: 13px;
 }
 
+/* modal-list form */
+
+.modal-container {
+    width: 1000px;
+    height: 600px;
+    position: absolute;
+    top: -50%;
+    left: 23%;
+    background-color: #0d1f31;
+    z-index: 10;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: .3s ease;
+}
+
+#modal-toggle:checked ~ .modal-overlay,
+#modal-toggle:checked ~ .modal-container {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.close {
+  cursor: pointer;
+  float: right;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+
+  opacity: 0;
+  pointer-events: none;
+}
+
+.banner-modal {
+    width: 100%;
+    height: 33%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+}
+
+.content-banner {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-top: 13.5%;
+
+}
+
+.content-banner .image-banner {
+    width: 50%;
+    box-sizing: border-box;
+    padding-left: 6%;
+}
+
+.content-banner .image-banner img {
+    width: auto;
+    height: 140px;
+}
+
+.content-banner .image-banner p {
+    color:white;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin: 0;
+    margin-left: 30px;
+    width: 300px;
+}
+
+.content-banner .buttons-banner {
+    width: 50%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    box-sizing: border-box;
+    padding-right: 6%;
+}
+
+.content-banner .heart1 {
+    font-size: 15px;
+    color: white;
+    margin-right: 15px;
+}
+
+.btn-save {
+    all: unset;
+    background-color: #3db4f2;
+    border-radius: 4px;
+    padding-block: 6px;
+    padding-inline: 10px;
+    color: white;
+    font-size: 14px;
+}
+
 
 /* Info right */
 
@@ -924,6 +1071,7 @@ a.see-more:hover {
     display: flex;
     justify-content: space-between;
     position: relative;
+    
 }
 
 .character {
@@ -1073,4 +1221,13 @@ a.see-more:hover {
     }
 
 }
+
+
+/* ANIME DETAILS MEDIA */
+
+@media (max-width: 375px){
+
+}
+
+
 

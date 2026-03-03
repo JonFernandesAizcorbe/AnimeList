@@ -16,7 +16,11 @@ router = APIRouter(prefix="/anime", tags=["web"])
 @router.get("/{anime_id}", response_class=HTMLResponse)
 def anime_detail(request: Request, anime_id: int, db: Session = Depends(get_db), user: UserORM = Depends(get_current_user)):
     anime = db.execute(select(AnimeORM).where(AnimeORM.id == anime_id)).scalar_one_or_none()
-    my_list = db.execute(select(AnimeListORM).where(and_(AnimeListORM.user_id == user.id, AnimeListORM.anime_id == anime_id))).scalar_one_or_none()
+
+    my_list = None
+
+    if user is not None:
+        my_list = db.execute(select(AnimeListORM).where(and_(AnimeListORM.user_id == user.id, AnimeListORM.anime_id == anime_id))).scalar_one_or_none()
 
     if anime is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="404 - Ánime no encontrado")
