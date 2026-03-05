@@ -3,6 +3,8 @@ Ruta web para pagina de inicio
 Renderiza un HTML
 """
 
+from datetime import datetime
+
 from fastapi import APIRouter, Depends, Form, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse, RedirectResponse
@@ -98,14 +100,16 @@ def like(request: Request,
 
     if i_like and i_like.like == False:
         i_like.like = True
+        i_like.date_like = datetime.now()
         db.commit()
         db.refresh(i_like)
     elif i_like and i_like.like == True:
         i_like.like = False
+        i_like.date_like = None
         db.commit()
         db.refresh(i_like)
     else:
-        new_list = AnimeListORM(anime_id=anime_id, user_id=user.id, like=True, status="Eliminado")
+        new_list = AnimeListORM(anime_id=anime_id, user_id=user.id, like=True, date_like=datetime.now(), status="Eliminado")
         db.add(new_list)
         db.commit()
         db.refresh(new_list)

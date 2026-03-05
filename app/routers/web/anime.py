@@ -1,7 +1,9 @@
+from datetime import datetime, timedelta
+
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from sqlalchemy import and_, select
+from sqlalchemy import and_, func, select
 from sqlalchemy.orm import Session
 
 from app.auth.dependencies import get_current_user
@@ -15,7 +17,25 @@ router = APIRouter(prefix="/anime", tags=["web"])
 
 @router.get("/{anime_id}", response_class=HTMLResponse)
 def anime_detail(request: Request, anime_id: int, db: Session = Depends(get_db), user: UserORM = Depends(get_current_user)):
+
+    since_30 = datetime.now() - timedelta(days=30)
     anime = db.execute(select(AnimeORM).where(AnimeORM.id == anime_id)).scalar_one_or_none()
+    print("Anime ID:", anime_id, "Anime name:", anime.name if anime else None)
+    score_list = db.execute(select(AnimeORM, func.round(func.avg(AnimeListORM.score)).label("avg_score")).join(AnimeListORM, AnimeListORM.anime_id == AnimeORM.id).where(AnimeListORM.score.is_not(None)).group_by(AnimeORM.id).order_by(func.avg(AnimeListORM.score).desc())).all()
+    like_list = db.execute(select(AnimeORM, func.count(AnimeListORM.user_id).label("likes")).outerjoin(AnimeListORM, and_(AnimeListORM.anime_id == AnimeORM.id, AnimeListORM.like.is_(True), AnimeListORM.date_like >= since_30)).group_by(AnimeORM.id).order_by(func.count(AnimeListORM.user_id).desc())).all()
+
+    rank_like = None
+    for i , (a, likes) in enumerate(like_list, start=1):
+        if a.id == anime_id:
+            rank_like = i
+            break
+
+    rank = None
+    for i, (a, svg_score) in enumerate(score_list, start=1):
+        if a.id == anime_id:
+            rank = i
+            break
+
 
     my_list = None
 
@@ -27,5 +47,5 @@ def anime_detail(request: Request, anime_id: int, db: Session = Depends(get_db),
     
     return templates.TemplateResponse(
         "detail/anime.html",
-        {"request": request, "anime": anime, "user": user, "my_list": my_list}
+        {"request": request, "anime": anime, "user": user, "my_list": my_list, "rank": rank, "rank_like": rank_like}
     )

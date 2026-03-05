@@ -17,7 +17,7 @@
     if (e.persisted) location.reload();
     });
 </script>
-<body class="bd">
+<body class="bd sansation-light">
     <div class="container">
         <img src="https://s4.anilist.co/file/anilistcdn/media/anime/banner/154587-ivXNJ23SM1xB.jpg" alt="">
 
@@ -161,7 +161,7 @@
                                 <h2>{{ anime.num_caps }} episodios</h2>
                                 
                                 <div class="container-flex box-card-hidden">
-                                    {% for genre in anime.genres[:3] %}
+                                    {% for genre in anime.genres[:2] %}
                                     <p class="label-genre" style="background-color: {{ anime.color }};">{{ genre.name }}</p>
                                     {% endfor %}
                                 </div>    
@@ -243,8 +243,8 @@
                                 </div>
                                 <h2>{{ anime.num_caps }} episodios</h2>
                                 
-                                <div class="container-flex box-card-hidden">
-                                    {% for genre in anime.genres[:3] %}
+                                <div class=" box-card-hidden">
+                                    {% for genre in anime.genres[:2] %}
                                     <p class="label-genre" style="background-color: {{ anime.color }};">{{ genre.name }}</p>
                                     {% endfor %}
                                 </div>    
@@ -323,7 +323,7 @@
                                 <h2>{{ anime.num_caps }} episodios</h2>
                                 
                                 <div class="container-flex box-card-hidden">
-                                    {% for genre in anime.genres[:3] %}
+                                    {% for genre in anime.genres[:2] %}
                                     <p class="label-genre" style="background-color: {{ anime.color }};">{{ genre.name }}</p>
                                     {% endfor %}
                                 </div>    

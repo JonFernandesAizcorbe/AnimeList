@@ -25,6 +25,7 @@ class AnimeListORM(Base):
     date_end: Mapped[datetime | None] = mapped_column(DateTime)
     status: Mapped[str] = mapped_column(display_status, default="Viendo", nullable=False)
     like: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    date_like: Mapped[datetime | None] = mapped_column(DateTime)
     score: Mapped[int | None] = mapped_column(Integer)
 
     user: Mapped["UserORM"] = relationship(back_populates="animes")

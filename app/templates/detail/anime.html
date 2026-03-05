@@ -131,8 +131,8 @@
     <div class="container-center">
         <div class="container-info">
             <div class="info-left">
-                <div class="rate container-flex"><i class="fa-solid fa-star star"></i><p>#11455  Mejores puntuados</p></div>
-                <div class="rate container-flex"><i class="fa-solid fa-heart heart1"></i><p>#25  Más popular</p></div>
+                <div class="rate container-flex"><i class="fa-solid fa-star star"></i><p>#{{ rank }} Mejores puntuados</p></div>
+                <div class="rate container-flex"><i class="fa-solid fa-heart heart1"></i><p>#{{ rank_like }}  Más popular</p></div>
                 <div class="info">
                     {% if anime.studio is not none %}
                         <h3>Estudio</h3>
@@ -142,6 +142,12 @@
                         <h3>Capítulos</h3>
                         <p>{{ anime.num_caps }}</p>
                     {% endif %}
+                    {% if anime.genres is not none %}
+                        <h3>Géneros</h3>
+                        {% for genre in anime.genres %}
+                        <p>{{ genre.name }}</p>
+                        {% endfor %}
+                    {% endif%}
                 </div>
             </div>
             <div class="info-right">
