@@ -97,12 +97,35 @@
                                 </div>
                                 <div class="buttons-banner">
                                     <i class="fa-solid fa-heart heart1"></i>
-                                    <form action="">
-                                        <button class="btn-save agdasima-regular">Guardar</button>
-                                    </form>
+                                    <button class="btn-save agdasima-regular" type="submit" form="addlist">Guardar</button>
+
                                 </div>
-                            </div>   
+                            </div> 
                         </div>
+                        <form method="post" action="/addlist" id="addlist">
+                            <div class="form-list">
+                                <div class="form-lane">
+                                    <div class="input-modal">
+                                        <p>Estado</p>
+                                        <select name="status" id="">
+                                            <option value="" selected>Selecciona un estado</option>
+                                            {% for statu in status_options %}
+                                            <option value="{{ statu }}">{{ statu }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="input-modal">
+                                        <p>Puntuación</p>
+                                        <input type="number" name="score">
+                                    </div>
+                                    <div class="input-modal">
+                                        <p>nose</p>
+                                        <input type="text">
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </form>
                     </div>
 
                     <form method="post" action="/like">
@@ -131,8 +154,12 @@
     <div class="container-center">
         <div class="container-info">
             <div class="info-left">
+                {% if rank is not none %}
                 <div class="rate container-flex"><i class="fa-solid fa-star star"></i><p>#{{ rank }} Mejores puntuados</p></div>
+                {% endif %}
+                {% if rank_life is not none %}
                 <div class="rate container-flex"><i class="fa-solid fa-heart heart1"></i><p>#{{ rank_like }}  Más popular</p></div>
+                {% endif %}
                 <div class="info">
                     {% if anime.studio is not none %}
                         <h3>Estudio</h3>

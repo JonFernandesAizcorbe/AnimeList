@@ -9,8 +9,9 @@ from sqlalchemy.orm import Session
 from app.auth.dependencies import get_current_user
 from app.database import get_db
 from app.models.anime import AnimeORM
-from app.models.anime_list import AnimeListORM
+from app.models.anime_list import AnimeListORM, display_status
 from app.models.user import UserORM
+
 
 templates = Jinja2Templates(directory="app/templates")
 router = APIRouter(prefix="/anime", tags=["web"])
@@ -23,6 +24,8 @@ def anime_detail(request: Request, anime_id: int, db: Session = Depends(get_db),
     print("Anime ID:", anime_id, "Anime name:", anime.name if anime else None)
     score_list = db.execute(select(AnimeORM, func.round(func.avg(AnimeListORM.score)).label("avg_score")).join(AnimeListORM, AnimeListORM.anime_id == AnimeORM.id).where(AnimeListORM.score.is_not(None)).group_by(AnimeORM.id).order_by(func.avg(AnimeListORM.score).desc())).all()
     like_list = db.execute(select(AnimeORM, func.count(AnimeListORM.user_id).label("likes")).outerjoin(AnimeListORM, and_(AnimeListORM.anime_id == AnimeORM.id, AnimeListORM.like.is_(True), AnimeListORM.date_like >= since_30)).group_by(AnimeORM.id).order_by(func.count(AnimeListORM.user_id).desc())).all()
+
+    status_options = display_status.enums
 
     rank_like = None
     for i , (a, likes) in enumerate(like_list, start=1):
@@ -47,5 +50,5 @@ def anime_detail(request: Request, anime_id: int, db: Session = Depends(get_db),
     
     return templates.TemplateResponse(
         "detail/anime.html",
-        {"request": request, "anime": anime, "user": user, "my_list": my_list, "rank": rank, "rank_like": rank_like}
+        {"request": request, "anime": anime, "user": user, "my_list": my_list, "rank": rank, "rank_like": rank_like, "status_options": status_options}
     )

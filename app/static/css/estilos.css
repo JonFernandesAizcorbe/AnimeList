@@ -962,7 +962,7 @@ a.see-more:hover {
     color: #9fadbd;
     margin: 0px;
     font-size: 15px;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
 }
 
 .info p{
@@ -1073,6 +1073,46 @@ a.see-more:hover {
 }
 
 
+.form-list {
+    width: 100%;
+    box-sizing: border-box;
+    padding-top: 10%;
+    /* padding-inline: 100px; */
+}
+
+.form-lane {
+    display: flex;
+    justify-content: space-around;
+}
+
+.input-modal {
+
+}
+
+.input-modal p{
+    margin: 0;
+    color: #9fadbd;
+    margin-bottom: 5px;
+    font-size: 13px;
+}
+
+.input-modal select{
+    all: unset;
+    background-color: #0a1828;
+    color: #9fadbd;
+    padding: 10px;
+    padding-inline: 20px;
+    border-radius: 6px;
+}
+
+.input-modal input{
+    all: unset;
+    background-color: #0a1828;
+    color: #9fadbd;
+    padding: 10px;
+    padding-inline: 20px;
+    border-radius: 6px;
+}
 /* Info right */
 
 .info-right {

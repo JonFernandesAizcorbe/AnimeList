@@ -188,7 +188,15 @@
         </div>
         <div class="container-center">
             <div class="container-cards">
-            {% for anime in result or animes_top %}
+            {% set animes = result if result else animes_top %}
+
+            {% for item in animes %}
+                {% if result %}
+                    {% set anime = item %}
+                {% else %}
+                    {% set anime = item[0] %}
+                    {% set likes = item[1] %}
+                {% endif %}
                 <div class="container-relative" id="anime-{{ anime.id }}">
                 <!-- HEART -->
                     {% if user %}

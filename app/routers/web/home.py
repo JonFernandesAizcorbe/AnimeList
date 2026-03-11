@@ -9,7 +9,7 @@ from fastapi import APIRouter, Depends, Form, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse, RedirectResponse
 from sqlalchemy.orm import Session
-from sqlalchemy import and_, func, select
+from sqlalchemy import Integer, and_, func, select
 
 from app.auth.dependencies import get_current_user
 from app.database import get_db
@@ -27,9 +27,9 @@ router = APIRouter(tags=["web"])
 @router.get("/", response_class=HTMLResponse)
 def home(request: Request, q: str | None = None, g: str | None = None , db: Session = Depends(get_db), user: UserORM = Depends(get_current_user)):
     genres = db.execute(select(GenreORM).order_by(GenreORM.name.asc())).scalars().all()
-    animes_top = db.execute(select(AnimeORM, func.count(AnimeListORM.user_id)).join(AnimeListORM).where(AnimeListORM.like == True).group_by(AnimeORM.id).order_by(func.count(AnimeListORM.user_id).desc()).limit(6)).scalars().all()
+    animes_top = db.execute(select(AnimeORM, func.sum(AnimeListORM.like.cast(Integer)).label("likes")).join(AnimeListORM, AnimeListORM.anime_id == AnimeORM.id).where(AnimeListORM.like.is_(True)).group_by(AnimeORM.id).order_by(func.sum(AnimeListORM.like.cast(Integer)).desc()).limit(6)).all()
     scores = db.execute(select(AnimeORM, func.round(func.avg(AnimeListORM.score), 2).label("avg_score")).join(AnimeListORM, AnimeListORM.anime_id == AnimeORM.id).group_by(AnimeORM.id).order_by(func.avg(AnimeListORM.score).desc())).all()
-    
+
     result = None
 
     if q and q.strip():
@@ -57,6 +57,8 @@ def home(request: Request, q: str | None = None, g: str | None = None , db: Sess
 def add_list(
     request: Request,
     anime_id: int = Form(...),
+    status: str = Form(...),
+    score: int = Form(...),
     next: str = Form(...),
     db: Session = Depends(get_db),
     user: UserORM = Depends(get_current_user)
@@ -66,6 +68,8 @@ def add_list(
         return RedirectResponse(next, status_code=303)
 
     entry = db.execute(select(AnimeListORM).where(AnimeListORM.anime_id == anime_id, AnimeListORM.user_id == user.id)).scalar_one_or_none()
+
+    
 
     if entry and entry.status == "Eliminado":
         entry.status="Inactivo"
