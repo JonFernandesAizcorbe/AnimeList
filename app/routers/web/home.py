@@ -14,7 +14,7 @@ from sqlalchemy import Integer, and_, func, select
 from app.auth.dependencies import get_current_user
 from app.database import get_db
 from app.models.anime import AnimeORM
-from app.models.anime_list import AnimeListORM
+from app.models.anime_list import AnimeListORM, display_status
 from app.models.genre import GenreORM
 from app.models.user import UserORM
 
@@ -58,7 +58,7 @@ def add_list(
     request: Request,
     anime_id: int = Form(...),
     status: str = Form(...),
-    score: int = Form(...),
+    score: str | None = Form(None),
     next: str = Form(...),
     db: Session = Depends(get_db),
     user: UserORM = Depends(get_current_user)
@@ -66,27 +66,61 @@ def add_list(
 
     if user is None:
         return RedirectResponse(next, status_code=303)
-
+    
     entry = db.execute(select(AnimeListORM).where(AnimeListORM.anime_id == anime_id, AnimeListORM.user_id == user.id)).scalar_one_or_none()
 
-    
+    enum_values = display_status.enums
 
-    if entry and entry.status == "Eliminado":
-        entry.status="Inactivo"
+    score = int(score) if score else None
+
+    if status not in enum_values:
+        status = "Viendo"
+
+    if entry:
+        entry.status = status
+        entry.score = score
+
         db.commit()
         db.refresh(entry)
-    elif entry and entry.status != "Eliminado":
-        entry.status="Eliminado"
-        db.commit()
-        db.refresh(entry)
+
+        return RedirectResponse(next, status_code=303)
+    
     else:
-        new_entry = AnimeListORM(user_id=user.id, anime_id=anime_id, status="Inactivo")
+        new_entry = AnimeListORM(
+            anime_id=anime_id,
+            user_id= user.id,
+            status=status,
+            score=score
+        )
+
         db.add(new_entry)
         db.commit()
         db.refresh(new_entry)
 
+        return RedirectResponse(next, status_code=303)
 
-    return RedirectResponse(url=next, status_code=303)
+
+    # if user is None:
+    #     return RedirectResponse(next, status_code=303)
+
+    # entry = db.execute(select(AnimeListORM).where(AnimeListORM.anime_id == anime_id, AnimeListORM.user_id == user.id)).scalar_one_or_none()
+
+    # if entry and entry.status == "Eliminado":
+    #     entry.status="Inactivo"
+    #     db.commit()
+    #     db.refresh(entry)
+    # elif entry and entry.status != "Eliminado":
+    #     entry.status="Eliminado"
+    #     db.commit()
+    #     db.refresh(entry)
+    # else:
+    #     new_entry = AnimeListORM(user_id=user.id, anime_id=anime_id, status="Inactivo")
+    #     db.add(new_entry)
+    #     db.commit()
+    #     db.refresh(new_entry)
+
+
+    # return RedirectResponse(url=next, status_code=303)
 
 
 @router.post("/like", response_class=HTMLResponse)

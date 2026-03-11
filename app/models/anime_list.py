@@ -23,7 +23,7 @@ class AnimeListORM(Base):
     comment: Mapped[str | None] = mapped_column(String(500))
     date_start: Mapped[datetime | None] = mapped_column(DateTime)
     date_end: Mapped[datetime | None] = mapped_column(DateTime)
-    status: Mapped[str] = mapped_column(display_status, default="Viendo", nullable=False)
+    status: Mapped[str] = mapped_column(display_status, default="Viendo", server_default="Viendo", nullable=False)
     like: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     date_like: Mapped[datetime | None] = mapped_column(DateTime)
     score: Mapped[int | None] = mapped_column(Integer)

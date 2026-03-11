@@ -21,9 +21,9 @@ def anime_detail(request: Request, anime_id: int, db: Session = Depends(get_db),
 
     since_30 = datetime.now() - timedelta(days=30)
     anime = db.execute(select(AnimeORM).where(AnimeORM.id == anime_id)).scalar_one_or_none()
-    print("Anime ID:", anime_id, "Anime name:", anime.name if anime else None)
     score_list = db.execute(select(AnimeORM, func.round(func.avg(AnimeListORM.score)).label("avg_score")).join(AnimeListORM, AnimeListORM.anime_id == AnimeORM.id).where(AnimeListORM.score.is_not(None)).group_by(AnimeORM.id).order_by(func.avg(AnimeListORM.score).desc())).all()
     like_list = db.execute(select(AnimeORM, func.count(AnimeListORM.user_id).label("likes")).outerjoin(AnimeListORM, and_(AnimeListORM.anime_id == AnimeORM.id, AnimeListORM.like.is_(True), AnimeListORM.date_like >= since_30)).group_by(AnimeORM.id).order_by(func.count(AnimeListORM.user_id).desc())).all()
+    in_list = db.execute(select(AnimeListORM).where(AnimeListORM.anime_id == anime.id, AnimeListORM.user_id == user.id)).scalar_one_or_none()
 
     status_options = display_status.enums
 
@@ -50,5 +50,7 @@ def anime_detail(request: Request, anime_id: int, db: Session = Depends(get_db),
     
     return templates.TemplateResponse(
         "detail/anime.html",
-        {"request": request, "anime": anime, "user": user, "my_list": my_list, "rank": rank, "rank_like": rank_like, "status_options": status_options}
+        {"request": request, "anime": anime, "user": user, "my_list": my_list, "rank": rank, "rank_like": rank_like, "status_options": status_options, "in_list": in_list}
     )
+
+

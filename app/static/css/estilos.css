@@ -994,6 +994,13 @@ a.see-more:hover {
   pointer-events: auto;
 }
 
+.select-arrow {
+    background-color:#3db4f2;
+    width: 40px;
+    height: 40px;
+}
+
+
 .close {
   cursor: pointer;
   float: right;

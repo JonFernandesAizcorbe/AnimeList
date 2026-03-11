@@ -98,25 +98,25 @@
                                 <div class="buttons-banner">
                                     <i class="fa-solid fa-heart heart1"></i>
                                     <button class="btn-save agdasima-regular" type="submit" form="addlist">Guardar</button>
-
                                 </div>
                             </div> 
                         </div>
                         <form method="post" action="/addlist" id="addlist">
                             <div class="form-list">
                                 <div class="form-lane">
+                                    
                                     <div class="input-modal">
                                         <p>Estado</p>
-                                        <select name="status" id="">
-                                            <option value="" selected>Selecciona un estado</option>
+                                        <select name="status" required>
+                                            <option value="" disabled {% if not in_list or not in_list.status %}selected{% endif %}>Selecciona un estado</option>
                                             {% for statu in status_options %}
-                                            <option value="{{ statu }}">{{ statu }}</option>
+                                            <option value="{{ statu }}" {% if in_list and in_list.status == statu %}selected{% endif %}>{{ statu }}</option>
                                             {% endfor %}
                                         </select>
                                     </div>
                                     <div class="input-modal">
                                         <p>Puntuación</p>
-                                        <input type="number" name="score">
+                                        <input type="number" name="score" min="0" max="100" {% if in_list.score %} value="{{ in_list.score }}"{% endif %}>
                                     </div>
                                     <div class="input-modal">
                                         <p>nose</p>
@@ -125,6 +125,8 @@
                                     
                                 </div>
                             </div>
+                            <input type="hidden" name="anime_id" value="{{ anime.id }}">
+                            <input type="hidden" name="next" value="{{ request.url }}">
                         </form>
                     </div>
 
