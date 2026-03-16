@@ -871,15 +871,17 @@ a.see-more:hover {
 
 .btn-list {
     all: unset;
-    width: 170px;
+    width: 150px;
+    height: 42px;
     background-color: #3db4f2;
     padding: 10px;
     padding-inline: 20px;
-    border-radius: 8px;
-    margin-right: 5px;
+    border-radius: 8px 0px 0px 8px;
     box-sizing: border-box;
     display: flex;
     justify-content: center;
+    white-space: nowrap;
+    overflow: visible;
 }
 
 
@@ -988,31 +990,65 @@ a.see-more:hover {
     transition: .3s ease;
 }
 
-#modal-toggle:checked ~ .modal-overlay,
-#modal-toggle:checked ~ .modal-container {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.select-arrow {
-    background-color:#3db4f2;
-    width: 40px;
-    height: 40px;
-}
-
-
-.close {
-  cursor: pointer;
-  float: right;
-}
-
 .modal-overlay {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,.5);
+  z-index: 9;
 
   opacity: 0;
   pointer-events: none;
+}
+
+.delete-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 9;
+
+  opacity: 0;
+  pointer-events: none;
+}
+
+.edit-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0);
+
+  opacity: 0;
+  pointer-events: none;
+}
+
+.label-dropdown {
+    background-color: #3db4f2;
+    border-radius: 0px 8px 8px 0px;
+    border-left: #1c3650 1px solid;
+    padding-block: 13px;
+    display: flex;
+    justify-content: center;
+    margin-right: 5px;
+}
+
+.dropdown-content {
+    position: absolute;
+    background-color: white;
+    bottom: -80%;
+    left: -300%;
+    width: 100px;
+    opacity: 0;
+    transition: 0.2s;
+}
+
+.dropdown-content label{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.close {
+    cursor: pointer;
+    float: right;
 }
 
 .banner-modal {
@@ -1030,7 +1066,7 @@ a.see-more:hover {
     display: flex;
     align-items: center;
     margin-top: 13.5%;
-
+    
 }
 
 .content-banner .image-banner {
@@ -1092,10 +1128,6 @@ a.see-more:hover {
     justify-content: space-around;
 }
 
-.input-modal {
-
-}
-
 .input-modal p{
     margin: 0;
     color: #9fadbd;
@@ -1120,6 +1152,70 @@ a.see-more:hover {
     padding-inline: 20px;
     border-radius: 6px;
 }
+
+/* modal delete */
+
+.delete-container {
+    width: 400px;
+    height: 100px;
+    background-color:#0a1828;
+    position: fixed;
+    top: 50%;
+    left: 40%;
+    z-index: 10;
+    
+    opacity: 0;
+    pointer-events: none;
+    transition: .3s ease;
+
+}
+
+.delete-container p{
+    display: flex;
+    justify-content: center;
+    color: #9fadbd;
+}
+
+.delete-container a{
+    text-decoration: none;
+    color: #9fadbd;
+    background-color: #0d1f31;
+    padding-inline: 15px;
+    padding-block: 2px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-delete {
+    all: unset;
+    padding-inline: 10px;
+    padding-block: 2px;
+    margin-left: 20px;
+    background-color:#9fadbd;
+    border-radius: 5px;
+}
+
+.btn-delete:hover {
+    background-color: red;
+}
+
+/* modal checked */
+
+#modal-toggle:checked ~ .modal-overlay,
+#modal-toggle:checked ~ .modal-container,
+#modal-delete:checked ~ .delete-overlay,
+#modal-delete:checked ~ .delete-container,
+#edit-toggle:checked ~ .modal-overlay,
+#edit-toggle:checked ~ .modal-container,
+#open-drop:checked ~ .edit-overlay,
+#open-drop:checked ~ .dropdown-content {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+
 /* Info right */
 
 .info-right {
@@ -1191,6 +1287,9 @@ a.see-more:hover {
     width: 20%;
     right: 0px;
 }
+
+
+
 
 
 
