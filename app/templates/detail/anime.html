@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AnimeList - {{ anime.name }}</title>
+    <title>{{ anime.name }} - AnimeList</title>
 
     <!-- FontAwesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
@@ -23,12 +23,12 @@
 
 
 
-<!-- BODY                                      -->
+<!-- BODY -->
 
 <body class="bd container-relative">
 
 
-    <!-- HEADER / NAVIGATION                       -->
+    <!-- HEADER / NAVIGATION -->
 
     <header>
         <nav class="nav text-nav" style="position: absolute; width: 100%; opacity: 75%; margin-left: 0px; z-index: 1;">
@@ -37,7 +37,7 @@
             <i class="fa-solid fa-clipboard-list"></i>
 
 
-            <!-- USER MENU / LOGIN SECTION                  -->
+            <!-- USER MENU / LOGIN SECTION -->
 
             <div class="dropdown-container">
 
@@ -90,14 +90,14 @@
 
 
 
-    <!-- ANIME DETAIL MAIN SECTION                 -->
+    <!-- ANIME DETAIL MAIN SECTION -->
 
     <div class="container-relative">
 
         {% if anime %}
 
 
-        <!-- ANIME BANNER                              -->
+        <!-- ANIME BANNER -->
 
         <div class="banner">
             <img src="{{ anime.banner }}" alt="">
@@ -106,7 +106,7 @@
 
 
 
-        <!-- ANIME IMAGE + ACTION BUTTONS              -->
+        <!-- ANIME IMAGE + ACTION BUTTONS  -->
 
         <div class="container-center container-relative box-description">
 
@@ -117,7 +117,7 @@
 
 
 
-                <!-- ADD / REMOVE FROM LIST BUTTONS            -->
+                <!-- ADD / REMOVE FROM LIST BUTTONS -->
 
                 <div class="box-addlist">
 
@@ -147,7 +147,7 @@
                     <label for="modal-delete" class="delete-overlay"></label>
 
 
-                    <!-- DELETE MODAL                               -->
+                    <!-- DELETE MODAL -->
 
                     <div class="delete-container">
 
@@ -165,7 +165,7 @@
 
                     </div>
 
-                    <!-- DROPDOWN EDIT MENU                         -->
+                    <!-- DROPDOWN EDIT MENU -->
 
 
                     <input type="checkbox" id="edit-toggle" hidden>
@@ -191,7 +191,7 @@
 
 
 
-                    <!-- ADD / EDIT LIST MODAL                      -->
+                    <!-- ADD / EDIT LIST MODAL -->
 
                     <div class="modal-container">
 
@@ -220,7 +220,7 @@
                         </div>
 
 
-                        <!-- LIST FORM                                  -->
+                        <!-- LIST FORM -->
 
                         <form method="post" action="/addlist" id="addlist">
 
@@ -283,7 +283,7 @@
                     </div>
 
 
-                    <!-- LIKE BUTTON                                -->
+                    <!-- LIKE BUTTON-->
 
                     <form method="post" action="/like">
 
@@ -318,7 +318,7 @@
 
 
 
-            <!-- ANIME DESCRIPTION                          -->
+            <!-- ANIME DESCRIPTION-->
 
             <div class="box-text">
 
@@ -335,7 +335,7 @@
 
 
 
-    <!-- ANIME INFORMATION + CHARACTERS            -->
+    <!-- ANIME INFORMATION + CHARACTERS-->
 
     <div class="container-center">
 
@@ -398,15 +398,17 @@
                     <div class="card-character">
 
                         <!-- Character -->
-                        <div class="character">
-
-                            <img src="{{ character.image }}" alt="">
-
-                            <div class="character-info">
-                                <p>{{ character.name }}</p>
+                        <a href="/character/{{ character.id }}" style="text-decoration: none;">
+                            <div class="character">
+                                
+                                <img src="{{ character.image }}" alt="">
+                                
+                                <div class="character-info">
+                                    <p>{{ character.name }}</p>
+                                </div>
+                                
                             </div>
-
-                        </div>
+                        </a>
 
                         <!-- Voice actor -->
                         <div class="actor">

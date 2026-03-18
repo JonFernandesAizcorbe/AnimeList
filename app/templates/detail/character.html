@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ character.name.upper() }} - {{ character.anime.name }}</title>
+
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+
+    <!-- Main stylesheet -->
+    <link rel="stylesheet" href="/static/css/estilos.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+</head>
+<body class="bd">
+    <header>
+        <nav class="nav text-nav" style=" width: 100%; opacity: 75%; margin-left: 0px; z-index: 1;">
+
+            <!-- Site icon -->
+            <i class="fa-solid fa-clipboard-list"></i>
+
+
+            <!-- USER MENU / LOGIN SECTION                  -->
+
+            <div class="dropdown-container">
+
+                {% if user is not none %}
+
+                <!-- Toggle checkbox for dropdown menu -->
+                <input type="checkbox" id="toggle-menu" hidden>
+
+                <!-- Button that opens the profile menu -->
+                <label for="toggle-menu" class="dropdown-btn">
+                    {{ user.user_name }}
+                    <i class="fa-regular fa-user"></i>
+                </label>
+
+                <!-- Profile dropdown menu -->
+                <div class="dropdown-profile">
+
+                    <!-- Menu header -->
+                    <div class="container-between exit-menu">
+                        <p>Menú</p>
+
+                        <input type="checkbox" id="toggle-menu" hidden>
+                        <label for="toggle-menu" class="dropdown-btn">
+                            <i class="fa-solid fa-x"></i>
+                        </label>
+                    </div>
+
+                    <!-- Menu options -->
+                    <p>Mi lista</p>
+                    <p>Perfil</p>
+
+                    <a href="/logout">
+                        <p>Cerrar sesión</p>
+                    </a>
+
+                </div>
+
+                {% else %}
+
+                <!-- Login button if user is not authenticated -->
+                <a href="/login">
+                    <p>Iniciar sesión</p>
+                </a>
+
+                {% endif %}
+
+            </div>
+        </nav>
+    </header>
+
+    <!-- TOP NAME -->
+
+    <div class="character-container">
+        <div class="headers">
+            <div class="headers-inner container-flex">
+                <img class="image-character" src="{{ character.image }}" alt="{{ character.name }}">
+                <p>{{ character.name }}</p>
+                <form class="btn" method="post" action="/character/follow">
+                    <input type="hidden" value="{{ character.id }}" name="character_id">
+                    <button>
+                        <i class="fa-solid fa-heart"></i>
+
+                        {{ follows }}
+
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="description">
+            <div class="image"></div>
+            <div class="p-info">
+                <p>Edad: {{ character.age }}</p>
+                <p>Género: {{ character.gender }}</p>
+                <p>{{ character.bio }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="">
+            <img src="{{ character.anime.image }}" alt="">
+        </div>
+    </div>
+</body>
+</html>

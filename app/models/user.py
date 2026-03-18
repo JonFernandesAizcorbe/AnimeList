@@ -52,7 +52,7 @@ class UserORM(Base):
         cascade="all, delete-orphan"
     )
 
-    #Relationship Many to Many with: Character, intermediate table: CharacterORM
+    #Relationship Many to Many with: Character, # intermediate table: user_character_table
 
     characters: Mapped[list["CharacterORM"]] = relationship(
         "CharacterORM",
