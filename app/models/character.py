@@ -1,7 +1,8 @@
 from sqlalchemy import Enum, ForeignKey, Integer, String
 from app.database import Base
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from app.models.user_character import user_character_table
+from app.models.user_character import users_characters_table
+from app.models.anime_character import animes_characters_table
 
 gender_enum = Enum(
     "Masculino",
@@ -26,14 +27,13 @@ class CharacterORM(Base):
     bio: Mapped[str | None] = mapped_column(String(1500), nullable=True)
     image: Mapped[str] = mapped_column(String(250), nullable=False)
     actor_id: Mapped[int | None] = mapped_column(Integer, ForeignKey("actors.id"))
-    anime_id: Mapped[int] = mapped_column(Integer, ForeignKey("animes.id"))
     
 
 
     # Relatinoship many to many with: CharacterORM, intermediate table: user_charater_table
     users: Mapped[list["UserORM"]] = relationship(
         "UserORM",
-        secondary=user_character_table,
+        secondary=users_characters_table,
         back_populates="characters"
     )
 
@@ -44,7 +44,8 @@ class CharacterORM(Base):
     )
 
     # Relationship one to many with: AnimeORM
-    anime: Mapped["AnimeORM"] = relationship(
+    animes: Mapped[list["AnimeORM"]] = relationship(
         "AnimeORM",
+        secondary=animes_characters_table,
         back_populates="characters"
     )

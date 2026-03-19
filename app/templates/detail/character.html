@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ character.name.upper() }} - {{ character.anime.name }}</title>
+    <title>{{ character.name.upper() }} - {{ character.animes.name }}</title>
 
     <!-- FontAwesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
@@ -104,9 +104,14 @@
         </div>
     </div>
 
-    <div>
-        <div class="">
-            <img src="{{ character.anime.image }}" alt="">
+    <div class="container-carrousel">
+        <div class="position">
+            {% for anime in character.animes %}
+            <div class="card">
+                <img src="{{ anime.image }}" alt="">
+                {{ anime.name }}
+            </div>
+            {% endfor %}
         </div>
     </div>
 </body>

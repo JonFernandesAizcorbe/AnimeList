@@ -5,9 +5,9 @@ from sqlalchemy import Column, ForeignKey, Integer, Table
 from app.database import Base
 
 
-users_characters_table = Table(
-    "users_characters",
+animes_characters_table = Table(
+    "animes_characters",
     Base.metadata,
-    Column("user_id", Integer, ForeignKey("users.id"), primary_key=True),
+    Column("anime_id", Integer, ForeignKey("animes.id"), primary_key=True),
     Column("character_id", Integer, ForeignKey("characters.id"), primary_key=True)
 )

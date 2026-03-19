@@ -3,8 +3,8 @@ from zoneinfo import ZoneInfo
 from app.database import Base
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import DateTime, Integer, String
-from app.models.user_actor import user_actor_table
-from app.models.user_character import user_character_table
+from app.models.user_actor import users_actors_table
+from app.models.user_character import users_characters_table
 import pytz
 
 
@@ -39,7 +39,7 @@ class UserORM(Base):
 
     actors: Mapped[list["ActorORM"]] = relationship(
         "ActorORM",
-        secondary=user_actor_table,
+        secondary=users_actors_table,
         back_populates="users"
     )
 
@@ -56,6 +56,6 @@ class UserORM(Base):
 
     characters: Mapped[list["CharacterORM"]] = relationship(
         "CharacterORM",
-        secondary=user_character_table,
+        secondary=users_characters_table,
         back_populates="users"
     )

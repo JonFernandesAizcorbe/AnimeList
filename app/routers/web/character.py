@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from app.auth.dependencies import get_current_user
 from app.database import get_db
 from app.models.character import CharacterORM
-from app.models.user_character import user_character_table
+from app.models.user_character import users_characters_table
 from app.models.user import UserORM
 
 
@@ -17,7 +17,7 @@ router = APIRouter(prefix="/character", tags=["web"])
 @router.get("/{character_id}", response_class=HTMLResponse)
 def character_info(request: Request, character_id: int, db: Session = Depends(get_db), user: UserORM = Depends(get_current_user)):
     character = db.execute(select(CharacterORM).where(CharacterORM.id == character_id)).scalar_one_or_none()
-    follows = db.execute(select(func.count(user_character_table.c.user_id)).where(user_character_table.c.character_id == character_id)).scalar()
+    follows = db.execute(select(func.count(users_characters_table.c.user_id)).where(users_characters_table.c.character_id == character_id)).scalar()
     
 
     if character:

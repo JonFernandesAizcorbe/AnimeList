@@ -2,6 +2,7 @@ from sqlalchemy import Integer, String
 from app.database import Base
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.models.anime_genre import animes_genres_table
+from app.models.anime_character import animes_characters_table
 
 
 
@@ -42,5 +43,6 @@ class AnimeORM(Base):
 
     characters: Mapped[list["CharacterORM"]] = relationship(
         "CharacterORM",
-        back_populates="anime"
+        secondary=animes_characters_table,
+        back_populates="animes",
     )
