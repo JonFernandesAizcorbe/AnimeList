@@ -1383,11 +1383,11 @@ a.see-more:hover {
 }
 
 .container-carrousel .position{
-    display: flex;
+    display: grid;
     max-width: 1100px;
     padding-inline: 50px;
     margin: 0 auto;
-    flex-wrap: wrap;
+    grid-template-columns: repeat(5,1fr);
 }
 
 .container-carrousel .card1 {
