@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Inicio{% endblock %}</title>
+    <title>{% block title %}Inicio - AnimeList{% endblock %}</title>
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     <link rel="stylesheet" href="/static/css/estilos.css">
@@ -17,9 +17,10 @@
     if (e.persisted) location.reload();
     });
 </script>
+
 <body class="bd sansation-light">
     <div class="container">
-        <img src="https://s4.anilist.co/file/anilistcdn/media/anime/banner/154587-ivXNJ23SM1xB.jpg" alt="">
+        <img src="{{ scores[0][0].banner }}" alt="">
 
         <!-- HEADER -->
         <header class="header">
