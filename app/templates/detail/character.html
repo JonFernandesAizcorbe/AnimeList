@@ -82,12 +82,18 @@
             <div class="headers-inner container-flex">
                 <img class="image-character" src="{{ character.image }}" alt="{{ character.name }}">
                 <p>{{ character.name }}</p>
-                <form class="btn" method="post" action="/character/follow">
+                <form class="container-button" method="post" action="/character/follow">
                     <input type="hidden" value="{{ character.id }}" name="character_id">
-                    <button>
-                        <i class="fa-solid fa-heart"></i>
-
-                        {{ follows }}
+                    <button class="btn">
+                        <i class="fa-solid fa-heart icon"></i>
+                        {% set value = follows %}
+                        {% if value >= 1000000 %}
+                        {{ (value/1000000)|round(1) }}kk
+                        {% elif value >= 1000 %}
+                        {{ (value/1000)|round(1) }}k
+                        {% else %}
+                        {{ value }}
+                        {% endif%}
 
                     </button>
                 </form>
@@ -107,10 +113,17 @@
     <div class="container-carrousel">
         <div class="position">
             {% for anime in character.animes %}
-            <div class="card">
-                <img src="{{ anime.image }}" alt="">
-                {{ anime.name }}
-            </div>
+            <a href="/anime/{{ anime.id }}" onmouseover="this.style.color='{{ anime.color }}'" onmouseout="this.style.color='#9fadbd'">
+                <div class="card1">
+                    <div class="images">
+                        <img class="img-anime" src="{{ anime.image }}" alt="">
+                        <img class="img-actor" src="{{ character.actor.image }}" alt="">
+                    </div>
+                    <p>
+                        {{ anime.name }}
+                    </p>
+                </div>
+            </a>
             {% endfor %}
         </div>
     </div>

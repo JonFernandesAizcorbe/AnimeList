@@ -1330,12 +1330,31 @@ a.see-more:hover {
     margin-right: 40px;
 }
 
-.headers .btn{
+.headers .container-button{
     display: flex;
     justify-content: end;
     width: 600px;
 }
 
+
+.character-container .headers-inner .btn{
+    all: unset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    color:  white;
+    background-color: #ec294b;
+    padding-inline: 15px;
+    padding-block: 8px;
+    border-radius: 4px;
+    max-width: 50px;
+    width: 100%;
+}
+
+.character-container .headers-inner .btn .icon{
+    font-size: 12px;
+}
 
 .character-container .description {
     display: flex;
@@ -1364,15 +1383,55 @@ a.see-more:hover {
 }
 
 .container-carrousel .position{
+    display: flex;
     max-width: 1100px;
     padding-inline: 50px;
     margin: 0 auto;
+    flex-wrap: wrap;
 }
 
-.container-carrousel .position img{
+.container-carrousel .card1 {
+    display: flex;
+    flex-direction: column;
+    height: 350px;
     max-width: 185px;
+    padding: 19px;
+    z-index: 1;
+}
+
+.container-carrousel .img-anime{
+    min-width: 180px;
+    max-height: 276px;
+    width: 100%;
+    height: 100%;
     border-radius: 4px;
-} 
+}
+
+
+.container-carrousel .position a{
+    text-decoration: none;
+    color: #9fadbd;
+}
+
+.container-carrousel .position p{
+    display: flex;
+    justify-content: center;
+}
+
+.container-carrousel .images{
+    position: relative;
+    max-height: 250px;
+    height: 100%;
+}
+
+.container-carrousel .img-actor {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 60px;
+    height: 80px;
+    border: black 1px solid;
+}
 
 /* MEDIA */
 

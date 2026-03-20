@@ -39,6 +39,8 @@ def follow_character(
     
     character = db.get(CharacterORM, character_id)
 
+    if not user:
+        return RedirectResponse(url=f"/character/{character_id}", status_code=303)
 
     if character in user.characters:
         user.characters.remove(character)
