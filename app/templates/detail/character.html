@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ character.name.upper() }} - AnimeList</title>
+    {% if character %}
+    {% set detail = character %}
+    {% elif actor %}
+    {% set detail = actor %}
+    {% endif %}
+    <title>{{ detail.name.upper() }} - AnimeList</title>
 
     <!-- FontAwesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
@@ -76,14 +81,18 @@
     </header>
 
     <!-- TOP NAME -->
-
+    {% if character %}
+    {% set detail = character %}
+    {% elif actor %}
+    {% set detail = actor %}
+    {% endif %}
     <div class="character-container">
         <div class="headers">
             <div class="headers-inner container-flex">
-                <img class="image-character" src="{{ character.image }}" alt="{{ character.name }}">
-                <p>{{ character.name }}</p>
-                <form class="container-button" method="post" action="/character/follow">
-                    <input type="hidden" value="{{ character.id }}" name="character_id">
+                <img class="image-character" src="{{ detail.image }}" alt="{{ detail.name }}">
+                <p>{{ detail.name }}</p>
+                <form class="container-button" method="post"  {% if character %} action="/character/follow" {% elif actor %} action="/actor/follow" {% endif %}>
+                    <input type="hidden" value="{{ detail.id }}" {% if character %} name="character_id" {% elif actor %} name="actor_id" {% endif %}>
                     <button class="btn">
                         <i class="fa-solid fa-heart icon"></i>
                         {% set value = follows %}
@@ -102,16 +111,30 @@
 
         <div class="description">
             <div class="image"></div>
+            {% if character %}
             <div class="p-info">
                 <p>Edad: {{ character.age }}</p>
                 <p>Género: {{ character.gender }}</p>
                 <p>{{ character.bio }}</p>
             </div>
+            {% elif actor %}
+            <div class="p-info">
+                <p>Fecha nacimiento: {{ actor.birth }}</p>
+                <p>Género: {{ actor.gender }}</p>
+                <p>Residencia: {{ actor.hometown }}</p>
+                {% if actor.height is not none %}
+                <p>Altura: {{ actor.height }} cm</p>
+                {% endif %}
+                <p>{{ actor.bio }}</p>
+
+            </div>
+            {% endif %}
         </div>
     </div>
 
     <div class="container-carrousel">
         <div class="position">
+            {% if character %}
             {% for anime in character.animes %}
             <a href="/anime/{{ anime.id }}" onmouseover="this.style.color='{{ anime.color }}'" onmouseout="this.style.color='#9fadbd'">
                 <div class="card1">
@@ -125,6 +148,24 @@
                 </div>
             </a>
             {% endfor %}
+            {% elif actor %}
+            {% for character in actor.character %}
+            {% for anime in character.animes %}
+            <a href="/character/{{ character.id }}" onmouseover="this.style.color='{{ anime.color }}'" onmouseout="this.style.color='#9fadbd'">
+                <div class="card1">
+                    <div class="images">
+                        <img class="img-anime" src="{{ character.image }}" alt="">
+                        <img class="img-actor" src="{{ anime.image }}" alt="">
+                    </div>
+                    <p>
+                        {{ character.name }}
+                    </p>
+                </div>
+            </a>
+
+            {% endfor %}
+            {% endfor %}
+            {% endif %}
         </div>
     </div>
 </body>
