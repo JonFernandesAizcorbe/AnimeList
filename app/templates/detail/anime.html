@@ -411,15 +411,16 @@
                         </a>
 
                         <!-- Voice actor -->
+                        <a href="/actor/{{ character.actor.id }}" style="text-decoration: none; width: 100%;">
                         <div class="actor">
-
-                            <div class="actor-info">
-                                <p>{{ character.actor.name }}</p>
+                                <div class="actor-info">
+                                    <p>{{ character.actor.name }}</p>
+                                </div>
+                                
+                                <img src="{{ character.actor.image }}" alt="">
+                                
                             </div>
-
-                            <img src="{{ character.actor.image }}" alt="">
-
-                        </div>
+                        </a>
 
                     </div>
 
