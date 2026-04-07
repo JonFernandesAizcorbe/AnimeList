@@ -169,7 +169,7 @@
 
 
                     <input type="checkbox" id="edit-toggle" hidden>
-                    <label for="edit-toggle" class="modal-overlay"></label>
+                    <label for="edit-toggle" class="edit-overlay"></label>
                     <div class="container-relative">
                         
                         <!-- OPEN / CLOSE DROPDOWN -->
@@ -179,13 +179,13 @@
                             <i class="fa-solid fa-angle-down"></i>
                         </label>
                         
-                        <label for="open-drop" class="edit-overlay"></label>
+                        <label for="open-drop" class="drop-overlay"></label>
                         <!-- Background overlay for modal -->
-                        
+                        <!-- onclick open-drop get checked false -->
                         <div class="dropdown-content">
                             <label for="edit-toggle" onclick="document.getElementById('open-drop').checked=false">
                             Editar
-                        </label>
+                            </label>
                         </div>
                     </div>
 

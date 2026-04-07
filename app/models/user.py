@@ -2,13 +2,18 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 from app.database import Base
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import DateTime, Integer, String
+from sqlalchemy import DateTime, Enum, Integer, String
 from app.models.user_actor import users_actors_table
 from app.models.user_character import users_characters_table
 import pytz
 
 
 madrid_tz = pytz.timezone("Europe/Madrid")
+
+
+icon_num = Enum(
+    ""
+)
 
 class UserORM(Base):
     __tablename__ = "users"
@@ -19,6 +24,7 @@ class UserORM(Base):
     password_hash: Mapped[str] = mapped_column(String(255), nullable=False)
     description: Mapped[str | None] = mapped_column(String(500))
     image: Mapped[str | None] = mapped_column(String(500))
+    banner: Mapped[str | None] = mapped_column(String(500))
     create_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(madrid_tz), nullable=False)
 
 
