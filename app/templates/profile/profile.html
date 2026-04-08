@@ -94,14 +94,13 @@
                 {% if user.animes %}
                 <p>Animes</p>
                 <div class="carrousel">
-                    {% for anime_list in user.animes[-6:] %}
-                    {% if anime_list.status != 'Eliminado' %}
+                    {% for animes in last_animes %}
                     <div class="card2">
-                        <a href="/anime/{{ anime_list.anime.id }}">
-                            <img class="card2-img" src="{{ anime_list.anime.image }}" alt="">
+                        <a href="/anime/{{ animes.anime.id }}">
+                            <img class="card2-img" src="{{ animes.anime.image }}" alt="">
                         </a>
                     </div>
-                    {% endif %}
+
                     {% endfor %}
                 </div>
                 {% endif %}
@@ -132,7 +131,34 @@
                 {% endif %}
             </div>
             <div class="content-right" >
+                <p>Actividad</p>
+                <div class="container-activity">
+                    {% for anime in activity %}
+                    <div class="anime-activity">
+                        <img src="{{ anime.anime.image }}" alt="">
+                        <p>{{ anime.anime.name }}</p>
+                        <div>
+                            {% if hours[loop.index0] >= 168 %}
+                            <p>Hace {{ (hours[loop.index0] * 168) | int}} semanas</p>
+                            {% elif hours[loop.index0] >= 48 %}
+                            <p>Hace {{ (hours[loop.index0] / 24) | int }} dias </p>
+                            {% elif hours[loop.index0] >= 24 %}
+                            <p>Hace {{ (hours[loop.index0] / 24) | int }} dia </p>
+                            {% elif hours[loop.index0] < 1 %}
+                            <p>Hace {{ (hours[loop.index0] * 60) | int }} minutos</p>
+                            {% else %}
+                            <p>Hace {{ hours[loop.index0] | int }} horas </p>
+                            {% endif %}
+                            <div>
 
+                                <button></button>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+
+                </div>
             </div>
         </div>
     </div>
