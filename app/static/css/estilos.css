@@ -1508,12 +1508,14 @@ a.see-more:hover {
 }
 
 .mini-nav .nav-margin{
-    max-width: 1000px;
+    max-width: 700px;
     height: 100%;
     margin: 0 auto;
+    padding-inline: 20px;
+    box-sizing: content-box;
     display: flex;
-    gap: 80px;
-    justify-content: center;
+
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -1536,7 +1538,8 @@ a.see-more:hover {
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
-    box-sizing: border-box;
+    padding-inline: 50px;
+    box-sizing: content-box;
     gap: 20px;
 }
 
@@ -1555,20 +1558,34 @@ a.see-more:hover {
 
 
 .content-left .carrousel {
+    /* Flex hidden elements -------------------------
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    max-height: 140px;
+    gap: 5px;
+    row-gap: 50px;
+    justify-content: space-between; */
+
     display: grid;
-    grid-template-columns: repeat(5,1fr);
-    grid-auto-rows: 1fr;
-    overflow: none;
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    grid-template-rows: 1fr;
+    gap: 5px;
+    max-width: 90%;
+    
+
     background-color: #112b42;
     border-radius: 4px;
     padding: 20px;
     flex: 5;
     width: 90%;
-    gap: 5px;
     margin-bottom: 20px;
 }
 
 .card2-img {
+    /* Flex hidden elements -------------------------
+    flex: 1 0 70px; */
+
     width: 70px;
     height: 100px;
     border-radius: 2px;
@@ -1588,15 +1605,36 @@ a.see-more:hover {
 }
 
 .container-activity .anime-activity {
+    display: flex;
     min-width: 50%;
     height: 100px;
-    background-color: black;
-    display: flex;
+    background-color: #112b42;
 }
 
 .container-activity .anime-activity img{
-    width: 75px;
+    width: 70px;
     height: 100%;
+}
+
+.container-activity .anime-activity p{
+    color: #6197ce;
+}
+
+.anime-activity .name{
+    max-width: auto;
+    margin: 0 auto;
+    padding-inline: 10px;
+    box-sizing: content-box;
+    overflow: hidden;
+}
+
+.anime-activity .activity-days p{
+    text-align: end;
+    padding-right: 10px;
+    box-sizing: content-box;
+    white-space: nowrap;
+    font-size: 12px;
+    
 }
 
 
@@ -1616,6 +1654,13 @@ a.see-more:hover {
         width: 850px;
     }
 }
+
+@media (max-width: 1000px) {
+    .content-right .container-activity {
+        display: block;
+    }
+}
+
 
 @media (max-width: 890px) {
     /* SEE_MORE */
@@ -1642,6 +1687,16 @@ a.see-more:hover {
     }
 }
 
+
+@media (max-width: 634px) {
+    .container-content .content-margin{
+        display: block;
+    }
+
+    .content-right .container-activity {
+        display: grid;
+    }
+}
 
 @media (max-width: 557px){
     .card{

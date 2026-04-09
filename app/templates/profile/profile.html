@@ -136,8 +136,8 @@
                     {% for anime in activity %}
                     <div class="anime-activity">
                         <img src="{{ anime.anime.image }}" alt="">
-                        <p>{{ anime.anime.name }}</p>
-                        <div>
+                        <p class="name">{{ anime.anime.name }}</p>
+                        <div class="activity-days">
                             {% if hours[loop.index0] >= 168 %}
                             <p>Hace {{ (hours[loop.index0] * 168) | int}} semanas</p>
                             {% elif hours[loop.index0] >= 48 %}
@@ -149,8 +149,7 @@
                             {% else %}
                             <p>Hace {{ hours[loop.index0] | int }} horas </p>
                             {% endif %}
-                            <div>
-
+                            <div class="">
                                 <button></button>
                             </div>
                         </div>
