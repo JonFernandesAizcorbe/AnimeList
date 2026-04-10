@@ -1593,7 +1593,7 @@ a.see-more:hover {
 
 .content-margin .content-right {
     max-height: 300px;
-    background-color: white;
+    color: white;
     flex: 6;
 }
 
@@ -1611,13 +1611,15 @@ a.see-more:hover {
     background-color: #112b42;
 }
 
+
 .container-activity .anime-activity img{
     width: 70px;
     height: 100%;
 }
 
-.container-activity .anime-activity p{
+.container-activity .anime-activity a{
     color: #6197ce;
+    text-decoration: none;
 }
 
 .anime-activity .name{
@@ -1628,12 +1630,21 @@ a.see-more:hover {
     overflow: hidden;
 }
 
+.anime-activity .activity-days{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: end;
+}
+
+
 .anime-activity .activity-days p{
     text-align: end;
     padding-right: 10px;
     box-sizing: content-box;
     white-space: nowrap;
     font-size: 12px;
+    color: #6197ce;
     
 }
 

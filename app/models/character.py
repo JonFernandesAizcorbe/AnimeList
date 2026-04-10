@@ -1,4 +1,6 @@
-from sqlalchemy import Enum, ForeignKey, Integer, String
+from datetime import date
+
+from sqlalchemy import Date, Enum, ForeignKey, Integer, String
 from app.database import Base
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.models.user_character import users_characters_table
@@ -22,8 +24,13 @@ class CharacterORM(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     name: Mapped[str] = mapped_column(String(100), nullable=False)
+    birthday: Mapped[date | None] = mapped_column(Date, nullable=True)
     age: Mapped[str | None]  = mapped_column(String(50), nullable=True)
     gender: Mapped[str] = mapped_column(gender_enum, default="Desconocido", nullable=False)
+    blood_type: Mapped[str | None] = mapped_column(String(10), nullable=True)
+    race: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    zanpakutou: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    relatives: Mapped[str | None] = mapped_column(String(1000), nullable=True)
     bio: Mapped[str | None] = mapped_column(String(1500), nullable=True)
     image: Mapped[str] = mapped_column(String(250), nullable=False)
     actor_id: Mapped[int | None] = mapped_column(Integer, ForeignKey("actors.id"))

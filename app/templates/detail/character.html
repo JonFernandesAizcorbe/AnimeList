@@ -113,8 +113,13 @@
             <div class="image"></div>
             {% if character %}
             <div class="p-info">
-                <p>Edad: {{ character.age }}</p>
-                <p>Género: {{ character.gender }}</p>
+                <p>{{ "Cumpleaños: " ~ character.birthday if character.birthday }}</p>
+                <p>{{ "Edad: "  ~ character.age if character.age }}</p>
+                <p>{{ "Género: " ~ character.gender if character.gender}}</p>
+                <p>{{ "Tipo de sangre: " ~ character.blood_type if character.blood_type }}</p>
+                <p>{{ "Raza: " ~ character.race if character.race }}</p>
+                <p>{{ "Zanpakutou: " ~ character.zanpakutou if character.zanpakutou }}</p>
+                <p>{{ "Familiares: " ~ character.relatives if character.relavites }}</p>
                 <p>{{ character.bio }}</p>
             </div>
             {% elif actor %}
