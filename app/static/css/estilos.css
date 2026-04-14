@@ -1628,6 +1628,7 @@ a.see-more:hover {
     padding-inline: 10px;
     box-sizing: content-box;
     overflow: hidden;
+    margin-top: 5px;
 }
 
 .anime-activity .activity-days{
@@ -1643,11 +1644,27 @@ a.see-more:hover {
     padding-right: 10px;
     box-sizing: content-box;
     white-space: nowrap;
-    font-size: 12px;
+    font-size: 0.7em;
     color: #6197ce;
+    margin-top: 5px;
     
 }
 
+.like-button {
+    display: flex;
+    min-width: 50%;
+    justify-content: center;
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+
+.like-button .heart3 {
+    color: #0a1828;
+}
+
+.like-button .heart3:hover {
+    color: red;
+}
 
 /* MEDIA */
 
@@ -1708,6 +1725,46 @@ a.see-more:hover {
         display: grid;
     }
 }
+
+
+@media (max-width: 600px) {
+
+    .content-margin .content-right{
+        max-height: fit-content;
+    }
+
+    .content-right .container-activity{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .container-activity .anime-activity{
+        flex-direction: column;
+        max-width: auto;
+        min-width: 100px;
+        height: auto;
+        justify-content: space-between;
+    }
+
+    .container-activity .anime-activity img{
+        width: 100%;
+        min-height: 140px;
+        max-height: 180px;
+    }
+    .container-activity .anime-activity p{
+        margin-top: 10px;
+        margin-bottom: 10px;
+        height: auto;
+    }
+
+    .anime-activity .activity-days p{
+        height: auto;
+    }
+    .anime-activity .activity-days {
+        flex-direction: row;
+    }
 
 @media (max-width: 557px){
     .card{
