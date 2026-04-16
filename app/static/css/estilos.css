@@ -1760,11 +1760,26 @@ a.see-more:hover {
     }
 
     .anime-activity .activity-days p{
-        height: auto;
+        padding: 0;
+
     }
     .anime-activity .activity-days {
         flex-direction: row;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 120px;
+        justify-content: space-between;
+        padding-inline: 5px;
+        box-sizing: border-box;
     }
+    
+
+    .activity-days .like-button{
+        padding: 0;
+        min-width: 20px;
+        margin-bottom: 6px;
+    }
+}
 
 @media (max-width: 557px){
     .card{

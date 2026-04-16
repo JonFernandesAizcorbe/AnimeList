@@ -107,7 +107,7 @@
                 {% if user.characters %}
                 <p>Personajes</p>
                 <div class="carrousel">
-                    {% for character in user.characters[:6] %}
+                    {% for character in user.characters[:5] %}
                     <div class="card2">
                         <a href="/character/{{ character.id }}">
                             <img class="card2-img" src="{{ character.image }}" alt="">
@@ -120,7 +120,7 @@
                 {% if user.actors %}
                 <p>Actores</p>
                 <div class="carrousel">
-                    {% for actor in user.actors[:6] %}
+                    {% for actor in user.actors[:5] %}
                     <div class="card2">
                         <a href="/actor/{{ actor.id }}">
                             <img src="{{ actor.image }}" alt="" class="card2-img">
