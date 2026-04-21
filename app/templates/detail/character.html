@@ -141,32 +141,37 @@
         <div class="position">
             {% if character %}
             {% for anime in character.animes %}
-            <a href="/anime/{{ anime.id }}" onmouseover="this.style.color='{{ anime.color }}'" onmouseout="this.style.color='#9fadbd'">
-                <div class="card1">
-                    <div class="images">
+            <div class="card1" style="--hover-color: {{ anime.color }}">
+                <div class="images">
+                    <a href="/anime/{{ anime.id }}">
                         <img class="img-anime" src="{{ anime.image }}" alt="">
+                    </a>
+                    <a href="/actor/{{ character.actor.id }}">
                         <img class="img-actor" src="{{ character.actor.image }}" alt="">
-                    </div>
-                    <p>
-                        {{ anime.name }}
-                    </p>
+                    </a>
                 </div>
-            </a>
+                <p>
+                    {{ anime.name }}
+                </p>
+            </div>
             {% endfor %}
             {% elif actor %}
             {% for character in actor.character %}
             {% for anime in character.animes %}
-            <a href="/character/{{ character.id }}" onmouseover="this.style.color='{{ anime.color }}'" onmouseout="this.style.color='#9fadbd'">
-                <div class="card1">
-                    <div class="images">
+            <div class="card1" style="--hover-color: {{ anime.color }}">
+                <div class="images">
+    
+                    <a href="/character/{{ character.id }}" >
                         <img class="img-anime" src="{{ character.image }}" alt="">
+                    </a>
+                    <a href="/anime/{{ anime.id }}">
                         <img class="img-actor" src="{{ anime.image }}" alt="">
-                    </div>
+                    </a>
+                </div>
                     <p>
                         {{ character.name }}
                     </p>
-                </div>
-            </a>
+            </div>
 
             {% endfor %}
             {% endfor %}

@@ -1418,7 +1418,16 @@ a.see-more:hover {
     max-width: 185px;
     padding: 19px;
     z-index: 1;
+
+    color: #9fadbd; /* color base */
+    transition: color 0.1s ease;
 }
+
+.card1:hover {
+  color: var(--hover-color);
+}
+
+
 
 .container-carrousel .img-anime{
     min-width: 180px;
@@ -1665,6 +1674,124 @@ a.see-more:hover {
 .like-button .heart3:hover {
     color: red;
 }
+
+/* LIST */
+
+.container-list {
+    width: 55%;
+    margin: 0 auto;
+    padding-inline: 50px;
+    box-sizing: content-box;
+    margin-top: 50px;
+}
+
+.container-list .content {
+    width: 100%;
+    height: 300px;
+}
+
+/* Title list */
+.list .title-class {
+    margin: 0;
+    margin-bottom: 15px;
+    font-size: 20px;
+    color: #9fadbd;
+}
+
+
+.container-list .content .list{
+    transition: 0.2ms;
+}
+
+.content .list .anime-list {
+    background-color: #0d1f31;
+    color: #9fadbd;
+}
+.content .list .anime-list p{
+    margin: 0;
+    padding: 10px;
+}
+
+
+.anime-list .header-list {
+    display: flex;
+    width: 100%;
+}
+
+.header-list .image-list {
+    width: 10%;
+}   
+
+.header-list .title-list {
+    width: 50%;
+}
+
+.header-list .score-list {
+    width: 20%;
+    text-align: center;
+}
+
+.header-list .progress-list {
+    width: 20%;
+    text-align: center;
+}
+
+
+
+/* content-list */
+
+.anime-list .content-list {
+    display: flex;
+    position: relative;
+    width: 100%;
+}
+
+.content-list .image-list img {
+    width: 30px;
+}
+.content-list .image-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10%;
+}
+
+.content-list .title-list {
+    display: flex;
+    width: 50%;
+}
+.content-list .title-list p{
+    margin: 0;
+    margin: 10px;
+    width: 100%;
+}
+
+.content-list .score-list {
+    width: 20%;
+    text-align: center;
+}
+.content-list .progress-list {
+    width: 20%;
+    text-align: center;
+}
+
+.content-list .img-hover {
+    position: absolute;
+    left: -110px;
+    top:-50%; 
+    width: 100px;
+}
+
+
+#anime-img {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.content-list:hover  #anime-img{
+    opacity: 1;
+}
+
 
 /* MEDIA */
 

@@ -37,3 +37,13 @@ def user_required(request: Request, db: Session = Depends(get_db), user: UserORM
     )
 
         
+
+@router.get("/list", response_class=HTMLResponse)
+def list_anime(request: Request, db: Session = Depends(get_db), user: UserORM = Depends(user_require)):
+
+    anime_finish = db.execute(select(AnimeListORM).where(AnimeListORM.user_id == user.id, AnimeListORM.status == "Completado")).scalars().all()
+    
+    return templates.TemplateResponse(
+        "profile/list.html",
+        {"request": request, "user": user, "anime_finish": anime_finish}
+    )

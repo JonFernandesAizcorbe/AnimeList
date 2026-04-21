@@ -138,7 +138,7 @@ def init_db():
         pwd2 = hash_password(password_user2)
 
         default_user = [
-            UserORM(user_name="admin", email="1234@gmail.com", password_hash=pwd),
+            UserORM(user_name="admin", email="1234@gmail.com", password_hash=pwd, image="https://i.pinimg.com/736x/53/81/82/5381824fb9471a78e26e011128880740.jpg"),
             UserORM(user_name="user1", email="user1@gmail.com", password_hash=pwd1),
             UserORM(user_name="user2", email="user2@gmail.com", password_hash=pwd2)
         ]

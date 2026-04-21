@@ -11,6 +11,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
 </head>
+<script>
+    window.addEventListener("pageshow", function(e) {
+    if (e.persisted) location.reload();
+    });
+</script>
 <body class="bd">
     <!-- HEADER / NAVIGATION -->
 
@@ -50,6 +55,7 @@
                     </div>
 
                     <!-- Menu options -->
+                     
                     <p>Mi lista</p>
                     <p>Perfil</p>
 
@@ -75,16 +81,15 @@
     <!-- Banner -->
     <div class="container-banner" style="{% if user.banner is not none %}background-image: url('{{ user.banner }}'){% else %}background: linear-gradient(180deg, rgba(var(--color-shadow-dark), 0) 40%, rgba(var(--color-shadow-dark), .6));{% endif %};">
         <div class="banner-margin">
-            <div class="background-image" style="background-image: url('{{ anime.characters[0].image }}');"></div>
+            <div class="background-image" style="background-image: url('{{ user.image }}');"></div>
             <p>{{ user.user_name }}</p>
         </div>
         <div class="mini-nav">
             <div class="nav-margin">
                 <a class="link" href="" style="color: blueviolet;">Overview</a>
-                <a class="link" href="">Lista de animes</a>
+                <a class="link" href="/profile/list">Lista de animes</a>
                 <a class="link" href="">Social</a>
                 <a class="link" href="">Favoritos</a>
-                <a class="link" href="">Stats</a>
             </div>
         </div>
     </div>
