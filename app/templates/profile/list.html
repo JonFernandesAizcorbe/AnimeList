@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista - {{user.user_name}}</title>
+    <link rel="icon" href="/static/images/Favicon1.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     <link rel="stylesheet" href="/static/css/estilos.css">
@@ -23,7 +24,7 @@
         <nav class="nav text-nav" style="position: absolute; width: 100%; opacity: 75%; margin-left: 0px; z-index: 1;">
 
             <!-- Site icon -->
-            <i class="fa-solid fa-clipboard-list"></i>
+            <img class="favi-img" src="/static/images/Favicon1.png" alt="">
 
 
             <!-- USER MENU / LOGIN SECTION -->
@@ -117,7 +118,7 @@
                     <div class="content-list">
                         <img class="img-hover" src="{{ complete.anime.image }}" alt="" id="anime-img">
 
-                        <div class="image-list"><img src="{{ complete.anime.image }}" alt=""></div>
+                        <div class="image-list"><img id="img-btn" src="{{ complete.anime.image }}" alt=""><button class="btn-img" id="btn-img"><i class="fa-solid fa-pen-to-square"></i></button></div>
                         <div class="title-list">
                             <p>{{ complete.anime.name }}</p>
                         </div>
@@ -125,7 +126,7 @@
                             <p>{{ complete.score }}</p>
                         </div>
                         <div class="progress-list">
-                            <p>{{ complete.anime.num_caps }}/ {{ complete.anime.num_caps }}</p>
+                            <p>{{ complete.anime.num_caps }} / {{ complete.anime.num_caps }}</p>
                         </div>
 
                     </div>
@@ -133,8 +134,53 @@
                 </div>
 
             </div>
-
+            {% else %}
+                <p>No has completado aun un anime</p>
             {% endif %}
+
+
+            {% if anime_view %}
+            <div class="list">
+                <p class="title-class">En curso</p>
+
+                <div class="anime-list">
+                    <div class="header-list">
+                        <div class="image-list"></div>
+                        <div class="title-list">
+                            <p>Título</p>
+                        </div>
+                        <div class="score-list">
+                            <p>Puntuación</p>
+                        </div>
+                        <div class="progress-list">
+                            <p>Progreso</p>
+                        </div>
+                    </div>
+                    {% for complete in anime_view %}
+                    <div class="content-list">
+                        <img class="img-hover" src="{{ complete.anime.image }}" alt="" id="anime-img">
+
+                        <div class="image-list"><img src="{{ complete.anime.image }}" alt=""></div>
+                        <div class="title-list">
+                            <p>{{ complete.anime.name }}</p>
+                        </div>
+                        <div class="score-list">
+                            <p>{% if complete.score is not none %}{{ complete.score }}{% else %}Sin puntuación{% endif %}</p>
+                        </div>
+                        <div class="progress-list">
+                            <p>{{ complete.anime.num_caps }} / {{ complete.anime.num_caps }}</p>
+                        </div>
+
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+            {% else %}
+                <p>No has completado aun un anime</p>
+            {% endif %}
+
+
         </div>
     </div>
 

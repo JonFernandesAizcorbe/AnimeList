@@ -1,3 +1,10 @@
+/*  #704BBF
+    #7D5CF2
+    #49378C
+    #02050D
+    #F2F2F2
+ */
+
 html {
     scroll-behavior: smooth;
 }
@@ -87,7 +94,7 @@ body {
 
 .bd {
     margin: 0;
-    background-color: #0A1828;
+    background-color: #02050D;
     /* #0A1828 */
     
 }
@@ -148,17 +155,29 @@ body {
 .nav {
     height: 76px;
     box-sizing: border-box;
-    border-bottom: 1px solid #BFA181;
+    border-bottom: 1px solid #7D5CF2;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #0A1828;
+    background-color: #49378C;
     padding-inline: 30px;
 }
 
 .text-nav {
-    color: #9fadbd;
+    color: #F2F2F2;
     font-size: 30px;
+    
+}
+
+.avatar-nav {
+    margin-left: 15px;
+    width: 45px;
+    border-radius: 40px;
+}
+
+.favi-img {
+    width: 70px;
+    height: 60px;  
 }
 
 .text-nav a{
@@ -179,13 +198,14 @@ body {
 
 /* DROPMENU PROFIL */
 
-
-.dropdown-container label i{
-    padding-left: 10px;
+.drop-container {
+    display: flex;
+    align-items: center;
 }
 
+
 .dropdown-profile {
-    background-color: #0d1f31;
+    background-color:#49378C;
     box-sizing: content-box;
     width: 270px;
     display: none;
@@ -194,11 +214,11 @@ body {
 
 .dropdown-profile p{
     padding-left: 30px;
-    color: #9fadbd;
+    color: #F2F2F2;
 }
 
 .dropdown-profile p:hover{
-    color: #178582;
+    color: #02050D;
 }
 
 #toggle-menu:checked + .dropdown-btn +.dropdown-profile{
@@ -372,9 +392,9 @@ body {
     all: unset;
     /* background-color: #2e3847; */
     box-sizing: content-box;
-    border: #BFA181 1px solid;
+    border: #49378C 1px solid;
     border-radius: 8px;
-    color: #178582;
+    color: #704BBF;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     box-shadow: 0 0 0 transparent;
     padding: 10px 12px;
@@ -392,17 +412,17 @@ body {
     top: .8em;
     left: 12px;
     z-index: 2;
-    color: #BFA181;
+    color: #F2F2F2;
     font-size: 14px;
     pointer-events: none;
     transition: all 0.3s ease;
-    background-color: #0A1828;
+    background-color: #02050D;
     padding-right: 100px;
 }
 
 .neon:focus + .label{
     transform: translateY(-130%) scale(0.8);
-    background-color: #0A1828;
+    background-color: #02050D;
     padding-inline: 5px;
 }
 
@@ -415,15 +435,15 @@ body {
 
 .select {
     all: unset;
-    border: #BFA181 1px solid;
+    border: #49378C  1px solid;
     position: relative;
     display: flex;
     flex-direction: row;
     padding-block: .8em;
     width: 213px;
     border-radius: 8px;
-    color: #BFA181;
-    background-color: #0A1828 ;
+    color: #F2F2F2;
+    background-color: #02050D ;
     font-size: 14px;
     padding-left: .9em;
     padding-right: 0;
@@ -449,7 +469,7 @@ body {
 
 .container-cards a{
     text-decoration: none;
-    color: #9fadbd;
+    color: #F2F2F2;
 }
 
 .card {
@@ -510,11 +530,11 @@ body {
 
 .see-more {
     text-decoration: none;
-    color: #9fadbd;
+    color: #F2F2F2;
 }
 
 a.see-more:hover {
-    color: #178582;
+    color: #49378C;
 }
 
 /* ------------- hidden CARD ----------- */
@@ -524,7 +544,7 @@ a.see-more:hover {
     box-sizing: border-box;
     top: 2%;
     left: 101%;
-    background-color: #1c3650;
+    background-color: #704BBF;
     width: auto;
     min-width: 275px;
     height: 150px;
@@ -576,7 +596,7 @@ a.see-more:hover {
         "Helvetica Neue",
         sans-serif;
     margin-top: 3px;
-    color: #9fadbd;
+    color: #F2F2F2;
 }
 
 .card-hover p{
@@ -1701,10 +1721,12 @@ a.see-more:hover {
 
 .container-list .content .list{
     transition: 0.2ms;
+    margin-bottom: 50px;
 }
 
 .content .list .anime-list {
     background-color: #0d1f31;
+    border-radius: 8px;
     color: #9fadbd;
 }
 .content .list .anime-list p{
@@ -1746,11 +1768,17 @@ a.see-more:hover {
     width: 100%;
 }
 
+.img-btn {
+
+}
+
+
 .content-list .image-list img {
     width: 30px;
 }
 .content-list .image-list {
     display: flex;
+    position: relative;
     justify-content: center;
     align-items: center;
     width: 10%;
@@ -1792,6 +1820,28 @@ a.see-more:hover {
     opacity: 1;
 }
 
+.content-list:hover {
+    background-color: palevioletred;
+    color: white;
+}
+
+.content-list:hover #btn-img {
+    display: block;
+}
+
+.content-list:hover #img-btn {
+    opacity: 0;
+}
+
+.btn-img {
+    display: none;
+    position: absolute;
+    width: 40%;
+    height: 80%;
+    background-color: rgb(206, 95, 132);
+    border: none;
+    border-radius: 8px;
+}
 
 /* MEDIA */
 

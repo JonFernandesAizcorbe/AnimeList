@@ -25,9 +25,9 @@ app.add_middleware(
 )
 
 # Montar la carpeta static
-app.mount("/static", StaticFiles(directory="app/static"), name="static")
+app.mount("/static", StaticFiles(directory="app/static/"), name="static")
 
-# inicializa la base de datos con canciones por defecto
+# inicializa la base de datos con animes por defecto
 init_db()
 
 
