@@ -34,7 +34,7 @@
         <nav class="nav text-nav" style="position: absolute; width: 100%; opacity: 75%; margin-left: 0px; z-index: 1;">
 
             <!-- Site icon -->
-            <i class="fa-solid fa-clipboard-list"></i>
+            <img class="favi-img" src="/static/images/Favicon1.png" alt="">
 
 
             <!-- USER MENU / LOGIN SECTION -->
@@ -47,10 +47,7 @@
                 <input type="checkbox" id="toggle-menu" hidden>
 
                 <!-- Button that opens the profile menu -->
-                <label for="toggle-menu" class="dropdown-btn">
-                    {{ user.user_name }}
-                    <i class="fa-regular fa-user"></i>
-                </label>
+                <label for="toggle-menu" class="dropdown-btn"><img class="avatar-nav" src="{{ user.image }}" alt=""></label>
 
                 <!-- Profile dropdown menu -->
                 <div class="dropdown-profile">
@@ -66,8 +63,8 @@
                     </div>
 
                     <!-- Menu options -->
-                    <p>Mi lista</p>
-                    <p>Perfil</p>
+                    <a href="/profile/list"><p>Mi lista</p></a>
+                    <a href="/profile"><p>Perfil</p></a>
 
                     <a href="/logout">
                         <p>Cerrar sesión</p>

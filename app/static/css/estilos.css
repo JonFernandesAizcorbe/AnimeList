@@ -5,12 +5,20 @@
     #F2F2F2
  */
 
+
+
 html {
     scroll-behavior: smooth;
 }
 
 :root {
     --color-shadow-dark: 0, 0, 0; /* NEGRO */
+    --color1: #704BBF;
+    --color2: #7D5CF2;
+    --color3: #49378C;
+    --color4: #02050D;
+    --color5: #F2F2F2;
+
 }
 
 /* FONTS */
@@ -86,7 +94,7 @@ body {
     background: 
         radial-gradient(circle at top left, rgba(255,255,255,0.15), transparent 40%),
         radial-gradient(circle at bottom right, rgba(0,0,0,0.15), transparent 40%),
-        linear-gradient(135deg, #178582, #0f5f5c);
+        linear-gradient(135deg, #7D5CF2, #49378C);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -192,15 +200,19 @@ body {
         "Droid Sans",
         "Helvetica Neue",
         sans-serif;
-    color: #9fadbd;
+    color: #F2F2F2;
     text-decoration: none;
 }
 
 /* DROPMENU PROFIL */
 
-.drop-container {
+.dropdown-container {
     display: flex;
     align-items: center;
+}
+
+.dropdown-container p:hover{
+    color: #02050D;
 }
 
 
@@ -220,6 +232,8 @@ body {
 .dropdown-profile p:hover{
     color: #02050D;
 }
+
+
 
 #toggle-menu:checked + .dropdown-btn +.dropdown-profile{
     display: block;
@@ -692,7 +706,7 @@ a.see-more:hover {
 }
 
 .container-login {
-    background-color: #193350;
+    background-color: var(--color4);
     box-sizing: content-box;
     padding: 50px;
     width: 300px;
@@ -748,8 +762,8 @@ a.see-more:hover {
 .btn-login {
     all: unset;
     box-sizing: content-box;
-    color: #e4e4e4;
-    background-color: #178582;
+    color: var(--color5);
+    background-color: var(--color1);
     width: 325px;
     height: 50px;
     padding: 5px;
@@ -763,7 +777,7 @@ a.see-more:hover {
 }
 
 .btn-login:hover {
-    background-color: #178582;
+    background-color: var(--color2);
     color: #193350;
     box-shadow: black;
 }
@@ -821,20 +835,20 @@ a.see-more:hover {
 
 .create-account a{
     margin: 0;
-    background-color: #193350;
+    background-color: var(--color4);
     width: 300px;
     height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
     text-decoration: none;
-    color: white;
+    color: var(--color5);
     font-family: "Sansation", sans-serif;
     font-weight: 400;
 }
 
 .create-account:hover {
-    color: #178582;
+    color: var(--color2);
 }
 
 
@@ -869,7 +883,7 @@ a.see-more:hover {
 .box-description {
     width: 100%;
     height: 280px;
-    background-color: #0d1f31;
+    background-color: var(--color3);
     margin: 0;
     padding: 0;
     gap: 0;
@@ -923,7 +937,7 @@ a.see-more:hover {
 
 .box-text {
     width: 800px;
-    color: #9fadbd;
+    color: var(--color5);
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
@@ -953,7 +967,7 @@ a.see-more:hover {
     width: 100%;
     padding-block: 10px;
     padding-inline: 10px;
-    background-color: #0d1f31;
+    background-color: var(--color3);
     box-sizing:border-box;
     align-items: center;
     margin-bottom: 13px;
@@ -963,7 +977,7 @@ a.see-more:hover {
 .rate p{
     padding: 0px;
     margin: 0px;
-    color: #9fadbd;
+    color: var(--color5);
     font-size: 14px;
 }
 
@@ -982,20 +996,20 @@ a.see-more:hover {
 
 .info {
     width: 100%;
-    background-color: #0d1f31;
+    background-color: var(--color3);
     padding: 20px;
     box-sizing: border-box;
 }
 
 .info h3{
-    color: #9fadbd;
+    color: var(--color5);
     margin: 0px;
     font-size: 15px;
     margin-bottom: 8px;
 }
 
 .info p{
-    color: #9fadbd;
+    color: var(--color5);
     margin: 0px;
     font-size: 12px;
     margin-bottom: 13px;
@@ -1009,7 +1023,7 @@ a.see-more:hover {
     position: absolute;
     top: -50%;
     left: 23%;
-    background-color: #0d1f31;
+    background-color: var(--color3);
     z-index: 10;
 
     opacity: 0;
@@ -1119,7 +1133,7 @@ a.see-more:hover {
 }
 
 .content-banner .image-banner p {
-    color:white;
+    color:var(--color5);
     display: flex;
     justify-content: start;
     align-items: center;
@@ -1139,7 +1153,7 @@ a.see-more:hover {
 
 .content-banner .heart1 {
     font-size: 15px;
-    color: white;
+    color: var(--color5);
     margin-right: 15px;
 }
 
@@ -1149,7 +1163,7 @@ a.see-more:hover {
     border-radius: 4px;
     padding-block: 6px;
     padding-inline: 10px;
-    color: white;
+    color: var(--color5);
     font-size: 14px;
 }
 
@@ -1168,15 +1182,15 @@ a.see-more:hover {
 
 .input-modal p{
     margin: 0;
-    color: #9fadbd;
+    color: var(--color5);
     margin-bottom: 5px;
     font-size: 13px;
 }
 
 .input-modal select{
     all: unset;
-    background-color: #0a1828;
-    color: #9fadbd;
+    background-color: var(--color1);
+    color: var(--color5);
     padding: 10px;
     padding-inline: 20px;
     border-radius: 6px;
@@ -1184,7 +1198,7 @@ a.see-more:hover {
 
 .input-modal input{
     all: unset;
-    background-color: #0a1828;
+    background-color: var(--color1);
     color: #9fadbd;
     padding: 10px;
     padding-inline: 20px;
@@ -1196,7 +1210,7 @@ a.see-more:hover {
 .delete-container {
     width: 400px;
     height: 100px;
-    background-color:#0a1828;
+    background-color:var(--color3);
     position: fixed;
     top: 50%;
     left: 40%;
@@ -1211,13 +1225,13 @@ a.see-more:hover {
 .delete-container p{
     display: flex;
     justify-content: center;
-    color: #9fadbd;
+    color: var(--color5);
 }
 
 .delete-container a{
     text-decoration: none;
-    color: #9fadbd;
-    background-color: #0d1f31;
+    color: var(--color5);
+    background-color: var(--color1);
     padding-inline: 15px;
     padding-block: 2px;
     border-radius: 5px;
@@ -1230,7 +1244,7 @@ a.see-more:hover {
     padding-inline: 10px;
     padding-block: 2px;
     margin-left: 20px;
-    background-color:#9fadbd;
+    background-color: var(--color2);
     border-radius: 5px;
 }
 
@@ -1263,7 +1277,7 @@ a.see-more:hover {
 }
 
 .info-right h3{
-    color: #9fadbd;
+    color: var(--color5);
 }
 
 .container-character {
@@ -1278,7 +1292,7 @@ a.see-more:hover {
 .card-character {
     border-radius: 4px;
     width: 300px;
-    background-color: #0d1f31;
+    background-color: var(--color3);
     overflow: hidden;
     display: flex;
     justify-content: space-between;
@@ -1301,7 +1315,7 @@ a.see-more:hover {
 }
 
 .character-info {
-    color: #9fadbd;
+    color: var(--color5);
 }
 
 .actor {
@@ -1311,7 +1325,7 @@ a.see-more:hover {
 
 .actor-info {
     font-size: 13px;
-    color: #9fadbd;
+    color: var(--color5);
     width: 100%;
     display: flex;
     position: block;
@@ -1339,7 +1353,7 @@ a.see-more:hover {
 
 .character-container .headers {
     width: 100%;
-    background-color: #0d1f31;
+    background-color: var(--color2);
 
 }
 
@@ -1354,7 +1368,7 @@ a.see-more:hover {
 }
 
 .character-container .headers p{
-    color: #9fadbd;
+    color: var(--color5);
     font-size: 30px;
     min-width: 100px;
     max-width: 400px;
@@ -1399,8 +1413,8 @@ a.see-more:hover {
 .character-container .description {
     display: flex;
     justify-content: start;
-    align-items: center;
     max-width: 1100px;
+    min-height: 300px;
     margin: 0 auto;
     padding-inline: 50px;
 }
@@ -1532,7 +1546,7 @@ a.see-more:hover {
 }
 
 .container-banner .mini-nav {
-    background-color: #0d1f31;
+    background-color: var(--color3);
     height: 50px;
 }
 
@@ -1551,13 +1565,15 @@ a.see-more:hover {
 
 .nav-margin .link{
     text-decoration: none;
-    color: #6197ce;
+    color: var(--color5);
     transform: 0.2s;
 }
 
 .link:hover {
-    color: blueviolet;
+    color: var(--color4);
 }
+
+
 
 .container-content {
     margin-top: 50px;
@@ -1603,7 +1619,7 @@ a.see-more:hover {
     max-width: 90%;
     
 
-    background-color: #112b42;
+    background-color: var(--color3);
     border-radius: 4px;
     padding: 20px;
     flex: 5;
@@ -1637,7 +1653,7 @@ a.see-more:hover {
     display: flex;
     min-width: 50%;
     height: 100px;
-    background-color: #112b42;
+    background-color: var(--color3);
 }
 
 
@@ -1647,7 +1663,7 @@ a.see-more:hover {
 }
 
 .container-activity .anime-activity a{
-    color: #6197ce;
+    color: var(--color5);
     text-decoration: none;
 }
 
@@ -1674,7 +1690,7 @@ a.see-more:hover {
     box-sizing: content-box;
     white-space: nowrap;
     font-size: 0.7em;
-    color: #6197ce;
+    color: var(--color5);
     margin-top: 5px;
     
 }
@@ -1715,7 +1731,7 @@ a.see-more:hover {
     margin: 0;
     margin-bottom: 15px;
     font-size: 20px;
-    color: #9fadbd;
+    color: var(--color5);
 }
 
 
@@ -1725,9 +1741,9 @@ a.see-more:hover {
 }
 
 .content .list .anime-list {
-    background-color: #0d1f31;
+    background-color: var(--color3);
     border-radius: 8px;
-    color: #9fadbd;
+    color: var(--color5);
 }
 .content .list .anime-list p{
     margin: 0;
@@ -1821,7 +1837,7 @@ a.see-more:hover {
 }
 
 .content-list:hover {
-    background-color: palevioletred;
+    background-color: var(--color2);
     color: white;
 }
 
