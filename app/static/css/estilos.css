@@ -257,21 +257,21 @@ body {
 }
 
 .exit-menu p:hover{
-    color: #9fadbd;
+    color: var(--color5);
 }
 
 
 .exit-menu label{
     padding-right: 10px;
-    color: #9fadbd;
+    color: var(--color5);
 }
 
 .exit-menu label:hover{
-    color: #178582;
+    color: var(--color4);
 }
 
 .dropdown-btn:hover {
-    color: #178582;
+    color: var(--color4);
 }
 
 
@@ -1199,7 +1199,7 @@ a.see-more:hover {
 .input-modal input{
     all: unset;
     background-color: var(--color1);
-    color: #9fadbd;
+    color: var(--color5);
     padding: 10px;
     padding-inline: 20px;
     border-radius: 6px;
@@ -1427,7 +1427,7 @@ a.see-more:hover {
 }
 
 .description .p-info {
-    color: #9fadbd;
+    color: var(--color5);
 }
 
 /* CARROUSEL ANIMES FROM CHARACTER */
@@ -1453,7 +1453,7 @@ a.see-more:hover {
     padding: 19px;
     z-index: 1;
 
-    color: #9fadbd; /* color base */
+    color: var(--color5); /* color base */
     transition: color 0.1s ease;
 }
 
@@ -1474,7 +1474,7 @@ a.see-more:hover {
 
 .container-carrousel .position a{
     text-decoration: none;
-    color: #9fadbd;
+    color: var(--color5);
 }
 
 .container-carrousel .position p{
@@ -1704,12 +1704,14 @@ a.see-more:hover {
 }
 
 .like-button .heart3 {
-    color: #0a1828;
+    color: var(--color2);
 }
 
 .like-button .heart3:hover {
-    color: red;
+    color: black;
 }
+
+
 
 /* LIST */
 
@@ -1841,14 +1843,6 @@ a.see-more:hover {
     color: white;
 }
 
-.content-list:hover #btn-img {
-    display: block;
-}
-
-.content-list:hover #img-btn {
-    opacity: 0;
-}
-
 .btn-img {
     display: none;
     position: absolute;
@@ -1858,6 +1852,15 @@ a.see-more:hover {
     border: none;
     border-radius: 8px;
 }
+
+.content-list:hover #btn-img {
+    display: block;
+}
+
+.content-list:hover #img-btn {
+    opacity: 0;
+}
+
 
 /* MEDIA */
 

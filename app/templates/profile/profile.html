@@ -158,7 +158,11 @@
                                 <form method="post" action="/like">
                                     <input type="hidden" name="anime_id" value="{{ anime.anime.id }}">
                                     <input type="hidden" name="next" value="{{ request.url }}">
-                                    <button style="all: unset;"> <i class="fa-solid fa-heart heart3"></i></button>
+                                    <button style="all: unset;"
+                                        onmouseover="this.querySelector('i').className='fa-solid fa-heart-crack heart3'"
+                                        onmouseout="this.querySelector('i').className='fa-solid fa-heart heart3'">
+                                            <i class="fa-solid fa-heart heart3"></i>
+                                    </button>
                                 </form>
                             </div>
                         </div>

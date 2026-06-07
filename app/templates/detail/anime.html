@@ -231,9 +231,9 @@
 
                                         <select name="status" required>
 
-                                            <option value="" disabled
+                                            <option style="color: white;" value="" disabled
                                                 {% if not in_list or not in_list.status %}selected{% elif in_list.status == 'Eliminado' %}selected{% endif %}>
-                                                Selecciona un estado
+                                                Selecciona un estado 
                                             </option>
 
                                             {% for statu in status_options %}
