@@ -26,15 +26,16 @@
         <!-- HEADER -->
         <header class="header">
             <nav class="nav text-nav">
-                <img class="favi-img" src="/static/images/Favicon1.png" alt="">
-                <!-- {% if user  %}
-                <a href="">{{ user.user_name }}</a>
-                {% endif %} -->
+                <a href="/">
+                    <img  class="favi-img" src="/static/images/Favicon1.png" alt="">
+                </a>
+
                 <!-- DROPDOWN PROFILE  -->
                 <div class="dropdown-container">
                     {% if user is not none %}
                     <input type="checkbox" id="toggle-menu" hidden>
-                    <label for="toggle-menu" class="dropdown-btn"><img class="avatar-nav" src="{{ user.image }}" alt=""></label>
+                    <label for="toggle-menu" class="dropdown-btn1"><img class="avatar-nav" src="{{ user.image }}" alt=""></label>
+                    <label class="menu-overlay" for="toggle-menu"></label>
                     <div class="dropdown-profile">
                         <!-- <div class="container-between exit-menu">
                             <p>Menú</p>
@@ -54,31 +55,9 @@
                     </a>
                     {% endif %}
                 </div>
-
-
-                <!-- {% if user is not none %}
-                <a href="/logout">Cerrar perfil</a>
-                {% else %}
-                <a href="/login">Login</a>
-                {% endif %} -->
             </nav>
         </header>
 
-        <!-- CAROUSEL -->
-        <!-- <div class="container-flex">
-            <div class="container-carousel">
-                <div class="card-carousel" id="One"><h3>Frieren</h3></div>
-                <div class="card-carousel" id="Two"><h3>Frieren</h3></div>
-                <div class="card-carousel" id="Three"><h3>Frieren</h3></div>
-                <div class="card-carousel" id="Four"><h3>Frieren</h3></div>
-                <div class="card-carousel" id="Five"><h3>Frieren</h3></div>
-                <div class="card-carousel" id="Six"><h3>Frieren</h3></div>
-                <div class="card-carousel" id="Seven"><h3>Frieren</h3></div>
-                <div class="card-carousel" id="Eight"><h3>Frieren</h3></div>
-                <div class="card-carousel" id="Nine"><h3>Frieren</h3></div>
-                <div class="card-carousel" id="Ten"><h3>Frieren</h3></div>
-            </div>
-        </div> -->
         <!-- Search -->
         <div class="container-center">
             <div class="container-search">

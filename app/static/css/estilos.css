@@ -86,6 +86,13 @@ body {
     "Helvetica Neue",
     sans-serif;
     margin: 0;
+
+    background-color: #02050c;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    color: #f8fafc;
 }
 
 .bd-auth {
@@ -102,7 +109,7 @@ body {
 
 .bd {
     margin: 0;
-    background-color: #02050D;
+    background-color: #02050c;
     /* #0A1828 */
     
 }
@@ -220,6 +227,7 @@ body {
     background-color:#49378C;
     box-sizing: content-box;
     width: 270px;
+    z-index: 1000;
     display: none;
     
 }
@@ -233,13 +241,26 @@ body {
     color: #02050D;
 }
 
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: transparent;
+    z-index: 998;
+    display: none;
+}
 
-
-#toggle-menu:checked + .dropdown-btn +.dropdown-profile{
+#toggle-menu:checked ~ .dropdown-profile {
     display: block;
     position: absolute;
     right: 0;
     top: 77px;
+}
+
+#toggle-menu:checked ~ .menu-overlay {
+    display: block;
 }
 
 .exit-menu {

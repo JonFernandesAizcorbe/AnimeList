@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil - {{user.user_name}}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     <link rel="stylesheet" href="/static/css/estilos.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,60 +15,42 @@
     if (e.persisted) location.reload();
     });
 </script>
-<body class="bd">
+<body class="bd sansation-light">
     <!-- HEADER / NAVIGATION -->
 
     <header>
         <nav class="nav text-nav" style="position: absolute; width: 100%; opacity: 100%; margin-left: 0px; z-index: 1;">
 
             <!-- Site icon -->
-            <img class="favi-img" src="/static/images/Favicon1.png" alt="">
+            <a href="/">
+                <img  class="favi-img" src="/static/images/Favicon1.png" alt="">
+            </a>
 
 
-            <!-- USER MENU / LOGIN SECTION -->
-
+            <!-- DROPDOWN PROFILE  -->
             <div class="dropdown-container">
-
                 {% if user is not none %}
-
-                <!-- Toggle checkbox for dropdown menu -->
                 <input type="checkbox" id="toggle-menu" hidden>
-
-                <!-- Button that opens the profile menu -->
-                <label for="toggle-menu" class="dropdown-btn"><img class="avatar-nav" src="{{ user.image }}" alt=""></label>
-
-                <!-- Profile dropdown menu -->
+                <label for="toggle-menu" class="dropdown-btn1"><img class="avatar-nav" src="{{ user.image }}" alt=""></label>
+                <label class="menu-overlay" for="toggle-menu"></label>
                 <div class="dropdown-profile">
-
-                    <!-- Menu header -->
-                    <div class="container-between exit-menu">
+                    <!-- <div class="container-between exit-menu">
                         <p>Menú</p>
-
                         <input type="checkbox" id="toggle-menu" hidden>
-                        <label for="toggle-menu" class="dropdown-btn">
-                            <i class="fa-solid fa-x"></i>
-                        </label>
-                    </div>
-
-                    <!-- Menu options -->
-                     
+                        <label for="toggle-menu" class="dropdown-btn"><i class="fa-solid fa-x"></i></i></label>
+                    </div> -->
                     <a href="/profile/list"><p>Mi lista</p></a>
-
+                    <a href="/profile"><p>Perfil</p></a>
+                    <p> Ajustes </p>
                     <a href="/logout">
                         <p>Cerrar sesión</p>
                     </a>
-
                 </div>
-
                 {% else %}
-
-                <!-- Login button if user is not authenticated -->
                 <a href="/login">
                     <p>Iniciar sesión</p>
                 </a>
-
                 {% endif %}
-
             </div>
         </nav>
     </header>
