@@ -1105,6 +1105,7 @@ a.see-more:hover {
 .dropdown-content {
     position: absolute;
     background-color: white;
+    color: var(--color4);
     bottom: -80%;
     left: -300%;
     width: 100px;
@@ -1115,6 +1116,7 @@ a.see-more:hover {
 .dropdown-content label{
     margin: 0;
     padding: 0;
+    color: var(--color4);
     display: flex;
     justify-content: center;
 }

@@ -11,30 +11,41 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
 </head>
-<body class="bd sansation-light">
+<body class="bd">
     <div class="container">
         <img src="https://s4.anilist.co/file/anilistcdn/media/anime/banner/154587-ivXNJ23SM1xB.jpg" alt="">
+        <!-- HEADER -->
         <header class="header">
             <nav class="nav text-nav">
-                <i class="fa-solid fa-clipboard-list"></i>
-                <!-- <div class="">
-                    <div class="dropdown">
-                        <button class="dropbtn">Animes</button>
-                        <div class="dropdown-content">
-                            <a class="text-nav" href="">Buscar Anime</a>
-                            <a class="text-nav" href="">Top Anime</a>
-                        </div>
-                    </div> 
-                </div> -->
-                {% if user  %}
-                <a href="">{{ user.user_name }}</a>
-                {% endif %}
+                <a href="/">
+                    <img  class="favi-img" src="/static/images/Favicon1.png" alt="">
+                </a>
 
-                {% if user is not none %}
-                <a href="/logout">Cerrar perfil</a>
-                {% else %}
-                <a href="/login">Login</a>
-                {% endif %}
+                <!-- DROPDOWN PROFILE  -->
+                <div class="dropdown-container sansation-light">
+                    {% if user is not none %}
+                    <input type="checkbox" id="toggle-menu" hidden>
+                    <label for="toggle-menu" class="dropdown-btn1"><img class="avatar-nav" src="{{ user.image }}" alt=""></label>
+                    <label class="menu-overlay" for="toggle-menu"></label>
+                    <div class="dropdown-profile">
+                        <!-- <div class="container-between exit-menu">
+                            <p>Menú</p>
+                            <input type="checkbox" id="toggle-menu" hidden>
+                            <label for="toggle-menu" class="dropdown-btn"><i class="fa-solid fa-x"></i></i></label>
+                        </div> -->
+                        <a href="/profile/list"><p>Mi lista</p></a>
+                        <a href="/profile"><p>Perfil</p></a>
+                        <p> Ajustes </p>
+                        <a href="/logout">
+                            <p>Cerrar sesión</p>
+                        </a>
+                    </div>
+                    {% else %}
+                    <a href="/login">
+                        <p>Iniciar sesión</p>
+                    </a>
+                    {% endif %}
+                </div>
             </nav>
         </header>
 
@@ -80,7 +91,7 @@
 
             {% if popular or scores %}
             <div class="container-flex bg-more" style="align-items: center; justify-content: space-between;">
-                <p class="see-more">
+                <p class="see-more sansation-light">
                     {% if popular %}
                     MÁS POPULARES
                     {% elif scores %}
@@ -88,7 +99,7 @@
                     {% else %}
                     {% endif %}
                 </p>
-                <a href="/#ver-menos-popular" id="ver-mas-popular" class="see-more">Ver menos...</a>
+                <a href="/#ver-menos-popular" id="ver-mas-popular" class="see-more sansation-light">Ver menos...</a>
             </div>
             
         </div>
@@ -116,7 +127,7 @@
                     </form>
                     {% endif %}
                     <!-- CARD -->
-                    <a onmouseover="this.style.color='{{ anime.color }}'" onmouseout="this.style.color='#9fadbd'" href="/anime/{{ anime.id }}">
+                    <a onmouseover="this.style.color='{{ anime.color }}'" onmouseout="this.style.color='#F2F2F2'" href="/anime/{{ anime.id }}">
                         <div class="card">
                             <img class="card-image" src="{{ anime.image }}" alt="">
                             <p>

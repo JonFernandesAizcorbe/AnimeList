@@ -19,7 +19,7 @@
     });
 </script>
 
-<body class="bd sansation-light">
+<body class="bd ">
     <div class="container">
         <img src="{{ scores[0][0].banner }}" alt="">
 
@@ -31,7 +31,7 @@
                 </a>
 
                 <!-- DROPDOWN PROFILE  -->
-                <div class="dropdown-container">
+                <div class="dropdown-container sansation-light">
                     {% if user is not none %}
                     <input type="checkbox" id="toggle-menu" hidden>
                     <label for="toggle-menu" class="dropdown-btn1"><img class="avatar-nav" src="{{ user.image }}" alt=""></label>
@@ -106,7 +106,7 @@
                     </form>
                     {% endif %}
                     <!-- CARD -->
-                    <a onmouseover="this.style.color='{{ anime.color }}'" onmouseout="this.style.color='#9fadbd'" href="/anime/{{ anime.id }}">
+                    <a onmouseover="this.style.color='{{ anime.color }}'" onmouseout="this.style.color='#F2F2F2'" href="/anime/{{ anime.id }}">
                         <div class="card" {% if loop.first %}id="first-card"{% endif %}>
                             <img class="card-image" src="{{ anime.image }}" alt="">
                             <p>
@@ -161,10 +161,10 @@
     {% if not result and not result_g %}
         <div class="container-center">
             <div class="container-flex bg-more see-more" style="align-items: center; justify-content: space-between;">
-                <p>
+                <p class="sansation-light">
                     MÁS POPULARES
                 </p>
-                <a href="/popular#ver-mas-popular" id="ver-menos-popular" class="see-more">Ver más...</a>
+                <a href="/popular#ver-mas-popular" id="ver-menos-popular" class="see-more sansation-light">Ver más...</a>
             </div>
         </div>
         <div class="container-center">
@@ -198,7 +198,7 @@
                         
                     </form>
                     {% endif %}
-                    <a onmouseover="this.style.color='{{ anime.color }}'" onmouseout="this.style.color='#9fadbd'" href="/anime/{{ anime.id }}">
+                    <a onmouseover="this.style.color='{{ anime.color }}'" onmouseout="this.style.color='#F2F2F2'" href="/anime/{{ anime.id }}">
                         <div class="card">
                             <img class="card-image" src="{{ anime.image }}" alt="">
                             <p>
@@ -247,10 +247,10 @@
 <!-- MORE SCORES -->
         <div class="container-center">
             <div class="container-flex bg-more see-more" style="align-items: center; justify-content: space-between;">
-                <p>
+                <p class="sansation-light">
                     MEJORES VALORADOS
                 </p>
-                <a href="/score#ver-mas-popular" class="see-more">Ver más...</a>
+                <a href="/score#ver-mas-popular" class="see-more sansation-light">Ver más...</a>
             </div>
         </div>
         <div class="container-center">
@@ -277,7 +277,7 @@
                         
                     </form>
                     {% endif %}
-                    <a onmouseover="this.style.color='{{ anime.color }}'" onmouseout="this.style.color='#9fadbd'" href="/anime/{{ anime.id }}">
+                    <a onmouseover="this.style.color='{{ anime.color }}'" onmouseout="this.style.color='#F2F2F2'" href="/anime/{{ anime.id }}">
                         <div class="card">
                             <img class="card-image" src="{{ anime.image }}" alt="">
                             <p>
