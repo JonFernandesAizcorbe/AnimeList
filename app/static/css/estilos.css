@@ -89,8 +89,8 @@ body {
 
     background-color: #02050c;
     background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        linear-gradient(rgba(255, 255, 255, 0.02) 1.2px, transparent 1.2px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1.1px, transparent 1.1px);
     background-size: 60px 60px;
     color: #f8fafc;
 }
@@ -163,8 +163,14 @@ body {
 
 .header {
     position: sticky;
-    top: 0;
+    top: 0px;
     z-index: 11;
+
+     /* 1. ESTADO INICIAL: Añade esta línea para que CSS sepa desde dónde empezar */
+    transform: translateY(0); 
+    /* Ahora el editor y el navegador sabrán exactamente qué transformar */
+    transition: all 0.3s ease-in-out;
+
 }
 
 .nav {
@@ -1882,6 +1888,22 @@ a.see-more:hover {
 
 .content-list:hover #img-btn {
     opacity: 0;
+}
+
+/* Settings */
+
+
+.container-main {
+    width: 55%;
+    margin: 0 auto;
+    height: 1000px;
+    margin-top: 100px;
+    background-color: red;
+
+}
+
+.container-main .container-right{
+    width: 40%;
 }
 
 
