@@ -35,7 +35,7 @@
             <div class="dropdown-container sansation-light">
                 {% if user is not none %}
                 <input type="checkbox" id="toggle-menu" hidden>
-                <label for="toggle-menu" class="dropdown-btn1"><img class="avatar-nav" src="{{ user.image }}" alt=""></label>
+                <label for="toggle-menu" class="dropdown-btn1"><img class="avatar-nav" src="/static/uploads/{{ user.image }}" alt=""></label>
                 <label class="menu-overlay" for="toggle-menu"></label>
                 <div class="dropdown-profile">
                     <a href="/profile/list"><p>Mi lista</p></a>
@@ -56,7 +56,27 @@
 
 
     <div class="container-main">
-        
+            <div class="container-left">
+                <div class="margin-left">
+                    <h3>Ajustes</h3>
+                    <p>Perfil</p>
+                    <p>Cuenta</p>
+                </div>
+            </div>
+            <div class="container-right">
+                <div class="margin-right">
+                    <form action="post" name="">
+                        <h3>Sobre mi</h3>
+                        <textarea name="about-me" id="about-me" class="about-me" rows="6" cols="110" {% if not user.description %} placeholder="Escribe aquí..."{% endif%}>{% if user.description %}{{user.description}}{% endif %}</textarea>                        
+                    </form>
+                    <h3>Foto de perfil</h3>
+                    <img class="image-user" {% if user.image %}src="static/uploads/{{ user.image }}"{% endif %} alt="">
+                    <form method="POST" action="/setting/upload/" enctype="multipart/form-data">
+                        <input type="file" name="file" id="file">
+                        <button type="submit">Guardar</button>
+                    </form>
+                </div>
+            </div>
     </div>
 </body>
 </html>

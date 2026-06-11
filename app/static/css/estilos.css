@@ -1899,11 +1899,46 @@ a.see-more:hover {
     height: 1000px;
     margin-top: 100px;
     background-color: red;
+    display: flex;
 
 }
 
+.container-main .content{
+    width: 100%;
+    display: flex;
+}
+
+.container-main .container-left{
+    width: 20%;
+}
+
+.container-main .container-left .margin-left{
+    width: 90%;
+    margin: 0 auto;
+}
+
+
+
+
 .container-main .container-right{
-    width: 40%;
+    width: 80%;
+    background-color: #178582;
+    border-radius: 6px;
+}
+
+.container-main .container-right .margin-right{
+    width: 90%;
+    margin: 0 auto;
+}
+
+.about-me {
+    width: 100%;
+    box-sizing:  border-box;
+    resize: vertical;
+}
+
+.image-user {
+    width: 140px;
 }
 
 
