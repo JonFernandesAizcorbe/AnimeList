@@ -1,25 +1,32 @@
 import os
 
-from fastapi import APIRouter, Depends, Request
+from fastapi import APIRouter, Depends, Form, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from flask import redirect
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.auth.dependencies import user_require
 from app.database import get_db
 from app.models.user import UserORM
-
-router = APIRouter(prefix="/setting", tags=["setting"])
-templates = Jinja2Templates(directory="app/templates")
-
-
 import uuid
 import magic  # Valida Magic Numbers
 import aiofiles  # Escribe archivos de forma asíncrona
 from pathlib import Path
 from fastapi import File, UploadFile, HTTPException, status
 
+
+router = APIRouter(prefix="/setting", tags=["setting"])
+templates = Jinja2Templates(directory="app/templates")
+
+@router.get("", response_class=HTMLResponse)
+def setting(request: Request, db: Session = Depends(get_db), user: UserORM = Depends(user_require)):
+
+    return templates.TemplateResponse(
+        "profile/setting.html",
+        {"request": request, "user": user}
+    )
 
 
 # Configuraciones de seguridad
@@ -76,11 +83,36 @@ async def upload_image(
     return RedirectResponse(url="/setting", status_code=303)
 
 
+@router.post("/change_name")
+def update_username(
+    request: Request,
+    username: str = Form(...),
+    db: Session = Depends(get_db),
+    user: UserORM = Depends(user_require)
+    ):
 
-@router.get("", response_class=HTMLResponse)
-def setting(request: Request, db: Session = Depends(get_db), user: UserORM = Depends(user_require)):
+    errors = []
+    success = []
+
+    check = db.execute(select(UserORM).where(UserORM.user_name == username)).scalar_one_or_none()
+
+    if check:
+         errors.append("El usuario ya existe")
+         return templates.TemplateResponse(
+             "profile/setting.html",
+             {"request": request, "user": user, "errors": errors}
+         )
+
+    user.user_name = username
+    db.commit()
+
+    success.append("Se ha guardado con exito")
+
 
     return templates.TemplateResponse(
         "profile/setting.html",
-        {"request": request, "user": user}
+        {"request": request, "user": user, "success": success}
     )
+
+
+

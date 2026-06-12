@@ -65,9 +65,19 @@
             </div>
             <div class="container-right">
                 <div class="margin-right">
-                    <form action="post" name="">
+                    
+                    <form method="POST" action="/setting/change_name">
+                        <h3>Nombre usuario</h3>
+                        <input type="text" name="username" {% if user.user_name %}value="{{ user.user_name }}"{% endif %}>
+                        <button type="submit">Guardar</button>
+                        {% if errors %}{% for error in errors %}<p>⚠️ {{ error }}</p>{% endfor %}{% endif %}
+                        {% if success %}{% for ok in success %}<p> {{ ok }}</p>{% endfor %}{% endif %}
+                    </form>
+
+                    <form method="POST" action="" >
                         <h3>Sobre mi</h3>
-                        <textarea name="about-me" id="about-me" class="about-me" rows="6" cols="110" {% if not user.description %} placeholder="Escribe aquí..."{% endif%}>{% if user.description %}{{user.description}}{% endif %}</textarea>                        
+                        <textarea name="about-me" id="about-me" class="about-me" rows="6" cols="110" {% if not user.description %} placeholder="Escribe aquí..."{% endif%}>{% if user.description %}{{user.description}}{% endif %}</textarea>
+                        <button type="submit">Guardar</button>
                     </form>
                     <h3>Foto de perfil</h3>
                     <img class="image-user" {% if user.image %}src="static/uploads/{{ user.image }}"{% endif %} alt="">
