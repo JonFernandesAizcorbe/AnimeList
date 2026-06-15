@@ -35,7 +35,7 @@
             <div class="dropdown-container sansation-light">
                 {% if user is not none %}
                 <input type="checkbox" id="toggle-menu" hidden>
-                <label for="toggle-menu" class="dropdown-btn1"><img class="avatar-nav" src="/static/uploads/{{ user.image }}" alt=""></label>
+                <label for="toggle-menu" class="dropdown-btn1"><img class="avatar-nav" src="/static/uploads/icon/{{ user.image }}" alt=""></label>
                 <label class="menu-overlay" for="toggle-menu"></label>
                 <div class="dropdown-profile">
                     <a href="/profile/list"><p>Mi lista</p></a>
@@ -70,8 +70,8 @@
                         <h3>Nombre usuario</h3>
                         <input type="text" name="username" {% if user.user_name %}value="{{ user.user_name }}"{% endif %}>
                         <button type="submit">Guardar</button>
-                        {% if errors %}{% for error in errors %}<p>⚠️ {{ error }}</p>{% endfor %}{% endif %}
-                        {% if success %}{% for ok in success %}<p> {{ ok }}</p>{% endfor %}{% endif %}
+                        {% if errors %}{% for error in errors %}<p class="disappear">⚠️ {{ error }}</p>{% endfor %}{% endif %}
+                        {% if success %}{% for ok in success %}<p class="disappear"> {{ ok }}</p>{% endfor %}{% endif %}
                     </form>
 
                     <form method="POST" action="" >
@@ -80,8 +80,15 @@
                         <button type="submit">Guardar</button>
                     </form>
                     <h3>Foto de perfil</h3>
-                    <img class="image-user" {% if user.image %}src="static/uploads/{{ user.image }}"{% endif %} alt="">
-                    <form method="POST" action="/setting/upload/" enctype="multipart/form-data">
+                    <img class="image-user" {% if user.image %}src="/static/uploads/icon/{{ user.image }}"{% endif %} alt="">
+                    <form method="POST" action="/setting/upload/icon" enctype="multipart/form-data">
+                        <input type="file" name="file" id="file">
+                        <button type="submit">Guardar</button>
+                    </form>
+                    </form>
+                    <h3>Banner</h3>
+                    <img class="image-user" {% if user.image %}src="/static/uploads/banner/{{ user.banner }}"{% endif %} alt="">
+                    <form method="POST" action="/setting/upload/banner" enctype="multipart/form-data">
                         <input type="file" name="file" id="file">
                         <button type="submit">Guardar</button>
                     </form>

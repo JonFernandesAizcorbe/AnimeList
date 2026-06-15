@@ -59,9 +59,9 @@
     </header>
 
     <!-- Banner -->
-    <div class="container-banner" style="{% if user.banner is not none %}background-image: url('{{ user.banner }}'){% else %}background: linear-gradient(180deg, rgba(var(--color-shadow-dark), 0) 40%, rgba(var(--color-shadow-dark), .6));{% endif %};">
+    <div class="container-banner" style="{% if user.banner is not none %}background-image: url(static/uploads/banner/{{ user.banner }}){% else %}background: linear-gradient(180deg, rgba(var(--color-shadow-dark), 0) 40%, rgba(var(--color-shadow-dark), .6));{% endif %};">
         <div class="banner-margin">
-            <div class="background-image" style="background-image: url('{{ user.image }}');"></div>
+            <div class="background-image" style="background-image: url(static/uploads/icon/{{ user.image }});"></div>
             <p>{{ user.user_name }}</p>
         </div>
         <div class="mini-nav">

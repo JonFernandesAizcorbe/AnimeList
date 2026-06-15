@@ -1565,6 +1565,7 @@ a.see-more:hover {
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 8px 8px 0px 0px;
+    
 }
 
 
@@ -1917,7 +1918,23 @@ a.see-more:hover {
     margin: 0 auto;
 }
 
+.disappear {
+  /* Mantiene los 3 segundos de duración total */
+  animation: desvanecer 2s forwards;
+}
 
+@keyframes desvanecer {
+  /* Desde el inicio hasta el segundo 2.5 (85%) se queda 100% visible */
+  0%, 85% {
+    opacity: 1;
+    visibility: visible;
+  }
+  /* En el último medio segundo se desvanece de forma fluida */
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
 
 
 .container-main .container-right{

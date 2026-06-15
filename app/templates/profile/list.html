@@ -33,7 +33,7 @@
             <div class="dropdown-container sansation-light">
                 {% if user is not none %}
                 <input type="checkbox" id="toggle-menu" hidden>
-                <label for="toggle-menu" class="dropdown-btn1"><img class="avatar-nav" src="/static/uploads/{{ user.image }}" alt=""></label>
+                <label for="toggle-menu" class="dropdown-btn1"><img class="avatar-nav" src="/static/uploads/icon/{{ user.image }}" alt=""></label>
                 <label class="menu-overlay" for="toggle-menu"></label>
                 <div class="dropdown-profile">
                     <!-- <div class="container-between exit-menu">
@@ -58,9 +58,9 @@
     </header>
 
     <!-- Banner -->
-    <div class="container-banner" style="{% if user.banner is not none %}background-image: url('{{ user.banner }}'){% else %}background: linear-gradient(180deg, rgba(var(--color-shadow-dark), 0) 40%, rgba(var(--color-shadow-dark), .6));{% endif %};">
+    <div class="container-banner" style="{% if user.banner is not none %}background-image: url(/static/uploads/banner/{{ user.banner }}){% else %}background: linear-gradient(180deg, rgba(var(--color-shadow-dark), 0) 40%, rgba(var(--color-shadow-dark), .6));{% endif %};">
         <div class="banner-margin">
-            <div class="background-image" style="background-image: url('{{ user.image }}');"></div>
+            <div class="background-image" style="background-image: url(/static/uploads/icon/{{ user.image }});"></div>
             <p>{{ user.user_name }}</p>
         </div>
         <div class="mini-nav">
