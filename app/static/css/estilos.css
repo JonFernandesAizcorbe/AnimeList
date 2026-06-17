@@ -1899,7 +1899,6 @@ a.see-more:hover {
     margin: 0 auto;
     height: 1000px;
     margin-top: 100px;
-    background-color: red;
     display: flex;
 
 }
@@ -1916,6 +1915,15 @@ a.see-more:hover {
 .container-main .container-left .margin-left{
     width: 90%;
     margin: 0 auto;
+}
+
+.container-main .container-left a{
+    all: unset;
+}
+
+.container-main .container-left .margin-left #select{
+    background-color: var(--color2);
+    padding: 4px;
 }
 
 .disappear {
@@ -1939,7 +1947,7 @@ a.see-more:hover {
 
 .container-main .container-right{
     width: 80%;
-    background-color: #178582;
+    background-color: var(--color3);
     border-radius: 6px;
 }
 

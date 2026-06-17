@@ -20,7 +20,7 @@ from fastapi import File, UploadFile, HTTPException, status
 router = APIRouter(prefix="/setting", tags=["setting"])
 templates = Jinja2Templates(directory="app/templates")
 
-@router.get("", response_class=HTMLResponse)
+@router.get("/profile", response_class=HTMLResponse)
 def setting(request: Request, db: Session = Depends(get_db), user: UserORM = Depends(user_require)):
 
     return templates.TemplateResponse(
@@ -166,3 +166,10 @@ def update_username(
 
 
 
+@router.get("/account", response_class=HTMLResponse)
+def setting(request: Request, db: Session = Depends(get_db), user: UserORM = Depends(user_require)):
+
+    return templates.TemplateResponse(
+        "profile/account.html",
+        {"request": request, "user": user}
+    )
