@@ -78,9 +78,9 @@
                         {% if success %}{% for ok in success %}<p class="disappear"> {{ ok }}</p>{% endfor %}{% endif %}
                     </form>
 
-                    <form method="POST" action="" >
+                    <form method="POST" action="/setting/description" >
                         <h3>Sobre mi</h3>
-                        <textarea name="about-me" id="about-me" class="about-me" rows="6" cols="110" {% if not user.description %} placeholder="Escribe aquí..."{% endif%}>{% if user.description %}{{user.description}}{% endif %}</textarea>
+                        <textarea name="description" id="about-me" class="about-me" rows="6" cols="110" {% if not user.description %} placeholder="Escribe aquí..."{% endif%}>{% if user.description %}{{user.description}}{% endif %}</textarea>
                         <button type="submit">Guardar</button>
                     </form>
                     <h3>Foto de perfil</h3>

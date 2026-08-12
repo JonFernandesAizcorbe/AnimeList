@@ -81,7 +81,7 @@ async def upload_image(
     db.commit()
     db.refresh(user)
 
-    return RedirectResponse(url="/setting", status_code=303)
+    return RedirectResponse(url="/setting/profile", status_code=303)
 
 
 @router.post("/upload/banner")
@@ -129,7 +129,7 @@ async def upload_image(
     db.commit()
     db.refresh(user)
 
-    return RedirectResponse(url="/setting", status_code=303)
+    return RedirectResponse(url="/setting/profile", status_code=303)
 
 
 
@@ -165,9 +165,43 @@ def update_username(
     )
 
 
+@router.post("/description")
+def update_description(
+    request: Request,
+    db: Session = Depends(get_db),
+    user: UserORM = Depends(user_require),
+    description: str = Form(...)
+    ):
+    
+    if not description:
+        return HTTPException(status_code=status.HTTP_204_NO_CONTENT, detail="La descripción esta vacía")
+
+    
+    try:
+        user.description = description
+        db.commit()
+
+        return RedirectResponse(url="/setting/profile", status_code=303)
+    
+    except Exception as e:
+        print("No se ha podido guardar la descripción")
+        
+    
+    return RedirectResponse(url="/setting/profile", status_code=303)
+    
+
+
+    
+    
+
+
 
 @router.get("/account", response_class=HTMLResponse)
-def setting(request: Request, db: Session = Depends(get_db), user: UserORM = Depends(user_require)):
+def setting(
+    request: Request,
+    db: Session = Depends(get_db),
+    user: UserORM = Depends(user_require)
+    ):
 
     return templates.TemplateResponse(
         "profile/account.html",
